@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Capabilities from '../components/Capabilities.astro';
+import Scenarios from '../components/Scenarios.astro';
+import Architecture from '../components/Architecture.astro';
+import QuickStart from '../components/QuickStart.astro';
+import Community from '../components/Community.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-surface-975/70 backdrop-blur-xl border-b border-surface-800/30">
+    <div class="section-container flex items-center justify-between h-16">
+      <a href="#" class="flex items-center gap-2.5 text-surface-200 font-bold">
+        <svg class="w-7 h-7" viewBox="0 0 512 512" fill="none">
+          <defs>
+            <linearGradient id="navLogo" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#a855f7"/>
+            </linearGradient>
+          </defs>
+          <rect x="180" y="160" width="44" height="180" rx="12" fill="url(#navLogo)"/>
+          <rect x="180" y="296" width="140" height="44" rx="12" fill="url(#navLogo)"/>
+          <line x1="224" y1="200" x2="340" y2="170" stroke="url(#navLogo)" stroke-width="16" stroke-linecap="round"/>
+          <line x1="224" y1="230" x2="320" y2="210" stroke="url(#navLogo)" stroke-width="12" stroke-linecap="round"/>
+          <line x1="224" y1="260" x2="290" y2="248" stroke="url(#navLogo)" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+        Liri
+      </a>
+      <div class="flex items-center gap-6 text-sm">
+        <a href="#capabilities" class="text-surface-400 hover:text-surface-200 transition-colors">核心能力</a>
+        <a href="#scenarios" class="text-surface-400 hover:text-surface-200 transition-colors">使用场景</a>
+        <a href="#quickstart" class="text-surface-400 hover:text-surface-200 transition-colors">快速开始</a>
+        <a href="#community" class="text-surface-400 hover:text-surface-200 transition-colors">社区</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <Hero />
+    <About />
+    <Capabilities />
+    <Scenarios />
+    <Architecture />
+    <QuickStart />
+    <Community />
+  </main>
+
+  <Footer />
+</Layout>

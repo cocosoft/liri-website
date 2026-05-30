@@ -1,0 +1,84 @@
+---
+interface Capability {
+  icon: string;
+  title: string;
+  description: string;
+  details: string[];
+}
+
+const capabilities: Capability[] = [
+  {
+    icon: '🤖',
+    title: '智能对话',
+    description: '多模型支持，上下文感知，流式响应',
+    details: ['多 Provider 切换', '模型路由与成本追踪', '故障自动切换'],
+  },
+  {
+    icon: '🛠',
+    title: '工具调用',
+    description: '100+ 内置工具，扩展你的能力边界',
+    details: ['Bash 命令执行', 'Web 搜索与抓取', '代码编辑与 LSP', '文件操作'],
+  },
+  {
+    icon: '🔒',
+    title: '安全可控',
+    description: 'AST 级命令分析，细粒度权限控制',
+    details: ['AST 级安全分析', 'Docker 沙箱隔离', '安全审计日志', '权限管理系统'],
+  },
+  {
+    icon: '🌐',
+    title: '多平台',
+    description: '26+ 消息渠道，一处部署处处可用',
+    details: ['Discord / Slack', '微信 / 飞书', 'Telegram / IRC', '钉钉 / 企业微信'],
+  },
+  {
+    icon: '🧠',
+    title: '记忆系统',
+    description: '长期记忆、知识库、向量检索',
+    details: ['持久化记忆存储', '向量语义检索', '知识库管理', '上下文增强'],
+  },
+  {
+    icon: '🔌',
+    title: '可扩展',
+    description: '插件系统、MCP 协议、ACP 多 Agent 通信',
+    details: ['插件化架构', 'MCP 工具协议', 'ACP Agent 通信', '自定义技能系统'],
+  },
+];
+---
+
+<section id="capabilities" class="section-padding relative">
+  <!-- 背景装饰 -->
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">核心能力</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
+      六大核心能力，覆盖 AI Agent 的方方面面
+    </p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {capabilities.map((cap, index) => (
+        <div
+          class="glass-card p-6 group hover:border-brand-500/30 transition-all duration-500 hover:-translate-y-1 glow"
+          style={`animation: fade-in-up .6s ease-out ${index * 0.1}s both;`}
+        >
+          <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{cap.icon}</div>
+          <h3 class="text-lg font-bold text-surface-100 mb-2">{cap.title}</h3>
+          <p class="text-surface-400 text-sm mb-4">{cap.description}</p>
+          <ul class="space-y-1.5">
+            {cap.details.map((detail) => (
+              <li class="flex items-center gap-2 text-sm text-surface-500">
+                <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                {detail}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
