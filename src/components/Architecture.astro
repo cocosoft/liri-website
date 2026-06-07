@@ -1,102 +1,188 @@
 ---
+// 架构层数据
+interface ArchitectureLayer {
+  name: string;
+  subtitle: string;
+  color: string;
+  items: { label: string; detail: string }[];
+}
+
+const layers: ArchitectureLayer[] = [
+  {
+    name: '多模态入口层',
+    subtitle: '从任何入口，进入 Liri',
+    color: 'from-orange-500/20 to-amber-500/10',
+    items: [
+      { label: 'REPL 终端', detail: 'React+Ink 构建的沉浸式终端 UI，支持 16 种 Buddy 人格' },
+      { label: 'Tauri 桌面客户端', detail: '147 个 TSX 组件，20+ 功能页面，原生性能' },
+      { label: 'MCP/渠道网关', detail: 'MCP Server + 26 个消息渠道（微信/钉钉/飞书/TG 等）' },
+      { label: 'CLI/API', detail: '命令行工具 + HTTP API，CI/CD 集成' },
+    ],
+  },
+  {
+    name: '安全第一层',
+    subtitle: '每一次输入都经过安全过滤',
+    color: 'from-red-500/20 to-rose-500/10',
+    items: [
+      { label: 'Rust AST 编译时分析', detail: 'FFI 层解析 Bash AST，40+ 模式匹配危险命令' },
+      { label: 'TypeScript 语义分析', detail: 'TypeScript 层安全类型检查与语义分析' },
+      { label: 'Guardrail 规则引擎', detail: '可编程策略规则，白名单/黑名单/正则匹配' },
+      { label: 'AutoMode 分类器', detail: '自动判断任务风险等级，分配安全策略' },
+    ],
+  },
+  {
+    name: '智能路由层',
+    subtitle: '最合适的模型，完成最合适的任务',
+    color: 'from-brand-500/20 to-orange-500/10',
+    items: [
+      { label: '8 种任务类型识别', detail: '编码/写作/分析/工具/翻译/搜索/创意/闲聊' },
+      { label: '5 层决策管线', detail: '成本→能力→延迟→本地可用性→用户偏好' },
+      { label: '供应商回退链', detail: '主模型不可用 → 自动回退 → 降级不中断' },
+      { label: '自适应优化', detail: '根据成功率/延迟/成本动态调整路由策略' },
+    ],
+  },
+  {
+    name: '外脑注入层',
+    subtitle: '知识库 + 记忆 = 永不遗忘的外脑',
+    color: 'from-cyan-500/20 to-blue-500/10',
+    items: [
+      { label: '文件管理系统', detail: '文件浏览器 + 目录树 + 拖拽上传 + 多格式支持' },
+      { label: '知识库系统', detail: '混合搜索（语义+关键词）+ 自动摄取 + 智能摘要' },
+      { label: '记忆系统', detail: '短期→长期记忆 + 记忆清洗 + DumpSession 持久化' },
+      { label: 'DreamEngine 梦境', detail: '空闲时自动整理知识/记忆，三阶段梦境（light/deep/rem）' },
+    ],
+  },
+  {
+    name: 'TAOR 决策循环',
+    subtitle: 'Think → Act → Observe → Reason',
+    color: 'from-green-500/20 to-emerald-500/10',
+    items: [
+      { label: 'Think（思考）', detail: '多策略思考（CoT/ReAct/Plan/Reflect/Game）' },
+      { label: 'Act（行动）', detail: '60+ 工具调用 + 工具组合编排 + 策略切换' },
+      { label: 'Observe（观察）', detail: '结果评估 + ContextCompressor 上下文压缩' },
+      { label: 'Reason（推理）', detail: 'TokenBudget 预算管理 + Checkpoint 断点续执行' },
+    ],
+  },
+  {
+    name: '安全第二层：执行沙箱',
+    subtitle: '代码执行在隔离环境中进行',
+    color: 'from-red-500/20 to-orange-500/10',
+    items: [
+      { label: 'Docker 沙箱', detail: '完整容器隔离 + 资源限制 + 网络策略' },
+      { label: 'SSH 沙箱', detail: '远程服务器纯净执行环境' },
+      { label: 'Worker 沙箱', detail: '轻量级线程池隔离' },
+      { label: 'PTY 沙箱', detail: '伪终端模拟 + 路径访问控制' },
+    ],
+  },
+  {
+    name: '长程任务层',
+    subtitle: '从单次对话到跨天任务',
+    color: 'from-purple-500/20 to-violet-500/10',
+    items: [
+      { label: 'PDCA 管线', detail: 'FlowEngine 流程引擎 + Plan-Do-Check-Act 闭环' },
+      { label: 'Swarm 集群', detail: '多 Agent 协作，OrchEngine 编排调度' },
+      { label: 'Cron 定时任务', detail: '内置定时任务引擎，支持 cron 表达式' },
+      { label: '任务持久化', detail: '会话快照 + 断点恢复 + TaskDecomposer 自动分解' },
+    ],
+  },
+  {
+    name: '反馈与进化层',
+    subtitle: '每一次交互，都在让系统更聪明',
+    color: 'from-amber-500/20 to-yellow-500/10',
+    items: [
+      { label: '四层自进化', detail: '知识层/记忆层/路由层/执行层 持续优化' },
+      { label: 'DreamEngine', detail: '空闲检测 → 梦境触发 → 记忆整理 → 洞察生成' },
+      { label: 'PDCA 自迭代', detail: '自动分解 → 自动评审 → 自动修正 的完整闭环' },
+      { label: '成本分析', detail: 'Token 用量追踪 + 余额查询 + 预算管理 + 模型比价' },
+    ],
+  },
+];
+
+// 架构哲学
+const principles = [
+  { icon: '🛡️', title: '安全内生', desc: '安全不是插件，是每一层架构的 DNA' },
+  { icon: '🏠', title: '本地优先', desc: '数据本地存储，离线可用，隐私默认保障' },
+  { icon: '🧠', title: '智能路由', desc: '8 类型任务自动匹配最省钱、最合适的模型' },
+  { icon: '🧬', title: '外脑设计', desc: '文件→知识库→记忆，三层外脑永不遗忘' },
+  { icon: '🔄', title: '自进化闭环', desc: '从每一次交互中学习，在梦境中自我优化' },
+  { icon: '🔌', title: '多模态统一', desc: '终端/桌面/IM/API，一个引擎服务所有入口' },
+];
 ---
 
 <section id="architecture" class="section-padding relative">
-  <div class="section-container">
+  <!-- 背景装饰 -->
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">架构概览</span>
+      <span class="gradient-text">架构全景图</span>
     </h2>
-    <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
-      五层架构设计，40+ 模块化子系统，各司其职
+    <p class="text-surface-400 text-center mb-6 max-w-3xl mx-auto">
+      从「用户输入」到「自进化反馈」的 8 层完整架构链路
     </p>
 
-    <div class="max-w-4xl mx-auto space-y-3">
-      <!-- 用户界面层 -->
-      <div class="glass-card p-5 text-center group hover:border-brand-500/30 transition-all duration-300">
-        <div class="text-xs font-mono text-surface-500 mb-2">用户界面层</div>
-        <div class="flex flex-wrap justify-center gap-2">
-          {['REPL', 'CLI', 'MCP', '渠道 (26+)'].map((item) => (
-            <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-sm font-mono border border-surface-700/50">
-              {item}
-            </span>
-          ))}
+    <!-- 架构层垂直布局 -->
+    <div class="max-w-5xl mx-auto space-y-2">
+      {layers.map((layer, layerIdx) => (
+        <div>
+          <!-- 层卡片 -->
+          <div
+            class="group relative overflow-hidden rounded-2xl border border-surface-800/50 bg-surface-900/40 backdrop-blur-sm hover:border-brand-500/30 transition-all duration-500"
+          >
+            <!-- 渐变色标 -->
+            <div class={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${layer.color}`}></div>
+
+            <div class="p-4 sm:p-5 pl-5 sm:pl-7">
+              <!-- 层标题 -->
+              <div class="flex items-center justify-between mb-2 sm:mb-3">
+                <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                  <span class="text-xs font-mono text-surface-500 bg-surface-800/60 px-2 py-0.5 rounded shrink-0">
+                    L{layerIdx + 1}
+                  </span>
+                  <h3 class="text-sm sm:text-lg font-bold text-surface-100 truncate">{layer.name}</h3>
+                </div>
+                <span class="text-xs text-surface-500 hidden sm:block shrink-0 ml-2">{layer.subtitle}</span>
+              </div>
+
+              <!-- 层内项目（响应式网格） -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-2">
+                {layer.items.map((item) => (
+                  <div class="group/item relative p-2 sm:p-3 rounded-xl bg-surface-800/30 border border-surface-800/50 hover:border-brand-500/20 hover:bg-surface-800/50 transition-all duration-300">
+                    <div class="text-xs sm:text-sm font-semibold text-surface-200 mb-0.5 sm:mb-1">{item.label}</div>
+                    <div class="text-xs text-surface-500 leading-relaxed opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                      {item.detail}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- 连接箭头 -->
+          {layerIdx < layers.length - 1 && (
+            <div class="flex justify-center py-1">
+              <svg class="w-4 h-4 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7" />
+              </svg>
+            </div>
+          )}
         </div>
-      </div>
+      ))}
+    </div>
 
-      <!-- 连接箭头 -->
-      <div class="flex justify-center">
-        <svg class="w-5 h-5 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7" />
-        </svg>
-      </div>
-
-      <!-- 网关层 -->
-      <div class="glass-card p-5 text-center group hover:border-brand-500/30 transition-all duration-300">
-        <div class="text-xs font-mono text-surface-500 mb-2">网关层</div>
-        <div class="flex flex-wrap justify-center gap-2">
-          {['消息路由', '协议转换', '认证'].map((item) => (
-            <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-sm font-mono border border-surface-700/50">
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <!-- 连接箭头 -->
-      <div class="flex justify-center">
-        <svg class="w-5 h-5 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7" />
-        </svg>
-      </div>
-
-      <!-- AI 引擎层 -->
-      <div class="glass-card p-5 text-center group hover:border-brand-500/30 transition-all duration-300">
-        <div class="text-xs font-mono text-surface-500 mb-2">AI 引擎层</div>
-        <div class="flex flex-wrap justify-center gap-2">
-          {['多 Provider', '模型路由', '成本追踪', '故障切换'].map((item) => (
-            <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-sm font-mono border border-surface-700/50">
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <!-- 连接箭头 -->
-      <div class="flex justify-center">
-        <svg class="w-5 h-5 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7" />
-        </svg>
-      </div>
-
-      <!-- 核心服务层 -->
-      <div class="glass-card p-5 text-center group hover:border-brand-500/30 transition-all duration-300">
-        <div class="text-xs font-mono text-surface-500 mb-2">核心服务层</div>
-        <div class="flex flex-wrap justify-center gap-2">
-          {['工具系统', '记忆系统', '安全系统', '任务引擎', '权限控制', '插件管理', '会话管理', '事件总线'].map((item) => (
-            <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-sm font-mono border border-surface-700/50">
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <!-- 连接箭头 -->
-      <div class="flex justify-center">
-        <svg class="w-5 h-5 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7" />
-        </svg>
-      </div>
-
-      <!-- 基础设施层 -->
-      <div class="glass-card p-5 text-center border-brand-500/20 group hover:border-brand-500/40 transition-all duration-300">
-        <div class="text-xs font-mono text-surface-500 mb-2">基础设施层</div>
-        <div class="flex flex-wrap justify-center gap-2">
-          {['SQLite', '缓存', '日志', '监控', '原生模块 (Rust)'].map((item) => (
-            <span class="px-3 py-1 rounded-lg bg-brand-500/10 text-brand-300 text-sm font-mono border border-brand-500/20">
-              {item}
-            </span>
-          ))}
-        </div>
+    <!-- 架构哲学 -->
+    <div class="mt-20">
+      <h3 class="text-xl font-bold text-center mb-10">
+        <span class="gradient-text">架构哲学</span>
+      </h3>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        {principles.map((p) => (
+          <div class="glass-card p-5 text-center hover:border-brand-500/30 transition-all duration-300">
+            <div class="text-2xl mb-2">{p.icon}</div>
+            <div class="text-sm font-bold text-surface-200 mb-1">{p.title}</div>
+            <div class="text-xs text-surface-500">{p.desc}</div>
+          </div>
+        ))}
       </div>
     </div>
   </div>

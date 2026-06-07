@@ -3,27 +3,72 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="border-t border-surface-800/50">
-  <div class="section-container py-12">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-      <!-- 版权 -->
-      <div class="flex items-center gap-3">
-        <span class="text-surface-500 text-sm">
-          &copy; {currentYear} OpenLiri. MIT License.
-        </span>
+  <div class="section-container py-10">
+    <div class="grid sm:grid-cols-3 gap-8">
+      <!-- 品牌 -->
+      <div>
+        <div class="flex items-center gap-2.5 mb-4">
+          <svg class="w-6 h-6" viewBox="0 0 512 512" fill="none">
+            <defs>
+              <linearGradient id="footerLogo" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FF5A36"/>
+                <stop offset="100%" stop-color="#FF8C66"/>
+              </linearGradient>
+            </defs>
+            <rect x="180" y="160" width="44" height="180" rx="12" fill="url(#footerLogo)"/>
+            <rect x="180" y="296" width="140" height="44" rx="12" fill="url(#footerLogo)"/>
+          </svg>
+          <span class="text-surface-200 font-bold text-base">Liri</span>
+        </div>
+        <p class="text-surface-500 text-xs leading-relaxed">
+          AI 私人助手 · 本地优先 · 安全内生
+        </p>
       </div>
 
-      <!-- 链接 -->
-      <div class="flex items-center gap-6">
-        <a href="https://github.com/cocosoft/liri-website" target="_blank" rel="noopener noreferrer" class="text-surface-500 hover:text-surface-300 transition-colors text-sm">
-          GitHub
-        </a>
-        <a href="https://github.com/cocosoft/liri-website/issues" target="_blank" rel="noopener noreferrer" class="text-surface-500 hover:text-surface-300 transition-colors text-sm">
-          反馈
-        </a>
-        <a href="https://github.com/cocosoft/liri-website/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="text-surface-500 hover:text-surface-300 transition-colors text-sm">
-          MIT License
-        </a>
+      <!-- 资源 -->
+      <div>
+        <h4 class="text-surface-300 text-sm font-semibold mb-4">资源</h4>
+        <div class="space-y-2">
+          <a href="https://github.com/cocosoft/Liri" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
+            GitHub 仓库
+          </a>
+          <a href="https://github.com/cocosoft/Liri/issues" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
+            提交 Issue
+          </a>
+          <a href="https://github.com/cocosoft/Liri/releases" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
+            发布日志
+          </a>
+          <a href="https://github.com/cocosoft/Liri/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
+            MIT License
+          </a>
+        </div>
       </div>
+
+      <!-- 社区 -->
+      <div>
+        <h4 class="text-surface-300 text-sm font-semibold mb-4">社区</h4>
+        <div class="space-y-2">
+          <a href="#" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
+            Discord（即将上线）
+          </a>
+          <a href="#" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
+            技术文档（即将上线）
+          </a>
+          <a href="https://github.com/cocosoft/Liri/discussions" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
+            GitHub Discussions
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="mt-8 pt-6 border-t border-surface-800/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <span class="text-surface-600 text-xs">
+        &copy; {currentYear} OpenLiri. Released under MIT License.
+      </span>
+      <span class="text-surface-600 text-xs font-mono">
+        3,649 TS 文件 · 60+ 工具 · 5 层安全 · 26+ 渠道 · 16 种 Buddy
+      </span>
     </div>
   </div>
 </footer>

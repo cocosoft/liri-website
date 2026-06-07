@@ -1,0 +1,73 @@
+---
+---
+
+<section class="section-padding relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">26+ 消息渠道</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-4 max-w-3xl mx-auto">
+      全球唯一覆盖中国主流平台的 AI 助手——微信、钉钉、飞书、QQ，一个 Liri 全部连接
+    </p>
+
+    <!-- 渠道分类 -->
+    <div class="max-w-4xl mx-auto">
+      <!-- 即时通讯 -->
+      <div class="mb-6">
+        <div class="text-xs font-mono text-brand-400 mb-3 text-center">即时通讯</div>
+        <div class="flex flex-wrap justify-center gap-3">
+          {['Telegram', 'WhatsApp', 'Signal', 'Line', 'Viber'].map((ch) => (
+            <div class="px-4 py-2 rounded-xl bg-surface-800/40 border border-surface-800/50 text-sm text-surface-300 font-mono hover:border-brand-500/30 transition-all duration-300">
+              {ch}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 中国平台 -->
+      <div class="mb-6">
+        <div class="text-xs font-mono text-brand-400 mb-3 text-center">中国平台</div>
+        <div class="flex flex-wrap justify-center gap-3">
+          {['微信', '企业微信', '钉钉', '飞书', 'QQ'].map((ch) => (
+            <div class="px-4 py-2 rounded-xl bg-brand-500/10 border border-brand-500/20 text-sm text-brand-300 font-mono hover:border-brand-500/40 transition-all duration-300">
+              {ch}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 企业协作 -->
+      <div class="mb-6">
+        <div class="text-xs font-mono text-brand-400 mb-3 text-center">企业协作</div>
+        <div class="flex flex-wrap justify-center gap-3">
+          {['Discord', 'Slack', 'Mattermost', 'Matrix', 'Rocket Chat', 'IRC'].map((ch) => (
+            <div class="px-4 py-2 rounded-xl bg-surface-800/40 border border-surface-800/50 text-sm text-surface-300 font-mono hover:border-brand-500/30 transition-all duration-300">
+              {ch}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 其他 -->
+      <div class="mb-8">
+        <div class="text-xs font-mono text-brand-400 mb-3 text-center">其他</div>
+        <div class="flex flex-wrap justify-center gap-3">
+          {['Email', 'SMS', 'Webhook', 'MQTT', 'API'].map((ch) => (
+            <div class="px-4 py-2 rounded-xl bg-surface-800/40 border border-surface-800/50 text-sm text-surface-300 font-mono hover:border-brand-500/30 transition-all duration-300">
+              {ch}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 一句话总结 -->
+    <div class="text-center">
+      <p class="text-surface-500 text-sm font-mono">
+        统一 Gateway 路由 · 渠道级权限 · 全链路审计
+      </p>
+    </div>
+  </div>
+</section>

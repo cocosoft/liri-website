@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-200: #c7d2fe;
-  --color-brand-300: #a5b4fc;
-  --color-brand-400: #818cf8;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-800: #3730a3;
-  --color-brand-900: #312e81;
+  /* 琥珀橙主色调 (#FF5A36) */
+  --color-brand-50: #fff5f0;
+  --color-brand-100: #ffe8dd;
+  --color-brand-200: #ffd1bb;
+  --color-brand-300: #ffb899;
+  --color-brand-400: #ff8c66;
+  --color-brand-500: #ff5a36;
+  --color-brand-600: #e64a2a;
+  --color-brand-700: #cc3b1e;
+  --color-brand-800: #b3301a;
+  --color-brand-900: #992515;
 
   --color-surface-50: #f5f5fa;
   --color-surface-100: #eaeaef;
@@ -61,7 +62,7 @@
 
 @layer components {
   .gradient-text {
-    @apply bg-linear-to-r from-brand-400 to-purple-400 bg-clip-text text-transparent;
+    @apply bg-linear-to-r from-brand-400 to-orange-400 bg-clip-text text-transparent;
   }
 
   .gradient-border {
@@ -74,7 +75,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, theme('colors.brand.500'), theme('colors.purple.500'));
+    background: linear-gradient(135deg, theme('colors.brand.500'), theme('colors.orange.400'));
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
     pointer-events: none;
@@ -85,7 +86,7 @@
   }
 
   .glow {
-    box-shadow: 0 0 60px theme('colors.brand.500/10'), 0 0 120px theme('colors.purple.500/5');
+    box-shadow: 0 0 60px theme('colors.brand.500/10'), 0 0 120px theme('colors.orange.400/5');
   }
 
   .section-container {

@@ -1,0 +1,47 @@
+---
+// 技术栈数据：开发者信任信号
+const stackItems = [
+  { label: 'TypeScript', pct: '95%', desc: '核心语言' },
+  { label: 'Rust', pct: '5%', desc: '安全原生模块' },
+  { label: 'Bun', pct: '', desc: '运行时' },
+  { label: 'React + Ink', pct: '', desc: '终端 UI' },
+  { label: 'Tauri v2', pct: '', desc: '桌面客户端' },
+  { label: 'OpenTelemetry', pct: '', desc: '可观测性' },
+  { label: 'MCP + ACP + LSP', pct: '', desc: '协议' },
+  { label: 'Docker', pct: '', desc: '沙箱' },
+  { label: 'MIT License', pct: '', desc: '开源协议' },
+];
+---
+
+<section id="techstack" class="section-padding relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">技术栈</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
+      现代技术选型，每一层都经过深思熟虑
+    </p>
+
+    <div class="max-w-3xl mx-auto">
+      <div class="glass-card p-8">
+        <div class="flex flex-wrap justify-center gap-3">
+          {stackItems.map((item) => (
+            <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-800/60 border border-surface-700/50 hover:border-brand-500/30 transition-all duration-300 group">
+              <span class="text-sm font-mono text-surface-300 group-hover:text-brand-400 transition-colors">
+                {item.label}
+              </span>
+              {item.pct && (
+                <span class="text-xs font-mono text-brand-400 bg-brand-500/10 px-1.5 py-0.5 rounded">
+                  {item.pct}
+                </span>
+              )}
+              <span class="text-xs text-surface-500 hidden sm:inline">{item.desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,69 +1,100 @@
 ---
-interface Scenario {
+// 使用场景数据：按角色分组
+interface ScenarioGroup {
+  role: string;
   icon: string;
-  title: string;
   description: string;
-  tag: string;
+  items: string[];
 }
 
-const scenarios: Scenario[] = [
+const scenarioGroups: ScenarioGroup[] = [
   {
+    role: '给开发者',
     icon: '💻',
-    title: '命令行助手',
-    description: '在终端里直接对话，执行命令，管理项目。无需离开命令行，Liri 就是你的编程搭档。',
-    tag: '开发者',
+    description: '60+ 工具 API、LSP 集成、MCP 协议、插件 SDK、Notebook 交互式执行',
+    items: [
+      '终端 REPL 直接对话，执行命令，管理项目',
+      'Rust AST 级 Bash 安全执行',
+      'LSP 智能提示，代码补全与诊断',
+      'MCP 协议客户端 + 服务端完整支持',
+      '插件 SDK 自定义扩展',
+    ],
   },
   {
-    icon: '👥',
-    title: '团队协作',
-    description: '接入 Slack、飞书等平台，自动处理任务、查询数据、通知告警，让团队效率翻倍。',
-    tag: '团队',
+    role: '给安全负责人',
+    icon: '🛡️',
+    description: '5 层纵深安全体系，从编译时到运行时，层层把关',
+    items: [
+      'Rust FFI AST 编译时 Bash 分析',
+      '40+ 危险命令语义模式匹配',
+      'Guardrail 策略规则引擎，deny-by-default',
+      'Docker / SSH / Worker 三种沙箱隔离',
+      '完整审计日志，所有操作可追溯',
+    ],
   },
   {
-    icon: '📚',
-    title: '个人知识库',
-    description: '记录笔记、自动整理、语义搜索。Liri 帮你构建第二大脑，知识永不丢失。',
-    tag: '个人',
+    role: '给运维',
+    icon: '📊',
+    description: '4 种运行模式、系统监控、Docker 部署、OpenTelemetry 接入',
+    items: [
+      'CLI / REPL / MCP / DAEMON 四种运行模式',
+      'OpenTelemetry Tracing + Metrics 全链路',
+      'Docker 一键部署，健康检查',
+      '预设告警规则体系',
+      '定时任务 + 自动化工作流',
+    ],
   },
   {
-    icon: '⚡',
-    title: '自动化工作流',
-    description: '定时任务、代码审查、部署流水线。让重复的工作自动化，聚焦真正重要的事。',
-    tag: 'DevOps',
+    role: '给普通用户',
+    icon: '🌐',
+    description: '26+ 消息渠道、桌面客户端、定时任务、技能系统',
+    items: [
+      'Telegram / 微信 / 钉钉 / 飞书 / QQ 等全平台',
+      'Tauri v2 桌面客户端',
+      '定时任务，自动化日常操作',
+      '技能系统，条件触发编排',
+      '知识库，构建个人第二大脑',
+    ],
   },
 ];
 ---
 
 <section id="scenarios" class="section-padding relative">
-  <div class="section-container">
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
       <span class="gradient-text">使用场景</span>
     </h2>
     <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
-      无论你是开发者、团队负责人，还是效率追求者，Liri 都能帮到你
+      无论你是开发者、安全负责人、运维，还是效率追求者，Liri 都能帮到你
     </p>
 
-    <div class="space-y-6">
-      {scenarios.map((scene, index) => (
+    <div class="grid sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      {scenarioGroups.map((group, index) => (
         <div
-          class="glass-card p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-6 group hover:border-brand-500/30 transition-all duration-500"
+          class="glass-card p-6 sm:p-8 group hover:border-brand-500/30 transition-all duration-500 hover:-translate-y-1"
           style={`animation: fade-in-up .6s ease-out ${index * 0.15}s both;`}
         >
-          <div class="text-4xl shrink-0 w-14 h-14 flex items-center justify-center rounded-xl bg-surface-800/50 group-hover:bg-brand-500/10 transition-colors duration-300">
-            {scene.icon}
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-3 mb-2">
-              <h3 class="text-xl font-bold text-surface-100">{scene.title}</h3>
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-brand-500/10 text-brand-400 border border-brand-500/20">
-                {scene.tag}
-              </span>
+          <div class="flex items-center gap-4 mb-4">
+            <div class="text-3xl shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-surface-800/50 group-hover:bg-brand-500/10 transition-colors duration-300">
+              {group.icon}
             </div>
-            <p class="text-surface-400 leading-relaxed">{scene.description}</p>
+            <div>
+              <h3 class="text-lg font-bold text-surface-100">{group.role}</h3>
+              <p class="text-surface-400 text-sm mt-1">{group.description}</p>
+            </div>
           </div>
-          <svg class="w-5 h-5 text-surface-600 group-hover:text-brand-400 transition-colors duration-300 hidden sm:block shrink-0 mt-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+          <ul class="space-y-2">
+            {group.items.map((item) => (
+              <li class="flex items-center gap-2 text-sm text-surface-400">
+                <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
     </div>

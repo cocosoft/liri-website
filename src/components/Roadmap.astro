@@ -1,0 +1,92 @@
+---
+// 路线图数据：透明建立信任
+const milestones = [
+  {
+    quarter: 'Q2 2026',
+    version: 'v0.2.0',
+    status: 'done',
+    label: '已完成',
+    items: ['知识库系统', 'MCP 重连机制', '定时任务引擎', '26+ 消息渠道接入'],
+  },
+  {
+    quarter: 'Q3 2026',
+    version: 'v0.3.0',
+    status: 'active',
+    label: '进行中',
+    items: ['插件市场上线', '技能商店', '多语言支持', '在线 Playground'],
+  },
+  {
+    quarter: 'Q4 2026',
+    version: 'v0.4.0',
+    status: 'planned',
+    label: '计划中',
+    items: ['Agent 社交', '团队协作', '企业 SSO', '性能优化'],
+  },
+  {
+    quarter: 'Q1 2027',
+    version: 'v1.0.0',
+    status: 'planned',
+    label: '计划中',
+    items: ['稳定版发布', '商业授权', '托管服务', '长期支持'],
+  },
+];
+
+const statusConfig: Record<string, { bg: string; border: string; text: string; dot: string }> = {
+  done: { bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', text: 'text-emerald-400', dot: 'bg-emerald-500' },
+  active: { bg: 'bg-brand-500/10', border: 'border-brand-500/30', text: 'text-brand-400', dot: 'bg-brand-500' },
+  planned: { bg: 'bg-surface-800/50', border: 'border-surface-700/50', text: 'text-surface-500', dot: 'bg-surface-600' },
+};
+---
+
+<section id="roadmap" class="section-padding relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">路线图</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
+      透明发布，每一步都看得见
+    </p>
+
+    <div class="max-w-3xl mx-auto">
+      {milestones.map((item, index) => {
+        const cfg = statusConfig[item.status];
+        return (
+          <div class="flex gap-4">
+            {/* 时间线 */}
+            <div class="flex flex-col items-center">
+              <div class={`w-3 h-3 rounded-full ${cfg.dot} shrink-0 mt-1.5`}></div>
+              {index < milestones.length - 1 && (
+                <div class="w-px flex-1 bg-surface-700/50 my-1"></div>
+              )}
+            </div>
+
+            {/* 内容 */}
+            <div class={`flex-1 pb-8 ${index === milestones.length - 1 ? 'pb-0' : ''}`}>
+              <div class={`glass-card p-6 ${cfg.border} ${cfg.bg}`}>
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="text-sm font-mono text-surface-400">{item.quarter}</span>
+                  <span class={`px-2 py-0.5 rounded-full text-xs font-mono ${cfg.text} ${cfg.bg} border ${cfg.border}`}>
+                    {item.version}
+                  </span>
+                  <span class={`text-xs ${cfg.text}`}>{item.label}</span>
+                </div>
+                <ul class="space-y-1.5">
+                  {item.items.map((task) => (
+                    <li class="flex items-center gap-2 text-sm text-surface-400">
+                      <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      {task}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

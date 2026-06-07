@@ -1,0 +1,80 @@
+---
+// 竞品对比数据
+interface ComparisonRow {
+  dimension: string;
+  liri: string;
+  liriHighlight: boolean;
+  competitor1: string;  // OpenClaw
+  competitor2: string;  // CrewAI
+  competitor3: string;  // AutoGen
+}
+
+const rows: ComparisonRow[] = [
+  { dimension: '语言', liri: 'TypeScript + Rust', liriHighlight: true, competitor1: 'Python', competitor2: 'Python', competitor3: 'Python' },
+  { dimension: '本地优先', liri: '架构级 · 离线可用', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '智能路由', liri: '8 类型 · 5 层决策 · 回退链', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '安全体系', liri: '5 层纵深 · 28 文件沙箱系统', liriHighlight: true, competitor1: '基础 Docker', competitor2: '✗', competitor3: '基础沙箱' },
+  { dimension: '消息渠道', liri: '26+（含微信/钉钉/飞书/QQ）', liriHighlight: true, competitor1: '3-5', competitor2: '0', competitor3: '0' },
+  { dimension: '桌面客户端', liri: 'Tauri v2 · 147 个 TSX 组件', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '终端 UI', liri: 'React + Ink', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '人格系统', liri: '16 种物种 · 进化系统', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '语音交互', liri: '本地+云端 STT/TTS', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '成本透明', liri: '余额查询 · 逐次追踪', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '外脑系统', liri: '文件→知识库→记忆', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '自进化', liri: '四层自进化 · 梦境引擎', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '生态市场', liri: 'MCP + ClawHub + 技能', liriHighlight: true, competitor1: '部分 MCP', competitor2: '✗', competitor3: '✗' },
+  { dimension: 'Agent 策略', liri: '6 种策略 · PDCA 长程', liriHighlight: true, competitor1: '单一', competitor2: '单一', competitor3: '单一' },
+  { dimension: '定时任务', liri: '内置 · Cron 引擎', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
+  { dimension: '协议支持', liri: 'MCP + ACP + LSP', liriHighlight: true, competitor1: '部分 MCP', competitor2: '✗', competitor3: '✗' },
+];
+---
+
+<section id="comparison" class="section-padding relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">竞品对比</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-10 max-w-3xl mx-auto">
+      不是又一个 AI 框架——16 个维度，Liri 在每个关键赛道都领先一个身位
+    </p>
+
+    <!-- 对比表格 -->
+    <div class="max-w-5xl mx-auto overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-surface-800/50">
+            <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">维度</th>
+            <th class="text-left py-3 px-4 text-brand-400 font-semibold">Liri</th>
+            <th class="text-left py-3 px-4 text-surface-500 font-mono text-xs">OpenClaw</th>
+            <th class="text-left py-3 px-4 text-surface-500 font-mono text-xs">CrewAI</th>
+            <th class="text-left py-3 px-4 text-surface-500 font-mono text-xs">AutoGen</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr class="border-b border-surface-800/30 hover:bg-surface-900/40 transition-colors">
+              <td class="py-3 px-4 text-surface-300 font-mono text-xs whitespace-nowrap">{row.dimension}</td>
+              <td class={`py-3 px-4 ${row.liriHighlight ? 'text-brand-300 font-semibold' : 'text-surface-200'}`}>
+                <span class="flex items-center gap-1.5">
+                  {row.liriHighlight && <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>}
+                  {row.liri}
+                </span>
+              </td>
+              <td class="py-3 px-4 text-surface-500 text-xs">{row.competitor1}</td>
+              <td class="py-3 px-4 text-surface-500 text-xs">{row.competitor2}</td>
+              <td class="py-3 px-4 text-surface-500 text-xs">{row.competitor3}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-center mt-8">
+      <p class="text-surface-500 text-xs font-mono">
+        * 对比基于各项目公开文档，数据截至 2026 年 6 月
+      </p>
+    </div>
+  </div>
+</section>

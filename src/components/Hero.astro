@@ -3,36 +3,44 @@
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
   <!-- 背景网格 -->
-  <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(rgba(99,102,241,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
+  <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(rgba(255,90,54,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,90,54,.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
 
   <!-- 背景光晕 -->
   <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-500/5 blur-3xl animate-pulse-glow pointer-events-none"></div>
-  <div class="absolute top-1/2 left-1/3 w-[400px] h-[400px] rounded-full bg-purple-500/5 blur-3xl animate-pulse-glow pointer-events-none" style="animation-delay: 1.5s;"></div>
+  <div class="absolute top-1/2 left-1/3 w-[400px] h-[400px] rounded-full bg-orange-500/5 blur-3xl animate-pulse-glow pointer-events-none" style="animation-delay: 1.5s;"></div>
 
   <div class="section-container relative z-10 text-center">
     <!-- Logo -->
-    <div class="mb-8 animate-fade-in-up">
-      <img src="/logo.png" alt="Liri Logo" class="w-24 h-24 mx-auto" style="filter: drop-shadow(0 0 40px rgba(99,102,241,.3));" />
+    <div class="mb-4 sm:mb-6 animate-fade-in-up">
+      <img src="/logo.png" alt="Liri Logo" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto" style="filter: drop-shadow(0 0 40px rgba(255,90,54,.3));" />
     </div>
 
     <!-- 主标题 -->
-    <h1 class="text-6xl sm:text-7xl lg:text-8xl font-bold mb-4 animate-fade-in-up" style="animation-delay: .1s;">
+    <h1 class="text-4xl sm:text-7xl lg:text-8xl font-bold mb-2 sm:mb-3 animate-fade-in-up" style="animation-delay: .1s;">
       <span class="gradient-text">Liri</span>
     </h1>
 
     <!-- 副标题 -->
-    <p class="text-xl sm:text-2xl text-surface-300 font-medium mb-3 animate-fade-in-up" style="animation-delay: .2s;">
-      你的 AI 私人助手
+    <p class="text-sm sm:text-xl text-surface-300 font-medium mb-2 animate-fade-in-up px-4 sm:px-0" style="animation-delay: .2s;">
+      玲珑鸟 · AI 私人助手 · <span class="text-brand-400">本地优先</span> · <span class="text-brand-400">安全内生</span>
     </p>
 
-    <!-- 描述 -->
-    <p class="text-surface-400 text-base sm:text-lg mb-10 animate-fade-in-up font-mono" style="animation-delay: .3s;">
-      玲珑鸟 · 轻盈灵动 · 随心而应
-    </p>
+    <!-- 核心数字标语 -->
+    <div class="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-1 mb-5 sm:mb-6 animate-fade-in-up text-xs sm:text-sm font-mono text-surface-500" style="animation-delay: .25s;">
+      <span>3,649 个 TS 文件</span>
+      <span class="text-surface-700 hidden sm:inline">·</span>
+      <span>60+ 内置工具</span>
+      <span class="text-surface-700 hidden sm:inline">·</span>
+      <span>5 层安全纵深</span>
+      <span class="text-surface-700 hidden sm:inline">·</span>
+      <span>26+ 消息渠道</span>
+      <span class="text-surface-700 hidden sm:inline">·</span>
+      <span>16 种 Buddy 人格</span>
+    </div>
 
     <!-- CTA 按钮 -->
-    <div class="flex items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: .4s;">
-      <a href="#quickstart" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-linear-to-r from-brand-500 to-purple-500 text-white font-semibold text-base transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/25 hover:scale-[1.02] active:scale-[.98]">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: .3s;">
+      <a href="#quickstart" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-linear-to-r from-brand-500 to-orange-500 text-white font-semibold text-base transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/25 hover:scale-[1.02] active:scale-[.98]">
         快速开始
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -46,8 +54,22 @@
       </a>
     </div>
 
-    <!-- 向下滚动指示器 -->
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-fade-in-up" style="animation-delay: .6s;">
+    <!-- 一行命令 -->
+    <div class="mt-4 sm:mt-5 animate-fade-in-up px-4 sm:px-0" style="animation-delay: .4s;">
+      <div class="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-surface-900/80 border border-surface-700/50 hover:border-brand-500/30 transition-all duration-300 cursor-pointer max-w-full" onclick="navigator.clipboard?.writeText('npm create liri')" title="点击复制">
+        <code class="text-xs sm:text-sm font-mono text-surface-200 truncate">
+          <span class="text-surface-500">$ </span>
+          <span class="text-brand-400">npm create liri</span>
+          <span class="text-surface-500 hidden sm:inline">  # 一行命令，开始使用</span>
+        </code>
+        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-surface-500 hover:text-brand-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- 向下滚动指示器（移动端隐藏） -->
+    <div class="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2 animate-fade-in-up" style="animation-delay: .6s;">
       <div class="flex items-center gap-2 text-surface-500 flex-col">
         <span class="text-xs font-mono">向下滚动</span>
         <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

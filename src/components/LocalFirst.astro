@@ -1,0 +1,101 @@
+---
+---
+
+<section id="local-first" class="section-padding relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+  <div class="absolute top-1/3 left-0 w-72 h-72 bg-green-500/5 blur-3xl rounded-full pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">本地优先</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-12 max-w-3xl mx-auto">
+      你的代码，只有你能看到。不是所有 AI 都需要把数据上传到云端
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <!-- 本地优先优势 -->
+      <div class="space-y-4">
+        <div class="glass-card p-6 border-green-500/20">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🏠</span>
+            <h3 class="text-lg font-bold text-surface-100">完全离线可用</h3>
+          </div>
+          <p class="text-surface-400 text-sm leading-relaxed">
+            Ollama 本地模型支持，无需互联网即可使用 AI 助手。
+            你的数据永不离开你的设备。
+          </p>
+        </div>
+
+        <div class="glass-card p-6 border-green-500/20">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🔒</span>
+            <h3 class="text-lg font-bold text-surface-100">隐私默认保障</h3>
+          </div>
+          <p class="text-surface-400 text-sm leading-relaxed">
+            所有数据存储在本地 SQLite 数据库中。
+            知识库、记忆、对话历史——全部受你控制。
+          </p>
+        </div>
+
+        <div class="glass-card p-6 border-green-500/20">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🌐</span>
+            <h3 class="text-lg font-bold text-surface-100">云端备用</h3>
+          </div>
+          <p class="text-surface-400 text-sm leading-relaxed">
+            需要更强大的模型？智能路由自动调配。
+            本地模型处理日常任务，云端模型处理复杂需求。
+          </p>
+        </div>
+      </div>
+
+      <!-- 对比卡片 -->
+      <div class="glass-card p-6">
+        <h3 class="text-lg font-bold text-surface-100 mb-4 text-center">云端 AI vs Liri</h3>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
+            <span class="text-sm text-surface-300">数据存储位置</span>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-surface-500">☁️ 云端服务器</span>
+              <svg class="w-3 h-3 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+              <span class="text-green-400 font-semibold">💻 本地设备</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
+            <span class="text-sm text-surface-300">离线可用</span>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-surface-500">❌ 不行</span>
+              <svg class="w-3 h-3 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+              <span class="text-green-400 font-semibold">✅ 完全离线</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
+            <span class="text-sm text-surface-300">模型灵活性</span>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-surface-500">固定供应商</span>
+              <svg class="w-3 h-3 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+              <span class="text-green-400 font-semibold">任意模型切换</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
+            <span class="text-sm text-surface-300">成本控制</span>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-surface-500">按 Token 付费</span>
+              <svg class="w-3 h-3 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+              <span class="text-green-400 font-semibold">本地免费 + 按需付费</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
+            <span class="text-sm text-surface-300">审计与透明度</span>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-surface-500">有限日志</span>
+              <svg class="w-3 h-3 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+              <span class="text-green-400 font-semibold">全链路可追溯</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

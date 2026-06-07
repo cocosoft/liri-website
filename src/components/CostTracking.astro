@@ -1,0 +1,102 @@
+---
+---
+
+<section id="cost" class="section-padding relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+  <div class="absolute top-1/2 right-0 w-72 h-72 bg-emerald-500/5 blur-3xl rounded-full pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">成本透明</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-12 max-w-3xl mx-auto">
+      每一分钱花在哪儿，一清二楚。余额查询、逐次追踪、预算管理
+    </p>
+
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
+      <!-- 余额查询模拟 -->
+      <div class="glass-card p-6">
+        <h3 class="text-sm font-bold text-surface-200 mb-4 flex items-center gap-2">
+          <span>💰</span> 余额查询
+        </h3>
+        <div class="space-y-3">
+          {[
+            { name: 'DeepSeek', balance: '¥45.32', status: 'normal' },
+            { name: 'SiliconFlow', balance: '¥12.80', status: 'normal' },
+            { name: 'OpenAI', balance: '$23.15', status: 'normal' },
+            { name: 'Anthropic', balance: '¥8.50', status: 'low' },
+          ].map((p) => (
+            <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
+              <div class="flex items-center gap-2">
+                <div class={`w-2 h-2 rounded-full ${p.status === 'low' ? 'bg-red-400' : 'bg-green-400'}`}></div>
+                <span class="text-sm text-surface-300">{p.name}</span>
+              </div>
+              <div class={`text-sm font-mono ${p.status === 'low' ? 'text-red-400' : 'text-green-400'}`}>
+                {p.balance}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 成本分析模拟 -->
+      <div class="glass-card p-6">
+        <h3 class="text-sm font-bold text-surface-200 mb-4 flex items-center gap-2">
+          <span>📊</span> 今日用量
+        </h3>
+        <div class="space-y-3">
+          {[
+            { label: '总 Token 消耗', value: '128,450', change: '+12%' },
+            { label: '今日费用', value: '¥0.86', change: '-5%' },
+            { label: 'API 调用次数', value: '342', change: '+8%' },
+            { label: '平均延迟', value: '1.2s', change: '-0.3s' },
+          ].map((s) => (
+            <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
+              <span class="text-sm text-surface-400">{s.label}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-mono text-surface-200">{s.value}</span>
+                <span class={`text-xs ${s.change.startsWith('-') ? 'text-green-400' : 'text-amber-400'}`}>
+                  {s.change}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Token 追踪维度 -->
+    <div class="mt-8 max-w-5xl mx-auto glass-card p-6 border-brand-500/20">
+      <h3 class="text-sm font-bold text-surface-200 mb-4 text-center">8 维度 Token 追踪</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {[
+          { dim: '输入 Token', pct: '42%' },
+          { dim: '输出 Token', pct: '28%' },
+          { dim: '思考 Token', pct: '15%' },
+          { dim: '工具调用', pct: '8%' },
+          { dim: '知识库检索', pct: '4%' },
+          { dim: '记忆注入', pct: '2%' },
+          { dim: '系统提示', pct: '1%' },
+          { dim: '其他', pct: '0%' },
+        ].map((t) => (
+          <div class="p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-surface-400">{t.dim}</span>
+              <span class="text-xs font-mono text-brand-400">{t.pct}</span>
+            </div>
+            <div class="h-1.5 rounded-full bg-surface-800 overflow-hidden">
+              <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-orange-400" style={`width: ${t.pct}`}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 一句话总结 -->
+    <div class="text-center mt-8">
+      <p class="text-surface-500 text-sm font-mono">
+        CostTracker · BalanceChecker · 模型比价 · 预算管理 · 用量仪表盘
+      </p>
+    </div>
+  </div>
+</section>

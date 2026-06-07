@@ -1,0 +1,89 @@
+---
+// Buddy 物种数据
+interface BuddySpecies {
+  name: string;
+  emoji: string;
+  type: string;
+  rarity: string;
+  desc: string;
+  color: string;
+}
+
+const buddies: BuddySpecies[] = [
+  { name: '玲珑鸟', emoji: '🐦', type: '默认', rarity: '初始', desc: '平衡型全能助手，适合日常对话', color: 'from-brand-500/20 to-orange-500/10' },
+  { name: '雪狐', emoji: '🦊', type: '分析', rarity: '稀有', desc: '数据分析专家，擅长逻辑推理', color: 'from-cyan-500/20 to-blue-500/10' },
+  { name: '铁甲龙', emoji: '🐉', type: '编码', rarity: '稀有', desc: '代码工匠，全栈开发支持', color: 'from-green-500/20 to-emerald-500/10' },
+  { name: '幻影猫', emoji: '🐱', type: '创意', rarity: '史诗', desc: '创意伙伴，思维导图与脑暴', color: 'from-purple-500/20 to-violet-500/10' },
+  { name: '机械熊', emoji: '🐻', type: '工具', rarity: '稀有', desc: '工具大师，系统操作与运维', color: 'from-amber-500/20 to-yellow-500/10' },
+  { name: '星灵', emoji: '⭐', type: '通用', rarity: '传说', desc: '觉醒形态，全能力提升', color: 'from-pink-500/20 to-rose-500/10' },
+];
+
+const rarities = ['初始', '稀有', '史诗', '传说'];
+const rarityColors: Record<string, string> = {
+  '初始': 'text-surface-400 bg-surface-800',
+  '稀有': 'text-blue-300 bg-blue-500/10',
+  '史诗': 'text-purple-300 bg-purple-500/10',
+  '传说': 'text-amber-300 bg-amber-500/10',
+};
+
+const types = ['默认', '分析', '编码', '创意', '工具', '通用'];
+---
+
+<section id="buddy" class="section-padding relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">Buddy 人格系统</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-8 max-w-3xl mx-auto">
+      16 种生物物种 × 6 种人格类型，你的 AI 伙伴，不是工具
+    </p>
+
+    <!-- 角色卡片网格 -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+      {buddies.map((buddy) => (
+        <div class="group glass-card p-6 hover:border-brand-500/30 transition-all duration-500 hover:-translate-y-1">
+          <div class="flex items-start justify-between mb-3">
+            <div class={`text-4xl group-hover:scale-110 transition-transform duration-300`}>{buddy.emoji}</div>
+            <span class={`px-2 py-0.5 rounded-full text-xs font-mono border ${rarityColors[buddy.rarity] || 'text-surface-400 bg-surface-800'} border-current/20`}>
+              {buddy.rarity}
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-surface-100 mb-1">{buddy.name}</h3>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-surface-500 bg-surface-800/60 px-2 py-0.5 rounded">{buddy.type}</span>
+          </div>
+          <p class="text-sm text-surface-400 leading-relaxed">{buddy.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- 进化系统 -->
+    <div class="mt-12 max-w-3xl mx-auto glass-card p-8 text-center border-amber-500/20">
+      <div class="text-3xl mb-3">🌱 → 🌳 → ⭐</div>
+      <h3 class="text-lg font-bold text-surface-100 mb-3">Buddy 进化系统</h3>
+      <p class="text-surface-400 text-sm mb-6">
+        通过对话积累亲密度，触发进化事件。每个 Buddy 都有专属进化树，
+        最终觉醒为传说级形态，解锁全部能力。
+      </p>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
+          <div class="text-xs font-mono text-green-400 mb-2">幼生体</div>
+          <div class="text-2xl">🥚</div>
+          <div class="text-xs text-surface-500 mt-2">初始状态</div>
+        </div>
+        <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
+          <div class="text-xs font-mono text-brand-400 mb-2">成熟体</div>
+          <div class="text-2xl">🦋</div>
+          <div class="text-xs text-surface-500 mt-2">100 亲密度</div>
+        </div>
+        <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
+          <div class="text-xs font-mono text-amber-400 mb-2">觉醒体</div>
+          <div class="text-2xl">👑</div>
+          <div class="text-xs text-surface-500 mt-2">300 亲密度</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

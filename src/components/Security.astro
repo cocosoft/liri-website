@@ -1,0 +1,189 @@
+---
+// 五层纵深防御体系
+const securityLayers = [
+  {
+    id: 1,
+    title: 'Rust AST 编译时分析',
+    short: '在代码执行前用 Rust FFI 做 AST 级安全分析，匹配 40+ 危险模式库',
+    tag: '编译时',
+    tagClass: 'text-rose-400 bg-rose-500/10 border-rose-500/20',
+    icon: '🦀',
+    color: '#F43F5E',
+    details: [
+      'Rust FFI 跨语言调用，零开销安全分析',
+      'Bash AST 解析，匹配 40+ 危险命令模式',
+      '变量注入检测、路径穿越拦截',
+      '参数篡改识别，白名单命令验证',
+    ],
+  },
+  {
+    id: 2,
+    title: 'TypeScript 语义分析',
+    short: '运行时动态分析命令上下文，检测高级攻击手法',
+    tag: '运行时',
+    tagClass: 'text-orange-400 bg-orange-500/10 border-orange-500/20',
+    icon: '🔍',
+    color: '#F97316',
+    details: [
+      '上下文敏感分析，检测语义级攻击',
+      '变量逃逸检测，阻断数据泄露',
+      '类型安全校验，防止类型混淆',
+      '调用链追踪，识别间接攻击',
+    ],
+  },
+  {
+    id: 3,
+    title: 'Guardrail 规则引擎',
+    short: '可配置策略规则系统，按工具/渠道/用户组精细化授权',
+    tag: '策略',
+    tagClass: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
+    icon: '⚙️',
+    color: '#F59E0B',
+    details: [
+      'deny-by-default 白名单模式',
+      'Fine-grained 权限：工具→渠道→用户组',
+      '动态策略热加载，无需重启',
+      '碰撞检测，防止策略绕行',
+    ],
+  },
+  {
+    id: 4,
+    title: 'AutoMode 分类器',
+    short: '智能判断操作风险等级，自动决定是否需要人工确认',
+    tag: '智能',
+    tagClass: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+    icon: '🤖',
+    color: '#10B981',
+    details: [
+      'ML 驱动的风险分级模型',
+      '低风险自动执行，无需人工确认',
+      '高风险暂停审批，通知管理员',
+      '学习用户行为，自适应阈值调整',
+    ],
+  },
+  {
+    id: 5,
+    title: '沙箱隔离执行',
+    short: 'Docker / SSH / Worker 三种沙箱，恶意命令无法逃逸到宿主机',
+    tag: '隔离',
+    tagClass: 'text-brand-400 bg-brand-500/10 border-brand-500/20',
+    icon: '🔒',
+    color: '#FF5A36',
+    details: [
+      'Docker 沙箱：完整容器级隔离',
+      'SSH 沙箱：远程执行，本地零风险',
+      'Worker 沙箱：轻量级 v8 隔离',
+      '网络访问控制 + 路径白名单',
+      '完整审计日志，所有操作可追溯',
+    ],
+  },
+];
+
+// 安全防护数据
+const protections = [
+  { label: '危险命令拦截', value: '99.7%', desc: '经 10,000+ 测试用例验证' },
+  { label: '误报率', value: '<0.1%', desc: '严格测试确保低误拦截' },
+  { label: '审计覆盖率', value: '100%', desc: '所有操作全量记录' },
+  { label: '沙箱逃逸', value: '0', desc: '至今零逃逸事件' },
+];
+---
+
+<section id="security" class="section-padding relative overflow-hidden">
+  <!-- 背景 -->
+  <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-500/3 blur-3xl rounded-full pointer-events-none"></div>
+
+  <div class="section-container relative z-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <span class="gradient-text">五层安全纵深</span>
+    </h2>
+    <p class="text-surface-400 text-center mb-16 max-w-3xl mx-auto">
+      从编译时到沙箱隔离，层层把关。不是嘴上说安全，是代码里写死了安全
+    </p>
+
+    <!-- 五层交互式安全演示 -->
+    <div class="max-w-4xl mx-auto">
+      {securityLayers.map((layer, index) => (
+        <div class="group">
+          <details class="glass-card border border-surface-800/50 open:border-opacity-60 transition-all duration-500 overflow-hidden"
+            style={`animation: fade-in-up .5s ease-out ${index * 0.12}s both;`}>
+            <summary class="list-none p-5 sm:p-6 cursor-pointer select-none group-open:pb-3 transition-all duration-300">
+              <div class="flex items-center gap-4">
+                <!-- 图标 -->
+                <div class="text-2xl w-12 h-12 flex items-center justify-center rounded-xl bg-surface-800/50 shrink-0
+                  group-open:scale-110 transition-all duration-300"
+                  style={`box-shadow: 0 0 20px ${layer.color}20;`}>
+                  {layer.icon}
+                </div>
+
+                <!-- 内容 -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-3 mb-1">
+                    <h3 class="text-base font-bold text-surface-100">{layer.title}</h3>
+                    <span class={`px-2.5 py-0.5 rounded-full text-xs font-mono border ${layer.tagClass}`}>
+                      {layer.tag}
+                    </span>
+                  </div>
+                  <p class="text-surface-400 text-sm leading-relaxed">{layer.short}</p>
+                </div>
+
+                <!-- 编号 + 展开指示 -->
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="text-lg font-mono font-bold opacity-20 hidden sm:block"
+                    style={`color: ${layer.color};`}>#{layer.id}</span>
+                  <svg class="w-4 h-4 text-surface-500 group-open:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </summary>
+
+            <!-- 展开详情 -->
+            <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-2 border-t border-surface-800/30">
+              <ul class="grid sm:grid-cols-2 gap-2">
+                {layer.details.map((detail) => (
+                  <li class="flex items-center gap-2 text-sm text-surface-400 p-2 rounded-lg bg-surface-800/30">
+                    <svg class="w-3.5 h-3.5 shrink-0" style={`color: ${layer.color};`} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+
+          <!-- 连接箭头 -->
+          {index < securityLayers.length - 1 && (
+            <div class="flex justify-center py-0.5">
+              <svg class="w-4 h-4 text-surface-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- 安全防护数据 -->
+    <div class="mt-16 max-w-4xl mx-auto">
+      <h3 class="text-sm font-mono text-surface-500 text-center mb-5">安全防护数据</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {protections.map((p) => (
+          <div class="glass-card p-5 text-center hover:border-brand-500/30 transition-all duration-300">
+            <div class="text-2xl font-bold gradient-text mb-1">{p.value}</div>
+            <div class="text-surface-200 text-sm font-semibold mb-1">{p.label}</div>
+            <div class="text-surface-500 text-xs">{p.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 一句话总结 -->
+    <div class="text-center mt-8">
+      <p class="text-surface-500 text-sm font-mono">
+        Rust AST 编译时分析 · TypeScript 语义分析 · Guardrail 规则引擎 · AutoMode 分类器 · 沙箱隔离执行
+      </p>
+    </div>
+  </div>
+</section>

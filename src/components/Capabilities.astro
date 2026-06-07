@@ -1,47 +1,117 @@
 ---
+// 核心能力卡片数据
 interface Capability {
   icon: string;
   title: string;
   description: string;
   details: string[];
+  highlight: string;
 }
 
 const capabilities: Capability[] = [
   {
-    icon: '🤖',
-    title: '智能对话',
-    description: '多模型支持，上下文感知，流式响应',
-    details: ['多 Provider 切换', '模型路由与成本追踪', '故障自动切换'],
+    icon: '🧠',
+    title: '深度 Agent 引擎',
+    description: '不止是 ReAct——自研 TAOR 循环，有策略、有记忆、有检查点',
+    details: [
+      'TAOR 决策循环（Think-Act-Observe-Reason）',
+      'StrategySelector 多策略动态切换',
+      'CheckpointManager 断点续执行',
+      'ContextCompressor 上下文压缩',
+      '5 种停止条件，防止死循环',
+    ],
+    highlight: '独家',
   },
   {
-    icon: '🛠',
-    title: '工具调用',
-    description: '100+ 内置工具，扩展你的能力边界',
-    details: ['Bash 命令执行', 'Web 搜索与抓取', '代码编辑与 LSP', '文件操作'],
+    icon: '🛡️',
+    title: '5 层安全纵深',
+    description: 'Rust AST 级编译时分析 → 沙箱隔离，竞品都没有的安全栈',
+    details: [
+      'Rust FFI AST 编译时 Bash 分析',
+      '40+ 危险命令语义模式匹配',
+      'Guardrail 策略规则引擎',
+      'Docker / SSH / Worker 三种沙箱',
+      '完整审计日志，所有操作可追溯',
+    ],
+    highlight: '独有',
   },
   {
-    icon: '🔒',
-    title: '安全可控',
-    description: 'AST 级命令分析，细粒度权限控制',
-    details: ['AST 级安全分析', 'Docker 沙箱隔离', '安全审计日志', '权限管理系统'],
+    icon: '🛠️',
+    title: '60+ 内置工具',
+    description: '覆盖文件、网络、系统、媒体、代码的全栈工具生态',
+    details: [
+      'Rust AST 级 Bash 执行',
+      'LSP 智能提示集成',
+      'Web 搜索与抓取',
+      'Notebook 交互式执行',
+      'MCP 协议客户端 + 服务端完整支持',
+    ],
+    highlight: '丰富',
   },
   {
     icon: '🌐',
-    title: '多平台',
-    description: '26+ 消息渠道，一处部署处处可用',
-    details: ['Discord / Slack', '微信 / 飞书', 'Telegram / IRC', '钉钉 / 企业微信'],
+    title: '26+ 消息渠道',
+    description: '一次部署，连接所有平台。国内平台全覆盖',
+    details: [
+      'Telegram / Discord / Slack',
+      '微信 / 企微 / 钉钉 / 飞书 / QQ',
+      'Email / IRC / Signal / WhatsApp',
+      '统一 Gateway 路由管理',
+      '渠道级权限与审计',
+    ],
+    highlight: '最全',
   },
   {
-    icon: '🧠',
-    title: '记忆系统',
-    description: '长期记忆、知识库、向量检索',
-    details: ['持久化记忆存储', '向量语义检索', '知识库管理', '上下文增强'],
+    icon: '📊',
+    title: '企业级可观测性',
+    description: '完整 OpenTelemetry 接入 + 告警体系 + 性能监控',
+    details: [
+      'OpenTelemetry Tracing + Metrics',
+      '结构化日志分级管理',
+      '预设告警规则体系',
+      'Trace Recording AI 调用追踪',
+      '健康检查与系统诊断',
+    ],
+    highlight: '专业',
   },
   {
     icon: '🔌',
-    title: '可扩展',
-    description: '插件系统、MCP 协议、ACP 多 Agent 通信',
-    details: ['插件化架构', 'MCP 工具协议', 'ACP Agent 通信', '自定义技能系统'],
+    title: '可插拔架构',
+    description: '插件 SDK + 技能系统 + MCP 协议，无限扩展',
+    details: [
+      '4 种构建变体（core/personal/coding/enterprise）',
+      '插件 SDK 完整生命周期管理',
+      'Skill 技能条件触发编排',
+      'ACP 多 Agent 通信协议',
+      '4 阶段启动 + 三级延迟加载',
+    ],
+    highlight: '灵活',
+  },
+  {
+    icon: '🏠',
+    title: '本地优先',
+    description: 'Ollama 本地模型 + 数据本地存储，离线可用、隐私默认保障',
+    details: [
+      'Ollama 本地推理，零云端依赖',
+      '数据全量本地存储，不出设备',
+      '离线可用，网络中断不影响核心功能',
+      '云端回退作为可选增强层',
+      '端到端加密传输（云端模式）',
+    ],
+    highlight: '隐私',
+  },
+  {
+    icon: '🚦',
+    title: '智能路由',
+    description: '8 种任务类型 + 5 层决策管线 + 供应商回退链，自动匹配最优模型',
+    details: [
+      '8 种任务类型自动识别（编码/写作/分析/工具/翻译/搜索/创意/闲聊）',
+      '5 层决策管线：成本 → 能力 → 延迟 → 本地 → 偏好',
+      '供应商回退链，主模型不可用时自动降级',
+      'Token 成本预估 + 用量限制',
+      '自适应优化：历史数据驱动路由决策',
+    ],
+    highlight: '节能',
   },
 ];
 ---
@@ -55,7 +125,7 @@ const capabilities: Capability[] = [
       <span class="gradient-text">核心能力</span>
     </h2>
     <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
-      六大核心能力，覆盖 AI Agent 的方方面面
+      六大差异化能力，每一项都是真实工程实力，不是 PPT 功能
     </p>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -64,9 +134,14 @@ const capabilities: Capability[] = [
           class="glass-card p-6 group hover:border-brand-500/30 transition-all duration-500 hover:-translate-y-1 glow"
           style={`animation: fade-in-up .6s ease-out ${index * 0.1}s both;`}
         >
-          <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{cap.icon}</div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-3xl group-hover:scale-110 transition-transform duration-300">{cap.icon}</div>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-brand-500/10 text-brand-400 border border-brand-500/20">
+              {cap.highlight}
+            </span>
+          </div>
           <h3 class="text-lg font-bold text-surface-100 mb-2">{cap.title}</h3>
-          <p class="text-surface-400 text-sm mb-4">{cap.description}</p>
+          <p class="text-surface-400 text-sm mb-4 leading-relaxed">{cap.description}</p>
           <ul class="space-y-1.5">
             {cap.details.map((detail) => (
               <li class="flex items-center gap-2 text-sm text-surface-500">
