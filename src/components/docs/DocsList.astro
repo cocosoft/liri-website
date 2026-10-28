@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DocsHeader from './DocsHeader.astro';
+import { fmt, getLangFromUrl, localizePath, pick } from '../../i18n';
+import { ui } from '../../i18n/ui';
+
+interface Entry {
+  id: string;
+  data: { title: string; description: string; group: string; order: number };
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = pick(ui, Astro.url);
+const groups = [...new Set(entries.map((e) => e.data.group))];
+---
+
+<Layout title={t.docs.pageTitle} description={t.docs.pageDescription}>
+  <DocsHeader />
+
+  <main class="max-w-5xl mx-auto px-6 py-16">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-3">
+      <span class="gradient-text">{t.docs.indexTitle}</span>
+    </h1>
+    <p class="text-surface-400 mb-12">
+      <Fragment set:html={fmt(t.docs.indexIntro, { count: entries.length })} />
+    </p>
+
+    <div class="space-y-12">
+      {groups.map((group) => (
+        <section>
+          <h2 class="text-sm font-mono text-brand-400 mb-4">{group}</h2>
+          <div class="grid sm:grid-cols-2 gap-3">
+            {entries.filter((e) => e.data.group === group).map((entry) => (
+              <a
+                href={localizePath(`/docs/${entry.id}`, lang)}
+                class="glass-card p-5 hover:border-brand-500/30 transition-all duration-300"
+              >
+                <div class="text-base font-semibold text-surface-100 mb-1">{entry.data.title}</div>
+                <div class="text-xs text-surface-500 leading-relaxed">{entry.data.description}</div>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+
+  <footer class="border-t border-surface-800/40 py-8">
+    <div class="max-w-5xl mx-auto px-6 text-xs text-surface-600">
+      <Fragment set:html={t.docs.footerNote} />
+    </div>
+  </footer>
+</Layout>

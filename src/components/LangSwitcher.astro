@@ -1,0 +1,24 @@
+---
+import { HTML_LANG, LOCALES, getLangFromUrl, pick, switchLangPath } from '../i18n';
+import { ui } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = pick(ui, Astro.url);
+const otherLang = LOCALES.find((l) => l !== lang) ?? lang;
+---
+
+<!-- 语言切换：始终指向当前页面的另一语言版本 -->
+<a
+  href={switchLangPath(Astro.url, otherLang)}
+  hreflang={HTML_LANG[otherLang]}
+  lang={HTML_LANG[otherLang]}
+  title={otherLang === 'en' ? t.lang.switchToEn : t.lang.switchToZh}
+  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-surface-800/60 text-surface-400 hover:text-surface-100 hover:border-surface-600 transition-colors text-xs font-medium"
+>
+  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+    <path stroke-linecap="round" stroke-linejoin="round" d="M3.6 9h16.8M3.6 15h16.8" />
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.5 2.4 3.9 5.5 3.9 9s-1.4 6.6-3.9 9c-2.5-2.4-3.9-5.5-3.9-9S9.5 5.4 12 3z" />
+  </svg>
+  <span class="font-mono">{otherLang === 'en' ? 'EN' : '中文'}</span>
+</a>

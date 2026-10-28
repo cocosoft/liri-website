@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import { withBase } from '../utils/url';
 import { isIterating } from '../data/site';
+import { HTML_LANG, LOCALES, getLangFromUrl, pick, switchLangPath } from '../i18n';
+import { ui } from '../i18n/ui';
 import StageBanner from '../components/StageBanner.astro';
 
 export interface Props {
@@ -9,14 +11,24 @@ export interface Props {
   description?: string;
 }
 
-const { title = 'Liri — 你的 AI 私人助手', description = 'Liri（玲珑鸟）是开源（MIT）的终端 AI 智能体：82 个内置工具、27 个消息渠道、五层安全防线，支持本地模型与多供应商路由。' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = pick(ui, Astro.url);
+const {
+  title = t.meta.homeTitle,
+  description = t.meta.homeDescription,
+} = Astro.props;
 
 const siteOrigin = Astro.site?.origin ?? 'https://openliri.com';
 const ogImage = new URL(withBase('/logo-512.png'), siteOrigin).href;
+const canonical = new URL(Astro.url.pathname, siteOrigin).href;
+const alternates = LOCALES.map((l) => ({
+  hreflang: HTML_LANG[l],
+  href: new URL(switchLangPath(Astro.url, l), siteOrigin).href,
+}));
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={HTML_LANG[lang]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,11 +37,18 @@ const ogImage = new URL(withBase('/logo-512.png'), siteOrigin).href;
     <!-- Google Search Console 验证（DNS TXT 的兜底方案，content 为 TXT 值中 = 之后的部分） -->
     <meta name="google-site-verification" content="YLEkX6K5Toa8hZk-EROkIEH_03xktM3fQa4hOpKQBX4" />
 
+    <link rel="canonical" href={canonical} />
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={new URL(withBase('/'), siteOrigin).href} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

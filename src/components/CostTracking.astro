@@ -1,4 +1,8 @@
 ---
+import { pick } from '../i18n';
+import { costTracking } from '../i18n/sections/costTracking';
+
+const c = pick(costTracking, Astro.url);
 ---
 
 <section id="cost" class="section-padding relative overflow-hidden">
@@ -7,25 +11,20 @@
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">成本透明</span>
+      <span class="gradient-text">{c.title}</span>
     </h2>
     <p class="text-surface-400 text-center mb-12 max-w-3xl mx-auto">
-      定价读数据库、按真实模型归因、逐次调用落库——每一分钱都能对上账
+      {c.subtitle}
     </p>
 
     <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
       <!-- 成本归因 -->
       <div class="glass-card p-6">
         <h3 class="text-sm font-bold text-surface-200 mb-4 flex items-center gap-2">
-          <span>🧾</span> 成本归因
+          <span>🧾</span> {c.attributionTitle}
         </h3>
         <div class="space-y-3">
-          {[
-            { label: '定价来源', value: 'model_registry 表' },
-            { label: '模型归因', value: 'provider 回显模型名' },
-            { label: '用量依据', value: 'provider 真实 usage' },
-            { label: '偏差可观测', value: '估算 vs 实测双记' },
-          ].map((p) => (
+          {c.attributionRows.map((p) => (
             <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
               <span class="text-sm text-surface-400">{p.label}</span>
               <span class="text-sm font-mono text-brand-300">{p.value}</span>
@@ -37,15 +36,10 @@
       <!-- 预算与账本 -->
       <div class="glass-card p-6">
         <h3 class="text-sm font-bold text-surface-200 mb-4 flex items-center gap-2">
-          <span>📒</span> 预算与账本
+          <span>📒</span> {c.ledgerTitle}
         </h3>
         <div class="space-y-3">
-          {[
-            { label: '每日预算', value: '全局 / 批处理各一份' },
-            { label: '水位控制', value: '预警 → 压缩 → 阻断' },
-            { label: '调用流水', value: 'cost_records 落库' },
-            { label: '会话汇总', value: '按会话累计成本' },
-          ].map((p) => (
+          {c.ledgerRows.map((p) => (
             <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
               <span class="text-sm text-surface-400">{p.label}</span>
               <span class="text-sm font-mono text-surface-200">{p.value}</span>
@@ -57,14 +51,9 @@
 
     <!-- 一次调用可回答的问题 -->
     <div class="mt-8 max-w-5xl mx-auto glass-card p-6 border-brand-500/20">
-      <h3 class="text-sm font-bold text-surface-200 mb-4 text-center">一次调用，事后能回答四个问题</h3>
+      <h3 class="text-sm font-bold text-surface-200 mb-4 text-center">{c.questionsTitle}</h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          { dim: '用了哪个模型', desc: '真实回显，非配置值' },
-          { dim: '花了多少钱', desc: '按定价表折算' },
-          { dim: '上下文是什么', desc: '事件日志可回放' },
-          { dim: '是否回退过', desc: '回退链全程留痕' },
-        ].map((t) => (
+        {c.questions.map((t) => (
           <div class="p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
             <div class="text-xs text-surface-300 font-semibold mb-1">{t.dim}</div>
             <div class="text-xs text-surface-500 font-mono">{t.desc}</div>
@@ -76,7 +65,7 @@
     <!-- 一句话总结 -->
     <div class="text-center mt-8">
       <p class="text-surface-500 text-sm font-mono">
-        CostTracker · PriceManager · cost_records · 每日预算 · 用量归因
+        {c.footer}
       </p>
     </div>
   </div>

@@ -1,5 +1,11 @@
 ---
 import { channelGroups, channelCount, siteFacts } from '../data/site';
+import { fmt, getLangFromUrl, pick } from '../i18n';
+import { channelName } from '../i18n/data';
+import { channelWall } from '../i18n/sections/channelWall';
+
+const c = pick(channelWall, Astro.url);
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <section class="section-padding relative">
@@ -7,17 +13,17 @@ import { channelGroups, channelCount, siteFacts } from '../data/site';
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">{siteFacts.channels} 个消息渠道</span>
+      <span class="gradient-text">{fmt(c.title, { channels: siteFacts.channels })}</span>
     </h2>
     <p class="text-surface-400 text-center mb-4 max-w-3xl mx-auto">
-      27 个通道均有对应适配器；按通道配置环境变量后启用，也可在编译期裁剪
+      {fmt(c.subtitle, { channels: siteFacts.channels })}
     </p>
 
     <!-- 渠道分类 -->
     <div class="max-w-4xl mx-auto">
       {channelGroups.map((group) => (
         <div class="mb-6">
-          <div class="text-xs font-mono text-brand-400 mb-3 text-center">{group.name}</div>
+          <div class="text-xs font-mono text-brand-400 mb-3 text-center">{channelName(group.name, lang)}</div>
           <div class="flex flex-wrap justify-center gap-3">
             {group.channels.map((ch) => (
               <div class={`px-4 py-2 rounded-xl text-sm font-mono transition-all duration-300 ${
@@ -25,7 +31,7 @@ import { channelGroups, channelCount, siteFacts } from '../data/site';
                   ? 'bg-brand-500/10 border border-brand-500/20 text-brand-300 hover:border-brand-500/40'
                   : 'bg-surface-800/40 border border-surface-800/50 text-surface-300 hover:border-brand-500/30'
               }`}>
-                {ch}
+                {channelName(ch, lang)}
               </div>
             ))}
           </div>
@@ -36,7 +42,7 @@ import { channelGroups, channelCount, siteFacts } from '../data/site';
     <!-- 一句话总结 -->
     <div class="text-center">
       <p class="text-surface-500 text-sm font-mono">
-        共 {channelCount} 个通道 · 统一通道目录 · 按通道启用 · 支持编译期裁剪
+        {fmt(c.summary, { count: channelCount })}
       </p>
     </div>
   </div>

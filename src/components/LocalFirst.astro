@@ -1,4 +1,9 @@
 ---
+import { siteFacts } from '../data/site';
+import { fmt, pick } from '../i18n';
+import { localFirst } from '../i18n/sections/localFirst';
+
+const c = pick(localFirst, Astro.url);
 ---
 
 <section id="local-first" class="section-padding relative overflow-hidden">
@@ -7,10 +12,10 @@
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">本地优先</span>
+      <span class="gradient-text">{c.title}</span>
     </h2>
     <p class="text-surface-400 text-center mb-12 max-w-3xl mx-auto">
-      支持 Ollama / llama.cpp 本地模型；数据默认存在本机。换用云端 Provider 时，只有那次请求的内容会发给所选的供应商
+      {c.subtitle}
     </p>
 
     <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -19,84 +24,81 @@
         <div class="glass-card p-6 border-green-500/20">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">🏠</span>
-            <h3 class="text-lg font-bold text-surface-100">可离线运行</h3>
+            <h3 class="text-lg font-bold text-surface-100">{c.benefits[0].title}</h3>
           </div>
           <p class="text-surface-400 text-sm leading-relaxed">
-            使用本地 Ollama 或 llama.cpp 模型时，不需要联网也能对话和执行本地工具；
-            会话、记忆与知识库都写在本机文件里。
+            {c.benefits[0].desc}
           </p>
         </div>
 
         <div class="glass-card p-6 border-green-500/20">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">🔒</span>
-            <h3 class="text-lg font-bold text-surface-100">数据默认在本机</h3>
+            <h3 class="text-lg font-bold text-surface-100">{c.benefits[1].title}</h3>
           </div>
           <p class="text-surface-400 text-sm leading-relaxed">
-            会话、记忆、知识库存放在本地 SQLite 与工作区目录中，
-            会话记录以 events.jsonl 追加保存，方便回看与审计。
+            {c.benefits[1].desc}
           </p>
         </div>
 
         <div class="glass-card p-6 border-green-500/20">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">🌐</span>
-            <h3 class="text-lg font-bold text-surface-100">按需接入云端</h3>
+            <h3 class="text-lg font-bold text-surface-100">{c.benefits[2].title}</h3>
           </div>
           <p class="text-surface-400 text-sm leading-relaxed">
-            需要更强的模型时，可在配置里启用云端 Provider（14 类），
-            由路由按任务档位选择；也可以只用本地模型。
+            {fmt(c.benefits[2].desc, { providers: siteFacts.llmProviders })}
           </p>
         </div>
       </div>
 
       <!-- 两种模式对照 -->
       <div class="glass-card p-6">
-        <h3 class="text-lg font-bold text-surface-100 mb-4 text-center">本地模式 / 云端模式</h3>
+        <h3 class="text-lg font-bold text-surface-100 mb-4 text-center">{c.compareTitle}</h3>
         <div class="space-y-3">
           <div class="p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
             <div class="flex items-center justify-between text-xs mb-1">
-              <span class="text-surface-400">模型运行位置</span>
+              <span class="text-surface-400">{c.compareRows[0].label}</span>
             </div>
             <div class="flex items-center justify-between gap-3 text-xs">
-              <span class="text-green-400 font-semibold">本机（Ollama / llama.cpp）</span>
-              <span class="text-brand-400">供应商服务器</span>
+              <span class="text-green-400 font-semibold">{c.compareRows[0].local}</span>
+              <span class="text-brand-400">{c.compareRows[0].cloud}</span>
             </div>
           </div>
           <div class="p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
             <div class="flex items-center justify-between text-xs mb-1">
-              <span class="text-surface-400">是否需要联网</span>
+              <span class="text-surface-400">{c.compareRows[1].label}</span>
             </div>
             <div class="flex items-center justify-between gap-3 text-xs">
-              <span class="text-green-400 font-semibold">不需要</span>
-              <span class="text-brand-400">需要</span>
+              <span class="text-green-400 font-semibold">{c.compareRows[1].local}</span>
+              <span class="text-brand-400">{c.compareRows[1].cloud}</span>
             </div>
           </div>
           <div class="p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
             <div class="flex items-center justify-between text-xs mb-1">
-              <span class="text-surface-400">本次请求内容流向</span>
+              <span class="text-surface-400">{c.compareRows[2].label}</span>
             </div>
             <div class="flex items-center justify-between gap-3 text-xs">
-              <span class="text-green-400 font-semibold">不出本机</span>
-              <span class="text-brand-400">发给所选供应商</span>
+              <span class="text-green-400 font-semibold">{c.compareRows[2].local}</span>
+              <span class="text-brand-400">{c.compareRows[2].cloud}</span>
             </div>
           </div>
           <div class="p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
             <div class="flex items-center justify-between text-xs mb-1">
-              <span class="text-surface-400">成本来源</span>
+              <span class="text-surface-400">{c.compareRows[3].label}</span>
             </div>
             <div class="flex items-center justify-between gap-3 text-xs">
-              <span class="text-green-400 font-semibold">自有算力</span>
-              <span class="text-brand-400">按用量计费</span>
+              <span class="text-green-400 font-semibold">{c.compareRows[3].local}</span>
+              <span class="text-brand-400">{c.compareRows[3].cloud}</span>
             </div>
           </div>
           <div class="p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
             <div class="flex items-center justify-between text-xs mb-1">
-              <span class="text-surface-400">会话记录</span>
+              <span class="text-surface-400">{c.compareRows[4].label}</span>
             </div>
             <div class="flex items-center justify-between gap-3 text-xs">
-              <span class="text-green-400 font-semibold">events.jsonl 本机留存</span>
-              <span class="text-brand-400">同样本机留存</span>
+              <span class="text-green-400 font-semibold">{c.compareRows[4].local}</span>
+              <span class="text-brand-400">{c.compareRows[4].cloud}</span>
             </div>
           </div>
         </div>

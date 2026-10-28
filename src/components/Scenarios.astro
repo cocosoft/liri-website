@@ -1,62 +1,18 @@
 ---
-// 使用场景数据：按角色分组
-interface ScenarioGroup {
-  role: string;
-  icon: string;
-  description: string;
-  items: string[];
-}
+import { siteFacts } from '../data/site';
+import { fmt, pick } from '../i18n';
+import { scenarios } from '../i18n/sections/scenarios';
 
-const scenarioGroups: ScenarioGroup[] = [
-  {
-    role: '给开发者',
-    icon: '💻',
-    description: '82 个内置工具、LSP 集成、MCP 协议、插件 SDK、Notebook 交互式执行',
-    items: [
-      '终端 REPL 直接对话，执行命令，管理项目',
-      'Rust AST 级 Bash 安全执行',
-      'LSP 智能提示，代码补全与诊断',
-      'MCP 协议客户端 + 服务端完整支持',
-      '插件 SDK 自定义扩展',
-    ],
-  },
-  {
-    role: '给安全负责人',
-    icon: '🛡️',
-    description: '5 层纵深安全体系，从编译时到运行时，层层把关',
-    items: [
-      'Rust FFI AST 编译时 Bash 分析',
-      '37 条危险命令 + 14 条注入规则',
-      'Guardrail 策略规则引擎，deny-by-default',
-      '6 种沙箱后端：Landlock / macOS / Windows / Docker / SSH / PTY',
-      '工具调用与权限决策全量落库，可审计',
-    ],
-  },
-  {
-    role: '给运维',
-    icon: '📊',
-    description: '3 种运行模式、系统监控、Docker 部署、OpenTelemetry 接入',
-    items: [
-      'REPL / MCP Server / Daemon 三种运行模式',
-      '可安装为系统服务（schtasks / launchd / systemd）',
-      'OpenTelemetry Tracing + Metrics 全链路',
-      'Docker 部署，健康检查与告警',
-      'Cron 定时任务 + 自动化工作流',
-    ],
-  },
-  {
-    role: '给普通用户',
-    icon: '🌐',
-    description: '27 个消息渠道、桌面客户端、定时任务、技能系统',
-    items: [
-      'Telegram / 微信 / 钉钉 / 飞书 / QQ 等全平台',
-      'Tauri 2.11 桌面客户端',
-      '定时任务，自动化日常操作',
-      '技能系统，条件触发编排',
-      '知识库，构建个人第二大脑',
-    ],
-  },
-];
+const c = pick(scenarios, Astro.url);
+// 每组图标（与 c.groups 按索引一一对应）
+const icons = ['💻', '🛡️', '📊', '🌐'];
+const factValues = {
+  tools: siteFacts.tools,
+  layers: siteFacts.securityLayers,
+  dangerous: siteFacts.dangerousRules,
+  injection: siteFacts.injectionRules,
+  channels: siteFacts.channels,
+};
 ---
 
 <section id="scenarios" class="section-padding relative">
@@ -64,25 +20,25 @@ const scenarioGroups: ScenarioGroup[] = [
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">使用场景</span>
+      <span class="gradient-text">{c.title}</span>
     </h2>
     <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
-      无论你是开发者、安全负责人、运维，还是效率追求者，Liri 都能帮到你
+      {c.subtitle}
     </p>
 
     <div class="grid sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
-      {scenarioGroups.map((group, index) => (
+      {c.groups.map((group, index) => (
         <div
           class="glass-card p-6 sm:p-8 group hover:border-brand-500/30 transition-all duration-500 hover:-translate-y-1"
           style={`animation: fade-in-up .6s ease-out ${index * 0.15}s both;`}
         >
           <div class="flex items-center gap-4 mb-4">
             <div class="text-3xl shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-surface-800/50 group-hover:bg-brand-500/10 transition-colors duration-300">
-              {group.icon}
+              {icons[index]}
             </div>
             <div>
               <h3 class="text-lg font-bold text-surface-100">{group.role}</h3>
-              <p class="text-surface-400 text-sm mt-1">{group.description}</p>
+              <p class="text-surface-400 text-sm mt-1">{fmt(group.description, factValues)}</p>
             </div>
           </div>
           <ul class="space-y-2">
@@ -91,7 +47,7 @@ const scenarioGroups: ScenarioGroup[] = [
                 <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
-                {item}
+                {fmt(item, factValues)}
               </li>
             ))}
           </ul>

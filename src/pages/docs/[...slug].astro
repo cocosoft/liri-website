@@ -1,8 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import DocsArticle from '../../components/docs/DocsArticle.astro';
 import { getCollection, render } from 'astro:content';
-import { withBase } from '../../utils/url';
-import { isIterating } from '../../data/site';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -14,86 +12,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-
-const all = (await getCollection('docs')).sort((a, b) => a.data.order - b.data.order);
-const groups = [...new Set(all.map((e) => e.data.group))];
-const index = all.findIndex((e) => e.id === entry.id);
-const prev = index > 0 ? all[index - 1] : null;
-const next = index < all.length - 1 ? all[index + 1] : null;
+const pages = (await getCollection('docs')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<Layout title={`${entry.data.title} — Liri 文档`} description={entry.data.description}>
-  <header class={`border-b border-surface-800/40 sticky z-40 bg-surface-975/85 backdrop-blur-xl ${isIterating ? 'top-9' : 'top-0'}`}>
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href={withBase('/')} class="flex items-center gap-2 text-surface-200 font-bold">
-        <img src={withBase('/logo.png')} alt="Liri" width="24" height="24" class="w-6 h-6 rounded" />
-        <span class="gradient-text">Liri</span>
-        <span class="text-surface-500 font-normal text-sm">文档</span>
-      </a>
-      <a href={withBase('/docs')} class="text-sm text-surface-400 hover:text-surface-200 transition-colors">全部文档</a>
-    </div>
-  </header>
-
-  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col lg:flex-row lg:gap-12">
-    <!-- 侧栏：移动端排在正文之后 -->
-    <aside class="order-2 lg:order-1 lg:w-56 shrink-0 mt-12 lg:mt-0">
-      <nav class={`lg:sticky space-y-6 ${isIterating ? 'lg:top-[8.5rem]' : 'lg:top-24'}`}>
-        {groups.map((group) => (
-          <div>
-            <div class="text-xs font-mono text-surface-500 mb-2">{group}</div>
-            <ul class="space-y-1">
-              {all.filter((d) => d.data.group === group).map((doc) => (
-                <li>
-                  <a
-                    href={withBase(`/docs/${doc.id}`)}
-                    class={`block text-sm py-1 transition-colors ${
-                      doc.id === entry.id
-                        ? 'text-brand-400 font-semibold'
-                        : 'text-surface-400 hover:text-surface-200'
-                    }`}
-                  >
-                    {doc.data.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </nav>
-    </aside>
-
-    <!-- 正文 -->
-    <article class="order-1 lg:order-2 min-w-0 flex-1">
-      <div class="doc-body">
-        <Content />
-      </div>
-
-      {entry.data.source && (
-        <p class="mt-12 pt-6 border-t border-surface-800/50 text-xs text-surface-600">
-          源文件：
-          <a
-            class="text-surface-400 hover:text-surface-200 font-mono"
-            href={`https://github.com/cocosoft/Liri/blob/main/app/docs/${encodeURI(entry.data.source)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            app/docs/{entry.data.source}
-          </a>
-        </p>
-      )}
-
-      <div class="mt-8 flex items-center justify-between gap-4">
-        {prev ? (
-          <a href={withBase(`/docs/${prev.id}`)} class="text-sm text-surface-400 hover:text-brand-400 transition-colors">
-            ← {prev.data.title}
-          </a>
-        ) : <span />}
-        {next ? (
-          <a href={withBase(`/docs/${next.id}`)} class="text-sm text-surface-400 hover:text-brand-400 transition-colors text-right">
-            {next.data.title} →
-          </a>
-        ) : <span />}
-      </div>
-    </article>
-  </div>
-</Layout>
+<DocsArticle entry={entry} pages={pages} Content={Content} />

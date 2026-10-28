@@ -1,33 +1,26 @@
 ---
+import { pick } from '../i18n';
+import { voiceInteraction } from '../i18n/sections/voiceInteraction';
+
+const c = pick(voiceInteraction, Astro.url);
+
 // 语音能力数据
 const features = [
   {
-    title: '语音输入',
-    desc: '本地 faster-whisper 与 SenseVoice，或云端 OpenAI Whisper',
     icon: '🎤',
     color: 'from-cyan-500 to-blue-500',
-    platforms: ['本地 faster-whisper', 'SenseVoice', 'OpenAI Whisper', '流式识别'],
   },
   {
-    title: '语音输出',
-    desc: '本地 Piper 或云端 Edge / OpenAI，也可接自定义命令',
     icon: '🔊',
     color: 'from-brand-500 to-orange-500',
-    platforms: ['本地 Piper', 'Edge TTS', 'OpenAI TTS', '自定义命令'],
   },
   {
-    title: '工具化调用',
-    desc: '语音能力本身也是工具，模型可按需调用',
     icon: '⚡',
     color: 'from-purple-500 to-pink-500',
-    platforms: ['tts 工具', 'audio_play 工具', '语音输入', '回复播报'],
   },
   {
-    title: '多端适配',
-    desc: '桌面端与终端共享同一套语音服务',
     icon: '📱',
     color: 'from-emerald-500 to-teal-500',
-    platforms: ['Tauri 桌面', 'CLI 终端', 'HTTP API'],
   },
 ];
 ---
@@ -38,10 +31,10 @@ const features = [
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">语音交互</span>
+      <span class="gradient-text">{c.title}</span>
     </h2>
     <p class="text-surface-400 text-center mb-12 max-w-3xl mx-auto">
-      不只是打字——说出你的需求，Liri 听懂、执行、回答
+      {c.subtitle}
     </p>
 
     <div class="max-w-4xl mx-auto grid sm:grid-cols-2 gap-5">
@@ -55,12 +48,12 @@ const features = [
               {f.icon}
             </div>
             <div>
-              <h3 class="text-base font-bold text-surface-100">{f.title}</h3>
-              <p class="text-xs text-surface-400">{f.desc}</p>
+              <h3 class="text-base font-bold text-surface-100">{c.features[index].title}</h3>
+              <p class="text-xs text-surface-400">{c.features[index].desc}</p>
             </div>
           </div>
           <div class="space-y-1.5">
-            {f.platforms.map((pf) => (
+            {c.features[index].platforms.map((pf) => (
               <div class="flex items-center gap-2 text-xs text-surface-400">
                 <svg class="w-3 h-3 text-brand-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -76,8 +69,8 @@ const features = [
     <!-- 适用场景 -->
     <div class="mt-8 max-w-2xl mx-auto glass-card p-5 text-center border-cyan-500/20">
       <p class="text-surface-400 text-sm">
-        免提操作 · 多任务场景 · 无障碍辅助 · 语音快捷指令 ·
-        <span class="text-brand-400 font-semibold">随时随地，说出即执行</span>
+        {c.scenarios}
+        <span class="text-brand-400 font-semibold">{c.scenariosHighlight}</span>
       </p>
     </div>
   </div>

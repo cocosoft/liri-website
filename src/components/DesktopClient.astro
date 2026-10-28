@@ -1,4 +1,12 @@
 ---
+import { siteFacts } from '../data/site';
+import { fmt, num, pick } from '../i18n';
+import { desktopClient } from '../i18n/sections/desktopClient';
+
+const c = pick(desktopClient, Astro.url);
+
+// 功能列表图标（顺序与 c.features 一致）
+const featureIcons = ['💬', '🤖', '📚', '🧠', '⏰', '🔌', '💰', '🎭'];
 ---
 
 <section id="desktop" class="section-padding relative overflow-hidden">
@@ -7,10 +15,13 @@
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">桌面客户端</span>
+      <span class="gradient-text">{c.title}</span>
     </h2>
     <p class="text-surface-400 text-center mb-12 max-w-3xl mx-auto">
-      Tauri 2.11 + React 19 构建 · 425 个 TSX 组件 · 32 个功能页面 · 完整的桌面体验
+      {fmt(c.subtitle, {
+        components: num(siteFacts.desktopComponents),
+        pages: siteFacts.desktopPages,
+      })}
     </p>
 
     <!-- 模拟桌面界面 -->
@@ -32,7 +43,7 @@
         <div class="flex h-64 sm:h-80">
           <!-- 侧边栏导航（移动端隐藏） -->
           <div class="hidden sm:block w-40 lg:w-48 bg-surface-900/60 border-r border-surface-800/50 p-3 space-y-1 overflow-y-auto">
-            {['聊天', 'AI 模型', '知识库', '记忆管理', '技能', 'MCP', '定时任务', '成本中心', 'Buddy 伙伴', '系统设置'].map((item, i) => (
+            {c.sidebar.map((item, i) => (
               <div class={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono ${i === 0 ? 'bg-brand-500/10 text-brand-300 border border-brand-500/20' : 'text-surface-400 hover:text-surface-200 hover:bg-surface-800/50'} transition-colors cursor-default`}>
                 <span class="w-1.5 h-1.5 rounded-full bg-current opacity-50"></span>
                 {item}
@@ -45,30 +56,30 @@
             <div class="flex items-center gap-3 mb-4">
               <div class="w-10 h-10 rounded-xl bg-brand-500/20 flex items-center justify-center text-lg">💬</div>
               <div>
-                <div class="text-sm font-bold text-surface-200">聊天面板</div>
-                <div class="text-xs text-surface-500">Liri · 玲珑鸟</div>
+                <div class="text-sm font-bold text-surface-200">{c.panelTitle}</div>
+                <div class="text-xs text-surface-500">{c.panelUser}</div>
               </div>
             </div>
             <div class="space-y-3">
               <div class="flex justify-start">
                 <div class="max-w-xs p-3 rounded-2xl bg-surface-800/60 border border-surface-800/50 text-sm text-surface-300">
-                  你好！我是 Liri，有什么需要帮忙的吗？
+                  {c.greeting}
                 </div>
               </div>
               <div class="flex justify-end">
                 <div class="max-w-xs p-3 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-sm text-surface-200">
-                  帮我分析一下这个项目的数据
+                  {c.userMessage}
                 </div>
               </div>
               <div class="flex justify-start">
                 <div class="max-w-xs p-3 rounded-2xl bg-surface-800/60 border border-surface-800/50 text-sm text-surface-300">
-                  好的，正在分析中...
+                  {c.reply}
                 </div>
               </div>
             </div>
             <div class="mt-3 p-3 rounded-xl bg-surface-800/40 border border-surface-800/50 flex items-center gap-2">
               <div class="flex-1 h-8 rounded-lg bg-surface-800/60 border border-surface-800/50 px-3 flex items-center">
-                <span class="text-xs text-surface-500">输入消息，按 Enter 发送...</span>
+                <span class="text-xs text-surface-500">{c.inputPlaceholder}</span>
               </div>
               <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center">
                 <svg class="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -79,22 +90,13 @@
       </div>
     </div>
 
-    <p class="text-center text-xs text-surface-600 mt-3 font-mono">界面结构示意，非真实截图</p>
+    <p class="text-center text-xs text-surface-600 mt-3 font-mono">{c.mockNote}</p>
 
     <!-- 功能列表 -->
     <div class="mt-10 max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3">
-      {[
-        { icon: '💬', label: '聊天面板', desc: '多轮对话' },
-        { icon: '🤖', label: '模型管理', desc: '多模型切换' },
-        { icon: '📚', label: '知识库', desc: '文件检索' },
-        { icon: '🧠', label: '记忆管理', desc: '历史回顾' },
-        { icon: '⏰', label: '定时任务', desc: 'Cron 调度' },
-        { icon: '🔌', label: 'MCP 接入', desc: '服务发现与安装' },
-        { icon: '💰', label: '成本中心', desc: '用量与费用记录' },
-        { icon: '🎭', label: 'Buddy 伙伴', desc: '外观与成长数据' },
-      ].map((f) => (
+      {c.features.map((f, i) => (
         <div class="glass-card p-4 text-center hover:border-brand-500/30 transition-all duration-300">
-          <div class="text-xl mb-1">{f.icon}</div>
+          <div class="text-xl mb-1">{featureIcons[i]}</div>
           <div class="text-sm font-semibold text-surface-200">{f.label}</div>
           <div class="text-xs text-surface-500">{f.desc}</div>
         </div>

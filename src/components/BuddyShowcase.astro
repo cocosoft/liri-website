@@ -1,4 +1,10 @@
 ---
+import { siteFacts } from '../data/site';
+import { fmt, pick } from '../i18n';
+import { buddyShowcase } from '../i18n/sections/buddyShowcase';
+
+const c = pick(buddyShowcase, Astro.url);
+
 // Buddy 物种数据
 interface BuddySpecies {
   name: string;
@@ -9,25 +15,40 @@ interface BuddySpecies {
   color: string;
 }
 
-const buddies: BuddySpecies[] = [
-  { name: '鸭子', emoji: '🦆', type: '物种', rarity: '普通', desc: '物种决定主体轮廓，共 18 种可选', color: 'from-brand-500/20 to-orange-500/10' },
-  { name: '猫', emoji: '🐱', type: '物种', rarity: '罕见', desc: '可叠加 8 种帽子：王冠 / 礼帽 / 螺旋桨 / 光环 / 巫师帽…', color: 'from-cyan-500/20 to-blue-500/10' },
-  { name: '龙', emoji: '🐉', type: '物种', rarity: '稀有', desc: '6 种眼睛符号，决定表情与气质', color: 'from-green-500/20 to-emerald-500/10' },
-  { name: '章鱼', emoji: '🐙', type: '物种', rarity: '史诗', desc: '稀有度分 5 级：common → legendary', color: 'from-purple-500/20 to-violet-500/10' },
-  { name: '猫头鹰', emoji: '🦉', type: '物种', rarity: '传说', desc: '外观由种子确定性生成，同一只始终长相一致', color: 'from-amber-500/20 to-yellow-500/10' },
-  { name: '机器人', emoji: '🤖', type: '物种', rarity: '稀有', desc: '成长数据落盘 buddy-growth.json，跨会话保留', color: 'from-pink-500/20 to-rose-500/10' },
+const buddyVisuals = [
+  { emoji: '🦆', color: 'from-brand-500/20 to-orange-500/10' },
+  { emoji: '🐱', color: 'from-cyan-500/20 to-blue-500/10' },
+  { emoji: '🐉', color: 'from-green-500/20 to-emerald-500/10' },
+  { emoji: '🐙', color: 'from-purple-500/20 to-violet-500/10' },
+  { emoji: '🦉', color: 'from-amber-500/20 to-yellow-500/10' },
+  { emoji: '🤖', color: 'from-pink-500/20 to-rose-500/10' },
 ];
 
-const rarities = ['普通', '罕见', '稀有', '史诗', '传说'];
-const rarityColors: Record<string, string> = {
-  '普通': 'text-surface-400 bg-surface-800',
-  '罕见': 'text-blue-300 bg-blue-500/10',
-  '稀有': 'text-cyan-300 bg-cyan-500/10',
-  '史诗': 'text-purple-300 bg-purple-500/10',
-  '传说': 'text-amber-300 bg-amber-500/10',
-};
+const buddies: BuddySpecies[] = c.buddies.map((buddy, i) => ({
+  ...buddy,
+  ...buddyVisuals[i]!,
+}));
 
-const types = ['物种', '帽子', '眼睛', '稀有度'];
+const rarityPalette = [
+  'text-surface-400 bg-surface-800',
+  'text-blue-300 bg-blue-500/10',
+  'text-cyan-300 bg-cyan-500/10',
+  'text-purple-300 bg-purple-500/10',
+  'text-amber-300 bg-amber-500/10',
+];
+const rarityColors = c.rarities.reduce<Record<string, string>>((acc, rarity, i) => {
+  acc[rarity] = rarityPalette[i] ?? 'text-surface-400 bg-surface-800';
+  return acc;
+}, {});
+
+const types = c.types;
+
+const buddyParams = {
+  species: siteFacts.buddySpecies,
+  hats: siteFacts.buddyHats,
+  eyes: siteFacts.buddyEyes,
+  rarities: siteFacts.buddyRarities,
+};
 ---
 
 <section id="buddy" class="section-padding relative">
@@ -35,10 +56,10 @@ const types = ['物种', '帽子', '眼睛', '稀有度'];
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">Buddy 人格系统</span>
+      <span class="gradient-text">{c.title}</span>
     </h2>
     <p class="text-surface-400 text-center mb-8 max-w-3xl mx-auto">
-      18 种物种 × 8 种帽子 × 6 种眼睛 × 5 级稀有度，你的 AI 伙伴，不是工具
+      {fmt(c.subtitle, buddyParams)}
     </p>
 
     <!-- 角色卡片网格 -->
@@ -55,7 +76,7 @@ const types = ['物种', '帽子', '眼睛', '稀有度'];
           <div class="flex items-center gap-2 mb-3">
             <span class="text-xs font-mono text-surface-500 bg-surface-800/60 px-2 py-0.5 rounded">{buddy.type}</span>
           </div>
-          <p class="text-sm text-surface-400 leading-relaxed">{buddy.desc}</p>
+          <p class="text-sm text-surface-400 leading-relaxed">{fmt(buddy.desc, buddyParams)}</p>
         </div>
       ))}
     </div>
@@ -63,29 +84,28 @@ const types = ['物种', '帽子', '眼睛', '稀有度'];
     <!-- 成长系统 -->
     <div class="mt-12 max-w-3xl mx-auto glass-card p-8 text-center border-amber-500/20">
       <div class="text-3xl mb-3">🌱 → 📈 → 🏆</div>
-      <h3 class="text-lg font-bold text-surface-100 mb-3">Buddy 成长系统</h3>
+      <h3 class="text-lg font-bold text-surface-100 mb-3">{c.growthTitle}</h3>
       <p class="text-surface-400 text-sm mb-6">
-        成长状态持久化在 <code class="font-mono text-brand-400">buddy-growth.json</code>，
-        跨会话累计，不随进程重启丢失。
+        <Fragment set:html={c.growthDesc} />
       </p>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-          <div class="text-xs font-mono text-green-400 mb-2">完成任务</div>
+          <div class="text-xs font-mono text-green-400 mb-2">{c.completedLabel}</div>
           <div class="text-2xl">✅</div>
           <div class="text-xs text-surface-500 mt-2">totalCompleted</div>
         </div>
         <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-          <div class="text-xs font-mono text-brand-400 mb-2">对话轮数</div>
+          <div class="text-xs font-mono text-brand-400 mb-2">{c.sessionsLabel}</div>
           <div class="text-2xl">💬</div>
           <div class="text-xs text-surface-500 mt-2">userSessions</div>
         </div>
         <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-          <div class="text-xs font-mono text-cyan-400 mb-2">连续天数</div>
+          <div class="text-xs font-mono text-cyan-400 mb-2">{c.streakLabel}</div>
           <div class="text-2xl">🔥</div>
           <div class="text-xs text-surface-500 mt-2">consecutiveDays</div>
         </div>
         <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-          <div class="text-xs font-mono text-amber-400 mb-2">已解锁成就</div>
+          <div class="text-xs font-mono text-amber-400 mb-2">{c.achievementsLabel}</div>
           <div class="text-2xl">🏅</div>
           <div class="text-xs text-surface-500 mt-2">achievements</div>
         </div>

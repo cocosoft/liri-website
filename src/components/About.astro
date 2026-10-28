@@ -1,5 +1,15 @@
 ---
-import { keyStats, siteFacts } from '../data/site';
+import { siteFacts } from '../data/site';
+import { fmt, num, pick } from '../i18n';
+import { about } from '../i18n/sections/about';
+
+const c = pick(about, Astro.url);
+const statValues = [
+  num(siteFacts.tsFiles),
+  siteFacts.tools,
+  siteFacts.channels,
+  siteFacts.desktopComponents,
+];
 ---
 
 <section class="section-padding relative">
@@ -7,35 +17,36 @@ import { keyStats, siteFacts } from '../data/site';
     <div class="max-w-4xl mx-auto">
       <!-- 区块标题 -->
       <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">
-        <span class="gradient-text">Liri 是什么</span>
+        <span class="gradient-text">{c.title}</span>
       </h2>
 
       <!-- 核心描述 -->
       <div class="space-y-6 text-surface-300 text-base sm:text-lg leading-relaxed">
         <p class="glass-card p-8 text-center">
-          Liri 是一个基于 <strong class="text-brand-300">TypeScript + Rust</strong> 架构的
-          <strong class="text-brand-300">AI 私人助手</strong>。
+          <Fragment set:html={c.p1} />
         </p>
 
         <p class="glass-card p-8 text-center">
-          它不只是聊天机器人——它能<strong class="text-brand-300">理解意图</strong>、<strong class="text-brand-300">执行命令</strong>、<strong class="text-brand-300">管理任务</strong>、<strong class="text-brand-300">调用工具</strong>、
-          甚至与其他 AI Agent 协作。从终端到桌面，从 IM 到 MCP，同一个引擎支撑多个入口。
+          <Fragment set:html={c.p2} />
         </p>
 
         <p class="glass-card p-8 text-center">
-          <strong class="text-brand-300">{siteFacts.modules}</strong> 个模块化子系统，
-          <strong class="text-brand-300">{siteFacts.tsFiles.toLocaleString('en-US')}</strong> 个 TypeScript 文件，
-          <strong class="text-brand-300">{siteFacts.desktopComponents}</strong> 个桌面组件
-          —— 可按构建变体裁剪。
+          <Fragment
+            set:html={fmt(c.p3, {
+              modules: siteFacts.modules,
+              tsFiles: num(siteFacts.tsFiles),
+              desktopComponents: siteFacts.desktopComponents,
+            })}
+          />
         </p>
       </div>
 
       <!-- 关键数据统计 -->
       <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {keyStats.map((stat) => (
+        {statValues.map((value, i) => (
           <div class="glass-card p-6 text-center">
-            <div class="text-3xl font-bold gradient-text mb-1">{stat.value}</div>
-            <div class="text-surface-400 text-sm">{stat.label}</div>
+            <div class="text-3xl font-bold gradient-text mb-1">{value}</div>
+            <div class="text-surface-400 text-sm">{c.statLabels[i]}</div>
           </div>
         ))}
       </div>

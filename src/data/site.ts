@@ -49,37 +49,16 @@ export const siteFacts = {
 } as const;
 
 /**
- * 站点阶段标识。
+ * 站点阶段标识（文案见 src/i18n/ui.ts 的 stage）。
  * 正式版发布时把 status 改为 'stable'，顶部通栏与首屏徽章会整体消失，无需改动模板。
  */
 export const releaseStage = {
   status: 'iterating' as 'iterating' | 'stable',
-  label: '快速迭代期',
-  note: '接口与文档可能变动',
-  detail: '当前处于快速迭代阶段，接口、配置项与文档会随版本调整，升级前请留意发布日志。',
   href: 'https://github.com/cocosoft/Liri/releases',
-  cta: '发布日志',
 } as const;
 
 /** 模板据此决定是否渲染阶段标识 */
 export const isIterating = releaseStage.status === 'iterating';
-
-/** 首屏与关于区块复用的关键数字 */
-export const keyStats = [
-  { value: siteFacts.tsFiles.toLocaleString('en-US'), label: 'TypeScript 文件' },
-  { value: String(siteFacts.tools), label: '内置工具' },
-  { value: String(siteFacts.channels), label: '消息渠道' },
-  { value: String(siteFacts.desktopComponents), label: '桌面 TSX 组件' },
-] as const;
-
-/** 一行式数字标语 */
-export const heroStats = [
-  `${siteFacts.tsFiles.toLocaleString('en-US')} 个 TS 文件`,
-  `${siteFacts.tools} 个内置工具`,
-  `${siteFacts.securityLayers} 层安全纵深`,
-  `${siteFacts.channels} 个消息渠道`,
-  `${siteFacts.buddySpecies} 种 Buddy 物种`,
-] as const;
 
 /** 消息渠道，按场景分组（来源：ChannelCatalog.ts，共 27 个） */
 export const channelGroups = [

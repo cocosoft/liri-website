@@ -1,0 +1,8 @@
+---
+import DocsList from '../../../components/docs/DocsList.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('docsEn')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<DocsList entries={entries} />

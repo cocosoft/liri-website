@@ -1,11 +1,15 @@
 ---
 import { releaseStage } from '../data/site';
+import { pick } from '../i18n';
+import { ui } from '../i18n/ui';
+
+const c = pick(ui, Astro.url).stage;
 ---
 
 <!-- 快速迭代期通栏：releaseStage.status 切到 stable 后由 Layout 停止渲染 -->
 <div
-  class="fixed top-0 inset-x-0 z-50 h-9 bg-linear-to-r from-brand-700 via-brand-600 to-orange-600 border-b border-white/10"
-  title={releaseStage.detail}
+  class="fixed top-0 inset-x-0 z-50 h-9 bg-linear-to-r from-brand-700 via-brand-600 to-orange-700 border-b border-white/10"
+  title={c.detail}
 >
   <div class="section-container h-full flex items-center justify-center gap-2 sm:gap-3 min-w-0">
     <span class="relative flex h-1.5 w-1.5 shrink-0">
@@ -13,8 +17,8 @@ import { releaseStage } from '../data/site';
       <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-white"></span>
     </span>
     <span class="text-[11px] sm:text-xs font-semibold tracking-wide text-white truncate">
-      {releaseStage.label}
-      <span class="font-normal text-white/80">· {releaseStage.note}</span>
+      {c.label}
+      <span class="font-normal text-white/80">· {c.note}</span>
     </span>
     <a
       href={releaseStage.href}
@@ -22,7 +26,7 @@ import { releaseStage } from '../data/site';
       rel="noopener noreferrer"
       class="hidden sm:inline-flex items-center gap-0.5 text-[11px] sm:text-xs text-white/90 hover:text-white underline underline-offset-2 shrink-0"
     >
-      {releaseStage.cta}
+      {c.cta}
       <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
       </svg>

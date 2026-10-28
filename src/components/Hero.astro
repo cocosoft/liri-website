@@ -1,6 +1,20 @@
 ---
-import { heroStats, isIterating, releaseStage, siteFacts } from '../data/site';
+import { isIterating, releaseStage, siteFacts } from '../data/site';
 import { withBase } from '../utils/url';
+import { fmt, getLangFromUrl, num, pick } from '../i18n';
+import { ui } from '../i18n/ui';
+import { hero } from '../i18n/sections/hero';
+
+const lang = getLangFromUrl(Astro.url);
+const c = pick(hero, Astro.url);
+const t = pick(ui, Astro.url);
+const statValues = [
+  num(siteFacts.tsFiles),
+  siteFacts.tools,
+  siteFacts.securityLayers,
+  siteFacts.channels,
+  siteFacts.buddySpecies,
+];
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -24,38 +38,38 @@ import { withBase } from '../utils/url';
 
     <!-- 副标题 -->
     <p class="text-sm sm:text-xl text-surface-300 font-medium mb-2 animate-fade-in-up px-4 sm:px-0" style="animation-delay: .2s;">
-      玲珑鸟 · AI 私人助手 · <span class="text-brand-400">本地优先</span> · <span class="text-brand-400">安全内生</span>
+      <Fragment set:html={c.subtitle} />
     </p>
 
     <div class="mb-4 flex flex-wrap items-center justify-center gap-2 animate-fade-in-up" style="animation-delay: .22s;">
       <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono text-surface-400 bg-surface-900/60 border border-surface-800/60">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        v{siteFacts.version} · MIT 开源 · 发布于 {siteFacts.releaseDate}
+        <Fragment set:html={fmt(c.versionPill, { version: siteFacts.version, date: siteFacts.releaseDate })} />
       </span>
       {isIterating && (
         <a
           href={releaseStage.href}
           target="_blank"
           rel="noopener noreferrer"
-          title={releaseStage.detail}
+          title={t.stage.detail}
           class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-brand-300 bg-brand-500/10 border border-brand-500/30 hover:bg-brand-500/15 hover:border-brand-500/50 transition-colors"
         >
           <span class="relative flex h-1.5 w-1.5">
             <span class="absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75 animate-ping"></span>
             <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-400"></span>
           </span>
-          {releaseStage.label}
-          <span class="font-normal text-brand-400/80">· {releaseStage.note}</span>
+          {t.stage.label}
+          <span class="font-normal text-brand-400/80">· {t.stage.note}</span>
         </a>
       )}
     </div>
 
     <!-- 核心数字标语 -->
     <div class="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-1 mb-5 sm:mb-6 animate-fade-in-up text-xs sm:text-sm font-mono text-surface-500" style="animation-delay: .25s;">
-      {heroStats.map((stat, i) => (
+      {c.stats.map((stat, i) => (
         <>
           {i > 0 && <span class="text-surface-700 hidden sm:inline">·</span>}
-          <span>{stat}</span>
+          <span>{fmt(stat, { n: statValues[i] })}</span>
         </>
       ))}
     </div>
@@ -63,7 +77,7 @@ import { withBase } from '../utils/url';
     <!-- CTA 按钮 -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: .3s;">
       <a href="#quickstart" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-linear-to-r from-brand-500 to-orange-500 text-white font-semibold text-base transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/25 hover:scale-[1.02] active:scale-[.98]">
-        快速开始
+        {c.ctaPrimary}
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
         </svg>
@@ -72,17 +86,17 @@ import { withBase } from '../utils/url';
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
         </svg>
-        GitHub
+        {c.ctaGithub}
       </a>
     </div>
 
     <!-- 一行命令 -->
     <div class="mt-4 sm:mt-5 animate-fade-in-up px-4 sm:px-0" style="animation-delay: .4s;">
-      <div class="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-surface-900/80 border border-surface-700/50 hover:border-brand-500/30 transition-all duration-300 cursor-pointer max-w-full min-w-0" onclick="navigator.clipboard?.writeText('git clone https://github.com/cocosoft/Liri.git && cd Liri/app && bun install')" title="点击复制">
+      <div class="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-surface-900/80 border border-surface-700/50 hover:border-brand-500/30 transition-all duration-300 cursor-pointer max-w-full min-w-0" onclick="navigator.clipboard?.writeText('git clone https://github.com/cocosoft/Liri.git && cd Liri/app && bun install')" title={t.common.copy}>
         <code class="text-xs sm:text-sm font-mono text-surface-200 truncate min-w-0">
           <span class="text-surface-500">$ </span>
-          <span class="text-brand-400">git clone https://github.com/cocosoft/Liri.git</span>
-          <span class="text-surface-500 hidden sm:inline">  # 然后 cd app && bun install</span>
+          <span class="text-brand-400">{c.command}</span>
+          <span class="text-surface-500 hidden sm:inline">{c.commandHint}</span>
         </code>
         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-surface-500 hover:text-brand-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -94,7 +108,7 @@ import { withBase } from '../utils/url';
   <!-- 向下滚动指示器（移动端隐藏，相对 section 定位避免与 CTA 重叠） -->
   <div class="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2 animate-fade-in-up" style="animation-delay: .6s;">
     <div class="flex items-center gap-2 text-surface-500 flex-col">
-      <span class="text-xs font-mono">向下滚动</span>
+      <span class="text-xs font-mono">{t.common.scroll}</span>
       <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
       </svg>

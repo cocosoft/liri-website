@@ -1,55 +1,30 @@
 ---
 import { siteFacts } from '../data/site';
+import { fmt, num, pick } from '../i18n';
+import { roadmap } from '../i18n/sections/roadmap';
+
+const c = pick(roadmap, Astro.url);
 
 // 版本节奏：数据取自 git tag 与 CHANGELOG，不写未发生的计划
-const milestones = [
-  {
-    quarter: '2026-10-28',
-    version: `v${siteFacts.version}`,
-    status: 'active',
-    label: '当前版本',
-    items: [
-      `${siteFacts.tools} 个内置工具 · ${siteFacts.toolCategories} 个分类`,
-      `${siteFacts.channels} 个消息渠道`,
-      `${siteFacts.securityLayers} 层安全 + 6 种沙箱后端`,
-      `桌面端 ${siteFacts.desktopComponents} 个组件 · ${siteFacts.desktopPages} 个页面`,
-    ],
-  },
-  {
-    quarter: '2026-10',
-    version: 'v0.5.13 → v0.5.21',
-    status: 'done',
-    label: '已发布',
-    items: [
-      '三天内连续发布 8 个版本（v0.5.13 → v0.5.21）',
-      '内核模块外移，门禁基线同步',
-      '计划进度改为按产物存在性推进',
-      '沙箱权限改动即时生效',
-    ],
-  },
-  {
-    quarter: '仓库累计',
-    version: `${siteFacts.releases} 个 tag`,
-    status: 'done',
-    label: '迭代节奏',
-    items: [
-      `累计 ${siteFacts.commits.toLocaleString('en-US')} 次提交`,
-      'CI 覆盖 lint:arch / 类型检查 / 单元测试',
-      '仓库公开，Issue 与 PR 可见',
-    ],
-  },
-  {
-    quarter: '后续',
-    version: 'v0.6+',
-    status: 'planned',
-    label: '规划中',
-    items: [
-      '以 GitHub Releases 与 Issues 为准',
-      '在线文档站建设中',
-      '功能优先级欢迎在 Issue 里投票',
-    ],
-  },
-];
+const statuses = ['active', 'done', 'done', 'planned'];
+const facts = {
+  version: siteFacts.version,
+  tools: siteFacts.tools,
+  toolCategories: siteFacts.toolCategories,
+  channels: siteFacts.channels,
+  securityLayers: siteFacts.securityLayers,
+  desktopComponents: siteFacts.desktopComponents,
+  desktopPages: siteFacts.desktopPages,
+  releases: siteFacts.releases,
+  commits: num(siteFacts.commits),
+};
+
+const milestones = c.milestones.map((item, i) => ({
+  ...item,
+  version: fmt(item.version, facts),
+  status: statuses[i],
+  items: item.items.map((task) => fmt(task, facts)),
+}));
 
 const statusConfig: Record<string, { bg: string; border: string; text: string; dot: string }> = {
   done: { bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', text: 'text-emerald-400', dot: 'bg-emerald-500' },
@@ -63,10 +38,10 @@ const statusConfig: Record<string, { bg: string; border: string; text: string; d
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">版本与迭代</span>
+      <span class="gradient-text">{c.title}</span>
     </h2>
     <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
-      版本号、标签数、提交记录都可在 GitHub 复核
+      {c.subtitle}
     </p>
 
     <div class="max-w-3xl mx-auto">

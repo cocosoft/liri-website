@@ -1,0 +1,104 @@
+---
+import { withBase } from '../utils/url';
+import { getLangFromUrl, localizePath, pick } from '../i18n';
+import { isIterating } from '../data/site';
+import { ui } from '../i18n/ui';
+import LangSwitcher from './LangSwitcher.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = pick(ui, Astro.url);
+
+const links = [
+  { href: '#capabilities', label: t.nav.capabilities },
+  { href: '#architecture', label: t.nav.architecture },
+  { href: '#security', label: t.nav.security },
+  { href: '#smart-router', label: t.nav.routing },
+  { href: '#voice', label: t.nav.voice },
+  { href: '#brain', label: t.nav.brain },
+  { href: '#desktop', label: t.nav.desktop },
+  { href: '#cost', label: t.nav.cost },
+  { href: '#ecosystem', label: t.nav.ecosystem },
+  { href: '#quickstart', label: t.nav.start },
+];
+---
+
+<nav class={`fixed left-0 right-0 z-50 bg-surface-975/70 backdrop-blur-xl border-b border-surface-800/30 ${isIterating ? 'top-9' : 'top-0'}`}>
+  <div class="section-container flex items-center justify-between h-16">
+    <a href={localizePath('/', lang)} class="flex items-center gap-2.5 text-surface-200 font-bold shrink-0">
+      <img src={withBase('/logo.png')} alt="Liri" width="28" height="28" class="w-7 h-7 rounded-md" />
+      Liri
+    </a>
+
+    <!-- 桌面端导航链接：英文标签更长，断点收到 lg 避免中宽屏拥挤 -->
+    <div class="hidden lg:flex items-center gap-4 xl:gap-5 text-sm">
+      {links.map((link) => (
+        <a href={link.href} class="text-surface-400 hover:text-surface-200 transition-colors">{link.label}</a>
+      ))}
+      <a href={localizePath('/docs', lang)} class="text-brand-400 hover:text-brand-300 transition-colors">{t.nav.docs}</a>
+      <LangSwitcher />
+    </div>
+
+    <!-- 移动端：语言切换 + 汉堡按钮 -->
+    <div class="lg:hidden flex items-center gap-2">
+      <LangSwitcher />
+      <button
+        id="menu-btn"
+        class="p-2 rounded-lg text-surface-400 hover:text-surface-200 hover:bg-surface-800/50 transition-colors"
+        data-open-label={t.nav.openMenu}
+        data-close-label={t.nav.closeMenu}
+        aria-label={t.nav.openMenu}
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- 移动端菜单面板：必须放在 nav 之外，nav 的 backdrop-blur 会成为 fixed 的包含块 -->
+<div id="mobile-menu" class={`lg:hidden hidden fixed inset-x-0 bottom-0 z-40 bg-surface-975/95 backdrop-blur-2xl border-t border-surface-800/30 overflow-y-auto ${isIterating ? 'top-[6.25rem]' : 'top-16'}`}>
+  <div class="section-container py-6 space-y-1">
+    {links.map((link) => (
+      <a href={link.href} class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">{link.label}</a>
+    ))}
+    <a href={localizePath('/docs', lang)} class="block px-4 py-3 rounded-xl text-brand-400 hover:text-brand-300 hover:bg-surface-800/50 transition-colors text-base font-medium">{t.nav.docs}</a>
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  function toggleMenu() {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    btn.setAttribute('aria-label', isOpen ? btn.dataset.openLabel : btn.dataset.closeLabel);
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  }
+
+  function closeMenu() {
+    menu.classList.add('hidden');
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', btn.dataset.openLabel);
+    document.body.style.overflow = '';
+  }
+
+  btn?.addEventListener('click', toggleMenu);
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) closeMenu();
+  });
+</script>

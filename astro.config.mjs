@@ -26,6 +26,14 @@ function rehypeBaseLinks() {
 export default defineConfig({
   site: 'https://openliri.com',
   base: BASE,
+  // 中文为默认语言，保持现有 URL；英文走 /en 前缀
+  i18n: {
+    defaultLocale: 'zh',
+    locales: ['zh', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   markdown: {
     processor: unified({
       rehypePlugins: [rehypeBaseLinks],

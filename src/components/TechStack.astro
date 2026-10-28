@@ -1,16 +1,22 @@
 ---
-// 技术栈数据：开发者信任信号
-const stackItems = [
-  { label: 'TypeScript', pct: '4,059 文件', desc: '核心语言 · 约 87 万行' },
-  { label: 'Rust', pct: '9 模块', desc: 'AST / 安全 / 压缩原生模块' },
-  { label: 'Bun', pct: '', desc: '运行时' },
-  { label: 'React 19 + Ink', pct: '', desc: '终端 UI' },
-  { label: 'Tauri 2.11', pct: '425 组件', desc: '桌面客户端' },
-  { label: 'SQLite', pct: '', desc: '数据与向量存储' },
-  { label: 'OpenTelemetry', pct: '', desc: '可观测性' },
-  { label: 'MCP + ACP + A2A + LSP', pct: '', desc: '协议' },
-  { label: 'Docker', pct: '', desc: '沙箱后端之一' },
-  { label: 'MIT License', pct: '', desc: '开源协议' },
+import { siteFacts } from '../data/site';
+import { fmt, num, pick } from '../i18n';
+import { techstack } from '../i18n/sections/techstack';
+
+const c = pick(techstack, Astro.url);
+
+// 徽标数字（顺序与文案数组一致；空字符串表示该技术不显示徽标）
+const statValues = [
+  num(siteFacts.tsFiles),
+  siteFacts.rustModules,
+  '',
+  '',
+  siteFacts.desktopComponents,
+  '',
+  '',
+  '',
+  '',
+  '',
 ];
 ---
 
@@ -19,26 +25,26 @@ const stackItems = [
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">技术栈</span>
+      <span class="gradient-text">{c.title}</span>
     </h2>
     <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
-      现代技术选型，每一层都经过深思熟虑
+      {c.subtitle}
     </p>
 
     <div class="max-w-3xl mx-auto">
       <div class="glass-card p-8">
         <div class="flex flex-wrap justify-center gap-3">
-          {stackItems.map((item) => (
+          {c.items.map((item, index) => (
             <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-800/60 border border-surface-700/50 hover:border-brand-500/30 transition-all duration-300 group">
               <span class="text-sm font-mono text-surface-300 group-hover:text-brand-400 transition-colors">
                 {item.label}
               </span>
               {item.pct && (
                 <span class="text-xs font-mono text-brand-400 bg-brand-500/10 px-1.5 py-0.5 rounded">
-                  {item.pct}
+                  {fmt(item.pct, { n: statValues[index] })}
                 </span>
               )}
-              <span class="text-xs text-surface-500 hidden sm:inline">{item.desc}</span>
+              <span class="text-xs text-surface-500 hidden sm:inline">{fmt(item.desc, { lines: siteFacts.tsLines })}</span>
             </div>
           ))}
         </div>

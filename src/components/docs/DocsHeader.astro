@@ -1,0 +1,24 @@
+---
+import { withBase } from '../../utils/url';
+import { getLangFromUrl, localizePath, pick } from '../../i18n';
+import { isIterating } from '../../data/site';
+import { ui } from '../../i18n/ui';
+import LangSwitcher from '../LangSwitcher.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = pick(ui, Astro.url);
+---
+
+<header class={`border-b border-surface-800/40 sticky ${isIterating ? 'top-9' : 'top-0'} z-40 bg-surface-975/85 backdrop-blur-xl`}>
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href={localizePath('/', lang)} class="flex items-center gap-2 text-surface-200 font-bold">
+      <img src={withBase('/logo.png')} alt="Liri" width="24" height="24" class="w-6 h-6 rounded" />
+      <span class="gradient-text">Liri</span>
+      <span class="text-surface-500 font-normal text-sm">{t.docs.label}</span>
+    </a>
+    <div class="flex items-center gap-3">
+      <a href={localizePath('/docs', lang)} class="text-sm text-surface-400 hover:text-surface-200 transition-colors">{t.docs.all}</a>
+      <LangSwitcher />
+    </div>
+  </div>
+</header>

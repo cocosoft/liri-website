@@ -1,8 +1,12 @@
 ---
 import { siteFacts } from '../data/site';
 import { withBase } from '../utils/url';
+import { fmt, getLangFromUrl, localizePath, num, pick } from '../i18n';
+import { ui } from '../i18n/ui';
 
 const currentYear = new Date().getFullYear();
+const lang = getLangFromUrl(Astro.url);
+const t = pick(ui, Astro.url).footer;
 ---
 
 <footer class="border-t border-surface-800/50">
@@ -15,41 +19,41 @@ const currentYear = new Date().getFullYear();
           <span class="text-surface-200 font-bold text-base">Liri</span>
         </div>
         <p class="text-surface-500 text-xs leading-relaxed">
-          AI 私人助手 · 本地优先 · 安全内生
+          {t.tagline}
         </p>
       </div>
 
       <!-- 资源 -->
       <div>
-        <h4 class="text-surface-300 text-sm font-semibold mb-4">资源</h4>
+        <h4 class="text-surface-300 text-sm font-semibold mb-4">{t.resources}</h4>
         <div class="space-y-2">
           <a href="https://github.com/cocosoft/Liri" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
-            GitHub 仓库
+            {t.repo}
           </a>
           <a href="https://github.com/cocosoft/Liri/issues" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
-            提交 Issue
+            {t.issue}
           </a>
           <a href="https://github.com/cocosoft/Liri/releases" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
-            发布日志
+            {t.releases}
           </a>
           <a href="https://github.com/cocosoft/Liri/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
-            MIT License
+            {t.license}
           </a>
         </div>
       </div>
 
       <!-- 社区 -->
       <div>
-        <h4 class="text-surface-300 text-sm font-semibold mb-4">社区</h4>
+        <h4 class="text-surface-300 text-sm font-semibold mb-4">{t.community}</h4>
         <div class="space-y-2">
           <span class="block text-surface-600 text-xs">
-            Discord（即将上线）
+            {t.discord}
           </span>
-          <a href={withBase('/docs')} class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
-            使用文档
+          <a href={localizePath('/docs', lang)} class="block text-surface-500 hover:text-surface-300 transition-colors text-xs">
+            {t.docs}
           </a>
           <span class="block text-surface-600 text-xs">
-            Discussions（即将开启）
+            {t.discussions}
           </span>
         </div>
       </div>
@@ -58,10 +62,16 @@ const currentYear = new Date().getFullYear();
     <!-- 底部 -->
     <div class="mt-8 pt-6 border-t border-surface-800/30 flex flex-col sm:flex-row items-center justify-between gap-4">
       <span class="text-surface-600 text-xs">
-        &copy; {currentYear} Liri. Released under MIT License.
+        {fmt(t.copyright, { year: currentYear })}
       </span>
       <span class="text-surface-600 text-xs font-mono">
-        {siteFacts.tsFiles.toLocaleString('en-US')} TS 文件 · {siteFacts.tools} 工具 · {siteFacts.securityLayers} 层安全 · {siteFacts.channels} 渠道 · {siteFacts.buddySpecies} 种 Buddy
+        {fmt(t.stats, {
+          tsFiles: num(siteFacts.tsFiles),
+          tools: siteFacts.tools,
+          securityLayers: siteFacts.securityLayers,
+          channels: siteFacts.channels,
+          buddySpecies: siteFacts.buddySpecies,
+        })}
       </span>
     </div>
   </div>

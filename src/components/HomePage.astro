@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteNav from './SiteNav.astro';
+import Hero from './Hero.astro';
+import About from './About.astro';
+import Capabilities from './Capabilities.astro';
+import Architecture from './Architecture.astro';
+import TechStack from './TechStack.astro';
+import Security from './Security.astro';
+import SmartRouter from './SmartRouter.astro';
+import VoiceInteraction from './VoiceInteraction.astro';
+import BrainSection from './BrainSection.astro';
+import LocalFirst from './LocalFirst.astro';
+import BuddyShowcase from './BuddyShowcase.astro';
+import DesktopClient from './DesktopClient.astro';
+import CostTracking from './CostTracking.astro';
+import Comparison from './Comparison.astro';
+import ChannelWall from './ChannelWall.astro';
+import Ecosystem from './Ecosystem.astro';
+import Scenarios from './Scenarios.astro';
+import Roadmap from './Roadmap.astro';
+import QuickStart from './QuickStart.astro';
+import Community from './Community.astro';
+import Footer from './Footer.astro';
+import { pick } from '../i18n';
+import { ui } from '../i18n/ui';
+
+const t = pick(ui, Astro.url);
+---
+
+<Layout title={t.meta.homeTitle} description={t.meta.homeDescription}>
+  <SiteNav />
+
+  <main>
+    <Hero />
+    <About />
+    <Capabilities />
+    <Architecture />
+    <TechStack />
+    <Security />
+    <SmartRouter />
+    <VoiceInteraction />
+    <BrainSection />
+    <LocalFirst />
+    <BuddyShowcase />
+    <DesktopClient />
+    <CostTracking />
+    <Comparison />
+    <ChannelWall />
+    <Ecosystem />
+    <Scenarios />
+    <Roadmap />
+    <QuickStart />
+    <Community />
+  </main>
+
+  <Footer />
+</Layout>
