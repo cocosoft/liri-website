@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import tailwindcss from '@tailwindcss/vite';
 
 // 部署在 GitHub Pages 项目子路径下：https://cocosoft.github.io/liri-website/
@@ -25,7 +26,9 @@ export default defineConfig({
   site: 'https://cocosoft.github.io',
   base: BASE,
   markdown: {
-    rehypePlugins: [rehypeBaseLinks],
+    processor: unified({
+      rehypePlugins: [rehypeBaseLinks],
+    }),
   },
   vite: {
     plugins: [tailwindcss()],
