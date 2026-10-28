@@ -6,6 +6,6 @@
  */
 export const sponsorConfig = {
   githubSponsors: '',
-  afdian: '',
+  afdian: 'https://afdian.com/a/cocosoft',
   issues: 'https://github.com/cocosoft/Liri/issues',
 } as const;

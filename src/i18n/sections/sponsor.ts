@@ -20,7 +20,7 @@ const zh = {
     },
     {
       title: '爱发电',
-      desc: '面向国内，支持支付宝 / 微信，可月度也可一次性。',
+      desc: '面向国内，支持支付宝 / 微信，可月度或自选金额。',
       cta: '去爱发电',
     },
   ],
@@ -47,8 +47,8 @@ const zh = {
   ],
   tiersTitle: '赞助档位',
   tiers: [
-    { title: '每月 ¥30', desc: '名字进入 SPONSORS.md' },
-    { title: '每月 ¥100', desc: '名字 + 你的链接进入 SPONSORS.md' },
+    { title: '每月 ¥10', desc: '名字进入 SPONSORS.md' },
+    { title: '自选金额', desc: '一次性支持，金额随意' },
     { title: '企业支持', desc: 'logo + 链接；需要发票请走 Issues 联系，走对公' },
   ],
   ledgerTitle: '透明账本',
@@ -94,7 +94,7 @@ const en = {
     },
     {
       title: 'Afdian',
-      desc: 'For sponsors in China — Alipay / WeChat, monthly or one-off.',
+      desc: 'For sponsors in China — Alipay / WeChat, monthly or any custom amount.',
       cta: 'Go to Afdian',
     },
   ],
@@ -121,8 +121,8 @@ const en = {
   ],
   tiersTitle: 'Tiers',
   tiers: [
-    { title: '¥30 / month', desc: 'Your name in SPONSORS.md' },
-    { title: '¥100 / month', desc: 'Your name and link in SPONSORS.md' },
+    { title: '¥10 / month', desc: 'Your name in SPONSORS.md' },
+    { title: 'Custom amount', desc: 'One-off support, any amount' },
     { title: 'Enterprise', desc: 'Logo and link; invoices available — contact via issues' },
   ],
   ledgerTitle: 'Transparent ledger',
