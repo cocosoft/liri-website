@@ -53,6 +53,7 @@ const zh = {
     docs: '使用文档',
     status: '项目状态',
     evolution: '演进记录',
+    support: '支持 Liri',
     discussions: 'Discussions（即将开启）',
     copyright: '© {year} Liri. Released under MIT License.',
     stats:
@@ -132,6 +133,7 @@ const en = {
     docs: 'Documentation',
     status: 'Project status',
     evolution: 'Build log',
+    support: 'Support Liri',
     discussions: 'Discussions (opening soon)',
     copyright: '© {year} Liri. Released under MIT License.',
     stats:

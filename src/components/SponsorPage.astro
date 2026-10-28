@@ -1,0 +1,219 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SimpleHeader from './SimpleHeader.astro';
+import Footer from './Footer.astro';
+import { sponsorConfig } from '../data/sponsor';
+import { getLangFromUrl, localizePath, pick } from '../i18n';
+import { sponsor } from '../i18n/sections/sponsor';
+
+const c = pick(sponsor, Astro.url);
+const lang = getLangFromUrl(Astro.url);
+
+const channels = [
+  { ...c.channels[0], href: sponsorConfig.githubSponsors },
+  { ...c.channels[1], href: sponsorConfig.afdian },
+];
+
+const activeChannels = channels.filter((channel) => channel.href);
+const hasPending = channels.some((channel) => !channel.href);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: c.hero.title,
+  description: c.meta.description,
+};
+---
+
+<Layout title={c.meta.title} description={c.meta.description}>
+  <SimpleHeader label={c.label} />
+
+  <main>
+    <!-- Hero -->
+    <section class="pt-16 pb-10 relative">
+      <div class="section-container">
+        <div class="max-w-3xl">
+          <h1 class="text-3xl sm:text-5xl font-bold mb-5">
+            <span class="gradient-text">{c.hero.title}</span>
+          </h1>
+          <p class="text-surface-300 text-base sm:text-lg leading-relaxed mb-4">{c.hero.subtitle}</p>
+          <p class="text-sm text-surface-500">{c.hero.note}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 赞助方式 -->
+    <section class="pb-16">
+      <div class="section-container">
+        <h2 class="max-w-3xl mx-auto text-2xl sm:text-3xl font-bold mb-6">
+          <span class="gradient-text">{c.channelsTitle}</span>
+        </h2>
+        <div class={`mx-auto grid gap-4 ${activeChannels.length > 1 ? 'max-w-3xl sm:grid-cols-2' : 'max-w-xl'}`}>
+          {activeChannels.map((channel, i) => (
+            <div class="glass-card p-6 flex flex-col">
+              <h3 class="text-base font-semibold text-surface-100 mb-2">{channel.title}</h3>
+              <p class="text-sm text-surface-400 leading-relaxed flex-1">{channel.desc}</p>
+              <a
+                href={channel.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`mt-5 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                  i === 0
+                    ? 'bg-linear-to-r from-brand-500 to-orange-500 text-white hover:scale-[1.02]'
+                    : 'border border-surface-700 text-surface-200 hover:border-surface-500 hover:text-white'
+                }`}
+              >
+                {channel.cta}
+              </a>
+            </div>
+          ))}
+        </div>
+
+        {activeChannels.length === 0 && (
+          <div class="max-w-xl mx-auto glass-card p-6 text-center text-sm text-surface-500">{c.comingSoon}</div>
+        )}
+
+        {hasPending && (
+          <p class="max-w-3xl mx-auto mt-4 text-xs text-surface-600">{c.pendingNote}</p>
+        )}
+
+        <p class="max-w-3xl mx-auto mt-4 text-xs text-surface-600">
+          <a href={sponsorConfig.issues} target="_blank" rel="noopener noreferrer" class="hover:text-surface-400 underline underline-offset-2">
+            {c.contact}
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 钱花在哪 -->
+    <section class="section-padding relative bg-surface-950/40">
+      <div class="section-container">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3">
+            <span class="gradient-text">{c.usesTitle}</span>
+          </h2>
+          <p class="text-xs text-surface-500 mb-8">{c.usesNote}</p>
+
+          <div class="space-y-3">
+            {c.uses.map((use) => (
+              <div class="glass-card p-4 flex items-start gap-4">
+                <span class="shrink-0 text-sm font-mono text-brand-400 w-14 text-right">{use.share}</span>
+                <div class="min-w-0">
+                  <div class="text-sm font-semibold text-surface-200 mb-1">{use.label}</div>
+                  <div class="text-xs text-surface-500 leading-relaxed">{use.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 不承诺什么 -->
+    <section class="section-padding relative">
+      <div class="section-container">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-6">
+            <span class="gradient-text">{c.notTitle}</span>
+          </h2>
+          <ul class="space-y-3">
+            {c.nots.map((item) => (
+              <li class="flex items-start gap-3 text-sm text-surface-400 leading-relaxed">
+                <svg class="w-4 h-4 text-surface-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 档位 + 账本 -->
+    <section class="section-padding relative bg-surface-950/40">
+      <div class="section-container">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-6">
+            <span class="gradient-text">{c.tiersTitle}</span>
+          </h2>
+          <div class="grid sm:grid-cols-3 gap-4 mb-14">
+            {c.tiers.map((tier) => (
+              <div class="glass-card p-5">
+                <div class="text-base font-bold text-brand-300 mb-2">{tier.title}</div>
+                <p class="text-xs text-surface-500 leading-relaxed">{tier.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3">
+            <span class="gradient-text">{c.ledgerTitle}</span>
+          </h2>
+          <p class="text-xs text-surface-500 mb-6">{c.ledgerDesc}</p>
+
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[480px] text-sm">
+              <thead>
+                <tr class="border-b border-surface-800/50">
+                  {c.ledgerHeaders.map((header) => (
+                    <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="py-4 px-4 text-surface-600 text-xs" colspan={c.ledgerHeaders.length}>{c.ledgerEmpty}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 不花钱也能帮 -->
+    <section class="section-padding relative">
+      <div class="section-container">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-8">
+            <span class="gradient-text">{c.otherTitle}</span>
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {c.others.map((item) => (
+              <a
+                href={item.href.startsWith('/') ? localizePath(item.href, lang) : item.href}
+                {...(item.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+                class="glass-card p-5 hover:border-brand-500/30 transition-colors group"
+              >
+                <div class="text-sm font-semibold text-surface-200 mb-1">{item.title}</div>
+                <div class="text-xs text-surface-500 leading-relaxed">{item.desc}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-padding relative bg-surface-950/40">
+      <div class="section-container">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-6">
+            <span class="gradient-text">{c.faqTitle}</span>
+          </h2>
+          <div class="space-y-2">
+            {c.faq.map((item) => (
+              <details class="glass-card p-4 group">
+                <summary class="cursor-pointer text-sm font-medium text-surface-200">{item.q}</summary>
+                <p class="mt-3 text-sm text-surface-400 leading-relaxed">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</Layout>

@@ -222,6 +222,7 @@ const zh = {
       '发现漏洞细节请按 SECURITY.md 私密报告，不要开公开 issue；公开 issue 只讨论审计流程与覆盖范围。',
     ctaGithub: '在 Issues 里认领或提问',
     ctaSecurity: '打开安全自查路径',
+    fundLink: '想用资金支持？查看赞助页',
   },
 
   teaser: {
@@ -464,6 +465,7 @@ const en = {
       'Report vulnerability details privately via SECURITY.md — do not open a public issue. Public issues are for audit process and coverage only.',
     ctaGithub: 'Claim or ask in Issues',
     ctaSecurity: 'Open the security path',
+    fundLink: 'Prefer to fund it? See the sponsor page',
   },
 
   teaser: {

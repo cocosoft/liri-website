@@ -10,6 +10,7 @@ export const GET: APIRoute = async () => {
     { zh: '/', en: '/en/', priority: '1.0', changefreq: 'weekly' },
     { zh: '/evolution', en: '/en/evolution', priority: '0.9', changefreq: 'weekly' },
     { zh: '/status', en: '/en/status', priority: '0.8', changefreq: 'weekly' },
+    { zh: '/sponsor', en: '/en/sponsor', priority: '0.6', changefreq: 'monthly' },
     { zh: '/docs', en: '/en/docs', priority: '0.8', changefreq: 'weekly' },
     ...zhDocs.map((doc) => ({
       zh: `/docs/${doc.id}`,
