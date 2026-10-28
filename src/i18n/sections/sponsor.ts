@@ -26,6 +26,8 @@ const zh = {
   ],
   comingSoon: '即将开通',
   pendingNote: '国内渠道（爱发电）正在筹备，开通后会加在这里。',
+  waitlistNote:
+    'GitHub Sponsors 的收款要求账号位于支持地区，中国大陆暂不在名单内；赞助申请已提交，审核中。',
   contact: '企业支持与其它问题：在 Issues 里开一条（建议带 sponsor 标签）',
   usesTitle: '钱花在哪',
   usesNote: '比例是维护者的计划值，不是承诺；实际支出按月记录在账本里。',
@@ -98,6 +100,8 @@ const en = {
   ],
   comingSoon: 'Coming soon',
   pendingNote: 'The China channel (Afdian) is being set up and will be added here.',
+  waitlistNote:
+    'Receiving GitHub Sponsors payouts requires an account in a supported region; mainland China is not on the list yet. The application has been submitted and is under review.',
   contact: 'Enterprise support and anything else: open an issue (tag it sponsor)',
   usesTitle: 'Where the money goes',
   usesNote: 'Shares are the maintainer’s plan, not a promise; actual spending is logged monthly.',

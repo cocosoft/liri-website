@@ -70,10 +70,13 @@ const jsonLd = {
         </div>
 
         {activeChannels.length === 0 && (
-          <div class="max-w-xl mx-auto glass-card p-6 text-center text-sm text-surface-500">{c.comingSoon}</div>
+          <div class="max-w-xl mx-auto glass-card p-6 text-center">
+            <div class="text-sm text-surface-500 mb-2">{c.comingSoon}</div>
+            <p class="text-xs text-surface-600 leading-relaxed">{c.waitlistNote}</p>
+          </div>
         )}
 
-        {hasPending && (
+        {hasPending && activeChannels.length > 0 && (
           <p class="max-w-3xl mx-auto mt-4 text-xs text-surface-600">{c.pendingNote}</p>
         )}
 
