@@ -1,4 +1,6 @@
 ---
+import { heroStats, siteFacts } from '../data/site';
+import { withBase } from '../utils/url';
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -9,10 +11,10 @@
   <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-500/5 blur-3xl animate-pulse-glow pointer-events-none"></div>
   <div class="absolute top-1/2 left-1/3 w-[400px] h-[400px] rounded-full bg-orange-500/5 blur-3xl animate-pulse-glow pointer-events-none" style="animation-delay: 1.5s;"></div>
 
-  <div class="section-container relative z-10 text-center">
+  <div class="section-container relative z-10 text-center w-full min-w-0">
     <!-- Logo -->
     <div class="mb-4 sm:mb-6 animate-fade-in-up">
-      <img src="/logo.png" alt="Liri Logo" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto" style="filter: drop-shadow(0 0 40px rgba(255,90,54,.3));" />
+      <img src={withBase('/logo.png')} alt="Liri Logo" width="80" height="80" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl ring-1 ring-white/10" style="box-shadow: 0 12px 40px rgba(255,90,54,.18);" />
     </div>
 
     <!-- 主标题 -->
@@ -25,17 +27,21 @@
       玲珑鸟 · AI 私人助手 · <span class="text-brand-400">本地优先</span> · <span class="text-brand-400">安全内生</span>
     </p>
 
+    <div class="mb-4 flex justify-center animate-fade-in-up" style="animation-delay: .22s;">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono text-surface-400 bg-surface-900/60 border border-surface-800/60">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        v{siteFacts.version} · MIT 开源 · 发布于 {siteFacts.releaseDate}
+      </span>
+    </div>
+
     <!-- 核心数字标语 -->
     <div class="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-1 mb-5 sm:mb-6 animate-fade-in-up text-xs sm:text-sm font-mono text-surface-500" style="animation-delay: .25s;">
-      <span>3,649 个 TS 文件</span>
-      <span class="text-surface-700 hidden sm:inline">·</span>
-      <span>60+ 内置工具</span>
-      <span class="text-surface-700 hidden sm:inline">·</span>
-      <span>5 层安全纵深</span>
-      <span class="text-surface-700 hidden sm:inline">·</span>
-      <span>26+ 消息渠道</span>
-      <span class="text-surface-700 hidden sm:inline">·</span>
-      <span>16 种 Buddy 人格</span>
+      {heroStats.map((stat, i) => (
+        <>
+          {i > 0 && <span class="text-surface-700 hidden sm:inline">·</span>}
+          <span>{stat}</span>
+        </>
+      ))}
     </div>
 
     <!-- CTA 按钮 -->
@@ -46,7 +52,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
         </svg>
       </a>
-      <a href="https://github.com/cocosoft/liri-website" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border border-surface-700 text-surface-300 font-semibold text-base transition-all duration-300 hover:border-surface-500 hover:text-surface-100 hover:bg-surface-900/50">
+      <a href="https://github.com/cocosoft/Liri" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border border-surface-700 text-surface-300 font-semibold text-base transition-all duration-300 hover:border-surface-500 hover:text-surface-100 hover:bg-surface-900/50">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
         </svg>
@@ -56,26 +62,26 @@
 
     <!-- 一行命令 -->
     <div class="mt-4 sm:mt-5 animate-fade-in-up px-4 sm:px-0" style="animation-delay: .4s;">
-      <div class="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-surface-900/80 border border-surface-700/50 hover:border-brand-500/30 transition-all duration-300 cursor-pointer max-w-full" onclick="navigator.clipboard?.writeText('npm create liri')" title="点击复制">
-        <code class="text-xs sm:text-sm font-mono text-surface-200 truncate">
+      <div class="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-surface-900/80 border border-surface-700/50 hover:border-brand-500/30 transition-all duration-300 cursor-pointer max-w-full min-w-0" onclick="navigator.clipboard?.writeText('git clone https://github.com/cocosoft/Liri.git && cd Liri/app && bun install')" title="点击复制">
+        <code class="text-xs sm:text-sm font-mono text-surface-200 truncate min-w-0">
           <span class="text-surface-500">$ </span>
-          <span class="text-brand-400">npm create liri</span>
-          <span class="text-surface-500 hidden sm:inline">  # 一行命令，开始使用</span>
+          <span class="text-brand-400">git clone https://github.com/cocosoft/Liri.git</span>
+          <span class="text-surface-500 hidden sm:inline">  # 然后 cd app && bun install</span>
         </code>
         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-surface-500 hover:text-brand-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
         </svg>
       </div>
     </div>
+  </div>
 
-    <!-- 向下滚动指示器（移动端隐藏） -->
-    <div class="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2 animate-fade-in-up" style="animation-delay: .6s;">
-      <div class="flex items-center gap-2 text-surface-500 flex-col">
-        <span class="text-xs font-mono">向下滚动</span>
-        <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </div>
+  <!-- 向下滚动指示器（移动端隐藏，相对 section 定位避免与 CTA 重叠） -->
+  <div class="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2 animate-fade-in-up" style="animation-delay: .6s;">
+    <div class="flex items-center gap-2 text-surface-500 flex-col">
+      <span class="text-xs font-mono">向下滚动</span>
+      <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
     </div>
   </div>
 </section>

@@ -1,0 +1,67 @@
+---
+title: "快速开始"
+description: "本文档帮助您在 5 分钟内上手 Liri。"
+group: "入门"
+order: 1
+source: "快速入门/quickstart.md"
+---
+
+> 本文同步自 GitHub 仓库：`app/docs/快速入门/quickstart.md`，如与源码不一致，以仓库为准。
+# 快速开始
+
+本文档帮助您在 5 分钟内上手 Liri。
+
+## 启动应用
+
+```bash
+cd app
+bun run dev
+```
+
+## 基本交互
+
+启动后进入交互式 REPL 模式，您可以直接输入问题或使用命令。
+
+### 常用命令
+
+| 命令 | 说明 |
+|------|------|
+| `/help` | 查看所有可用命令 |
+| `/skill list` | 查看技能列表 |
+| `/task list` | 查看任务列表 |
+| `/config show` | 查看当前配置 |
+| `exit` | 退出应用 |
+
+### 提问示例
+
+```
+你好，请解释什么是依赖注入？
+```
+
+```
+请帮我读取 src/index.ts 文件的内容
+```
+
+## 使用工具
+
+Liri 提供丰富的工具集：
+
+```bash
+# 读取文件
+请读取 config.json 的内容
+
+# 搜索信息
+请搜索 TypeScript 装饰器教程
+
+# 生成图片
+请生成一张猫的图片
+
+# 执行代码
+请帮我执行这段 Python 代码: print("Hello")
+```
+
+## 下一步
+
+- 查看 [工具参考](/docs/tools) 了解所有可用工具
+- 查看 [核心模块](https://github.com/cocosoft/Liri/blob/main/app/docs/%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/index.md) 了解系统架构
+- 查看 [配置指南](/docs/configuration) 了解高级配置

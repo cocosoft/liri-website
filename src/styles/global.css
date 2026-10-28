@@ -98,6 +98,89 @@
   }
 }
 
+/* 文档正文排版 */
+.doc-body {
+  @apply text-surface-300 text-[15px] leading-7;
+}
+
+.doc-body h1 {
+  @apply text-2xl sm:text-3xl font-bold text-surface-100 mt-2 mb-6;
+}
+
+.doc-body h2 {
+  @apply text-xl font-bold text-surface-100 mt-10 mb-4 pb-2 border-b border-surface-800/60;
+}
+
+.doc-body h3 {
+  @apply text-base font-semibold text-surface-100 mt-6 mb-3;
+}
+
+.doc-body h4 {
+  @apply text-sm font-semibold text-surface-200 mt-5 mb-2;
+}
+
+.doc-body p {
+  @apply mb-4;
+}
+
+.doc-body ul {
+  @apply list-disc pl-6 mb-4 space-y-1;
+}
+
+.doc-body ol {
+  @apply list-decimal pl-6 mb-4 space-y-1;
+}
+
+.doc-body a {
+  @apply text-brand-400 hover:text-brand-300 underline underline-offset-2;
+}
+
+.doc-body code {
+  @apply font-mono text-[13px] text-brand-300 bg-surface-900 px-1.5 py-0.5 rounded;
+}
+
+/* 行内长命令允许换行，避免撑破容器 */
+.doc-body :not(pre) > code {
+  overflow-wrap: anywhere;
+}
+
+.doc-body pre {
+  @apply bg-surface-950 border border-surface-800/60 rounded-xl p-4 overflow-x-auto mb-5;
+}
+
+.doc-body pre code {
+  @apply bg-transparent p-0 text-surface-300;
+}
+
+.doc-body blockquote {
+  @apply border-l-2 border-brand-500/50 pl-4 text-surface-400 my-4;
+}
+
+.doc-body table {
+  @apply text-sm mb-5;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.doc-body th {
+  @apply text-left py-2 px-3 border-b border-surface-800 text-surface-200 font-semibold;
+}
+
+.doc-body td {
+  @apply py-2 px-3 border-b border-surface-800/50;
+}
+
+.doc-body hr {
+  @apply border-surface-800/60 my-8;
+}
+
+.doc-body strong {
+  @apply text-surface-100 font-semibold;
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;

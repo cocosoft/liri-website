@@ -1,33 +1,53 @@
 ---
-// 路线图数据：透明建立信任
+import { siteFacts } from '../data/site';
+
+// 版本节奏：数据取自 git tag 与 CHANGELOG，不写未发生的计划
 const milestones = [
   {
-    quarter: 'Q2 2026',
-    version: 'v0.2.0',
-    status: 'done',
-    label: '已完成',
-    items: ['知识库系统', 'MCP 重连机制', '定时任务引擎', '26+ 消息渠道接入'],
-  },
-  {
-    quarter: 'Q3 2026',
-    version: 'v0.3.0',
+    quarter: '2026-10-28',
+    version: `v${siteFacts.version}`,
     status: 'active',
-    label: '进行中',
-    items: ['插件市场上线', '技能商店', '多语言支持', '在线 Playground'],
+    label: '当前版本',
+    items: [
+      `${siteFacts.tools} 个内置工具 · ${siteFacts.toolCategories} 个分类`,
+      `${siteFacts.channels} 个消息渠道`,
+      `${siteFacts.securityLayers} 层安全 + 6 种沙箱后端`,
+      `桌面端 ${siteFacts.desktopComponents} 个组件 · ${siteFacts.desktopPages} 个页面`,
+    ],
   },
   {
-    quarter: 'Q4 2026',
-    version: 'v0.4.0',
-    status: 'planned',
-    label: '计划中',
-    items: ['Agent 社交', '团队协作', '企业 SSO', '性能优化'],
+    quarter: '2026-10',
+    version: 'v0.5.13 → v0.5.21',
+    status: 'done',
+    label: '已发布',
+    items: [
+      '三天内连续发布 8 个版本（v0.5.13 → v0.5.21）',
+      '内核模块外移，门禁基线同步',
+      '计划进度改为按产物存在性推进',
+      '沙箱权限改动即时生效',
+    ],
   },
   {
-    quarter: 'Q1 2027',
-    version: 'v1.0.0',
+    quarter: '仓库累计',
+    version: `${siteFacts.releases} 个 tag`,
+    status: 'done',
+    label: '迭代节奏',
+    items: [
+      `累计 ${siteFacts.commits.toLocaleString('en-US')} 次提交`,
+      'CI 覆盖 lint:arch / 类型检查 / 单元测试',
+      '仓库公开，Issue 与 PR 可见',
+    ],
+  },
+  {
+    quarter: '后续',
+    version: 'v0.6+',
     status: 'planned',
-    label: '计划中',
-    items: ['稳定版发布', '商业授权', '托管服务', '长期支持'],
+    label: '规划中',
+    items: [
+      '以 GitHub Releases 与 Issues 为准',
+      '在线文档站建设中',
+      '功能优先级欢迎在 Issue 里投票',
+    ],
   },
 ];
 
@@ -43,10 +63,10 @@ const statusConfig: Record<string, { bg: string; border: string; text: string; d
 
   <div class="section-container relative z-10">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-      <span class="gradient-text">路线图</span>
+      <span class="gradient-text">版本与迭代</span>
     </h2>
     <p class="text-surface-400 text-center mb-16 max-w-2xl mx-auto">
-      透明发布，每一步都看得见
+      版本号、标签数、提交记录都可在 GitHub 复核
     </p>
 
     <div class="max-w-3xl mx-auto">

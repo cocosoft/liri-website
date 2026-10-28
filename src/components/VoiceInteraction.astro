@@ -3,36 +3,36 @@
 const features = [
   {
     title: '语音输入',
-    desc: 'STT 语音转文字，支持多平台',
+    desc: '本地 faster-whisper 与 SenseVoice，或云端 OpenAI Whisper',
     icon: '🎤',
     color: 'from-cyan-500 to-blue-500',
-    platforms: ['Web Speech API', '百度语音', 'Azure Speech', '自研引擎'],
+    platforms: ['本地 faster-whisper', 'SenseVoice', 'OpenAI Whisper', '流式识别'],
   },
   {
     title: '语音输出',
-    desc: 'TTS 文字转语音，支持多种音色',
+    desc: '本地 Piper 或云端 Edge / OpenAI，也可接自定义命令',
     icon: '🔊',
     color: 'from-brand-500 to-orange-500',
-    platforms: ['Edge TTS', 'OpenAI TTS', '自研引擎', '音色定制'],
+    platforms: ['本地 Piper', 'Edge TTS', 'OpenAI TTS', '自定义命令'],
   },
   {
-    title: '实时交互',
-    desc: '流式语音实时对话，低延迟体验',
+    title: '工具化调用',
+    desc: '语音能力本身也是工具，模型可按需调用',
     icon: '⚡',
     color: 'from-purple-500 to-pink-500',
-    platforms: ['WebSocket 流式', '双工通信', '打断支持', '静默检测'],
+    platforms: ['tts 工具', 'audio_play 工具', '语音输入', '回复播报'],
   },
   {
-    title: '多平台适配',
-    desc: '桌面/CLI/移动端统一语音体验',
+    title: '多端适配',
+    desc: '桌面端与终端共享同一套语音服务',
     icon: '📱',
     color: 'from-emerald-500 to-teal-500',
-    platforms: ['Tauri 桌面', 'CLI 终端', 'Web 应用', '移动端适配'],
+    platforms: ['Tauri 桌面', 'CLI 终端', 'HTTP API'],
   },
 ];
 ---
 
-<section id="voice" class="section-padding relative">
+<section id="voice" class="section-padding relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
   <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-cyan-500/5 blur-3xl rounded-full pointer-events-none"></div>
 

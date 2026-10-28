@@ -1,7 +1,7 @@
 ---
 ---
 
-<section id="cost" class="section-padding relative">
+<section id="cost" class="section-padding relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
   <div class="absolute top-1/2 right-0 w-72 h-72 bg-emerald-500/5 blur-3xl rounded-full pointer-events-none"></div>
 
@@ -10,83 +10,64 @@
       <span class="gradient-text">成本透明</span>
     </h2>
     <p class="text-surface-400 text-center mb-12 max-w-3xl mx-auto">
-      每一分钱花在哪儿，一清二楚。余额查询、逐次追踪、预算管理
+      定价读数据库、按真实模型归因、逐次调用落库——每一分钱都能对上账
     </p>
 
     <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
-      <!-- 余额查询模拟 -->
+      <!-- 成本归因 -->
       <div class="glass-card p-6">
         <h3 class="text-sm font-bold text-surface-200 mb-4 flex items-center gap-2">
-          <span>💰</span> 余额查询
+          <span>🧾</span> 成本归因
         </h3>
         <div class="space-y-3">
           {[
-            { name: 'DeepSeek', balance: '¥45.32', status: 'normal' },
-            { name: 'SiliconFlow', balance: '¥12.80', status: 'normal' },
-            { name: 'OpenAI', balance: '$23.15', status: 'normal' },
-            { name: 'Anthropic', balance: '¥8.50', status: 'low' },
+            { label: '定价来源', value: 'model_registry 表' },
+            { label: '模型归因', value: 'provider 回显模型名' },
+            { label: '用量依据', value: 'provider 真实 usage' },
+            { label: '偏差可观测', value: '估算 vs 实测双记' },
           ].map((p) => (
             <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
-              <div class="flex items-center gap-2">
-                <div class={`w-2 h-2 rounded-full ${p.status === 'low' ? 'bg-red-400' : 'bg-green-400'}`}></div>
-                <span class="text-sm text-surface-300">{p.name}</span>
-              </div>
-              <div class={`text-sm font-mono ${p.status === 'low' ? 'text-red-400' : 'text-green-400'}`}>
-                {p.balance}
-              </div>
+              <span class="text-sm text-surface-400">{p.label}</span>
+              <span class="text-sm font-mono text-brand-300">{p.value}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <!-- 成本分析模拟 -->
+      <!-- 预算与账本 -->
       <div class="glass-card p-6">
         <h3 class="text-sm font-bold text-surface-200 mb-4 flex items-center gap-2">
-          <span>📊</span> 今日用量
+          <span>📒</span> 预算与账本
         </h3>
         <div class="space-y-3">
           {[
-            { label: '总 Token 消耗', value: '128,450', change: '+12%' },
-            { label: '今日费用', value: '¥0.86', change: '-5%' },
-            { label: 'API 调用次数', value: '342', change: '+8%' },
-            { label: '平均延迟', value: '1.2s', change: '-0.3s' },
-          ].map((s) => (
+            { label: '每日预算', value: '全局 / 批处理各一份' },
+            { label: '水位控制', value: '预警 → 压缩 → 阻断' },
+            { label: '调用流水', value: 'cost_records 落库' },
+            { label: '会话汇总', value: '按会话累计成本' },
+          ].map((p) => (
             <div class="flex items-center justify-between p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
-              <span class="text-sm text-surface-400">{s.label}</span>
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-mono text-surface-200">{s.value}</span>
-                <span class={`text-xs ${s.change.startsWith('-') ? 'text-green-400' : 'text-amber-400'}`}>
-                  {s.change}
-                </span>
-              </div>
+              <span class="text-sm text-surface-400">{p.label}</span>
+              <span class="text-sm font-mono text-surface-200">{p.value}</span>
             </div>
           ))}
         </div>
       </div>
     </div>
 
-    <!-- Token 追踪维度 -->
+    <!-- 一次调用可回答的问题 -->
     <div class="mt-8 max-w-5xl mx-auto glass-card p-6 border-brand-500/20">
-      <h3 class="text-sm font-bold text-surface-200 mb-4 text-center">8 维度 Token 追踪</h3>
+      <h3 class="text-sm font-bold text-surface-200 mb-4 text-center">一次调用，事后能回答四个问题</h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { dim: '输入 Token', pct: '42%' },
-          { dim: '输出 Token', pct: '28%' },
-          { dim: '思考 Token', pct: '15%' },
-          { dim: '工具调用', pct: '8%' },
-          { dim: '知识库检索', pct: '4%' },
-          { dim: '记忆注入', pct: '2%' },
-          { dim: '系统提示', pct: '1%' },
-          { dim: '其他', pct: '0%' },
+          { dim: '用了哪个模型', desc: '真实回显，非配置值' },
+          { dim: '花了多少钱', desc: '按定价表折算' },
+          { dim: '上下文是什么', desc: '事件日志可回放' },
+          { dim: '是否回退过', desc: '回退链全程留痕' },
         ].map((t) => (
           <div class="p-3 rounded-xl bg-surface-800/40 border border-surface-800/50">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs text-surface-400">{t.dim}</span>
-              <span class="text-xs font-mono text-brand-400">{t.pct}</span>
-            </div>
-            <div class="h-1.5 rounded-full bg-surface-800 overflow-hidden">
-              <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-orange-400" style={`width: ${t.pct}`}></div>
-            </div>
+            <div class="text-xs text-surface-300 font-semibold mb-1">{t.dim}</div>
+            <div class="text-xs text-surface-500 font-mono">{t.desc}</div>
           </div>
         ))}
       </div>
@@ -95,7 +76,7 @@
     <!-- 一句话总结 -->
     <div class="text-center mt-8">
       <p class="text-surface-500 text-sm font-mono">
-        CostTracker · BalanceChecker · 模型比价 · 预算管理 · 用量仪表盘
+        CostTracker · PriceManager · cost_records · 每日预算 · 用量归因
       </p>
     </div>
   </div>

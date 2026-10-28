@@ -1,7 +1,7 @@
 ---
 ---
 
-<section id="brain" class="section-padding relative">
+<section id="brain" class="section-padding relative overflow-hidden">
   <!-- 背景装饰 -->
   <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
   <div class="absolute top-1/4 right-0 w-96 h-96 bg-cyan-500/5 blur-3xl rounded-full pointer-events-none"></div>
@@ -11,26 +11,26 @@
       <span class="gradient-text">外脑系统</span>
     </h2>
     <p class="text-surface-400 text-center mb-16 max-w-3xl mx-auto">
-      文件管理系统 → 知识库系统 → 记忆系统：三层流水线，构建永不遗忘的外脑
+      知识库 → 记忆 → 会话事件：三段可检索上下文，都保存在本机
     </p>
 
     <!-- 三层流水线 -->
     <div class="max-w-5xl mx-auto">
-      <!-- 第一层：文件管理系统 -->
+      <!-- 第一层：知识库 -->
       <div class="glass-card p-6 text-center group hover:border-cyan-500/30 transition-all duration-500">
         <div class="flex items-center justify-center gap-2 mb-3">
           <span class="px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-            第1层：原料商
+            第1层：知识库
           </span>
         </div>
-        <h3 class="text-xl font-bold text-surface-100 mb-2">文件管理系统</h3>
-        <p class="text-surface-400 text-sm mb-4">所有知识的原材料入口</p>
+        <h3 class="text-xl font-bold text-surface-100 mb-2">知识库</h3>
+        <p class="text-surface-400 text-sm mb-4">Markdown 落盘 + 语义索引，检索结果带来源标注</p>
         <div class="flex flex-wrap justify-center gap-2">
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">拖拽上传</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">目录树</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">多格式支持</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">WebFetch 下载</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">多 Tab 编辑</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">Markdown 落盘</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">语义索引 JSONL</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">关键词检索</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">向量检索</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">RRF 融合</span>
         </div>
       </div>
 
@@ -41,21 +41,21 @@
         </svg>
       </div>
 
-      <!-- 第二层：知识库系统 -->
+      <!-- 第二层：记忆系统 -->
       <div class="glass-card p-6 text-center group hover:border-brand-500/30 transition-all duration-500">
         <div class="flex items-center justify-center gap-2 mb-3">
           <span class="px-3 py-1 rounded-full text-xs font-mono bg-brand-500/10 text-brand-400 border border-brand-500/20">
-            第2层：加工厂
+            第2层：记忆
           </span>
         </div>
-        <h3 class="text-xl font-bold text-surface-100 mb-2">知识库系统</h3>
-        <p class="text-surface-400 text-sm mb-4">将原始文件加工成可检索的知识</p>
+        <h3 class="text-xl font-bold text-surface-100 mb-2">记忆系统</h3>
+        <p class="text-surface-400 text-sm mb-4">分层记忆 + SQLite 向量表，按相关性加权召回</p>
         <div class="flex flex-wrap justify-center gap-2">
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">自动摄取</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">混合搜索</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">智能摘要</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">语义检索</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">关键词索引</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">分层记忆</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">memory_vectors</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">相关性加权</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">记忆清洗</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">上下文注入</span>
         </div>
       </div>
 
@@ -66,81 +66,86 @@
         </svg>
       </div>
 
-      <!-- 第三层：记忆系统 -->
+      <!-- 第三层：会话事件 -->
       <div class="glass-card p-6 text-center group hover:border-purple-500/30 transition-all duration-500">
         <div class="flex items-center justify-center gap-2 mb-3">
           <span class="px-3 py-1 rounded-full text-xs font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">
-            第3层：神经中枢
+            第3层：事实源
           </span>
         </div>
-        <h3 class="text-xl font-bold text-surface-100 mb-2">记忆系统</h3>
-        <p class="text-surface-400 text-sm mb-4">让知识成为 AI 的长期记忆</p>
+        <h3 class="text-xl font-bold text-surface-100 mb-2">会话事件日志</h3>
+        <p class="text-surface-400 text-sm mb-4">进入模型请求的内容都会落为会话事件，可回放</p>
         <div class="flex flex-wrap justify-center gap-2">
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">短期→长期记忆</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">记忆搜索</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">记忆清洗</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">DumpSession</span>
-          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">上下文注入</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">events.jsonl 追加</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">写前落盘</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">会话回放</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">审计可追溯</span>
+          <span class="px-3 py-1 rounded-lg bg-surface-800/60 text-surface-300 text-xs font-mono border border-surface-700/50">编译期强制登记</span>
         </div>
       </div>
     </div>
 
-    <!-- 分隔：自进化架构 -->
+    <!-- 分隔：整理与治理 -->
     <div class="mt-24">
       <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">
-        <span class="gradient-text">自进化架构</span>
+        <span class="gradient-text">整理与治理</span>
       </h2>
       <p class="text-surface-400 text-center mb-16 max-w-3xl mx-auto">
-        四层进化 + 梦境引擎驱动，系统在每一次交互和空闲中持续自我优化
+        空闲时整理知识，超窗时压缩上下文 —— 两条真实存在的后台管线
       </p>
 
-      <!-- 四层进化 -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
-        <div class="glass-card p-5 text-center hover:border-cyan-500/30 transition-all duration-300">
-          <div class="text-xs font-mono text-cyan-400 mb-2">E1: 知识层</div>
-          <div class="text-sm text-surface-300 font-semibold mb-1">知识库持续更新</div>
-          <div class="text-xs text-surface-500">新文档自动摄取 → 摘要更新 → 索引重建</div>
-        </div>
-        <div class="glass-card p-5 text-center hover:border-brand-500/30 transition-all duration-300">
-          <div class="text-xs font-mono text-brand-400 mb-2">E2: 记忆层</div>
-          <div class="text-sm text-surface-300 font-semibold mb-1">记忆自动优化</div>
-          <div class="text-xs text-surface-500">短期→长期 → 记忆清洗 → 相关性重排序</div>
-        </div>
-        <div class="glass-card p-5 text-center hover:border-purple-500/30 transition-all duration-300">
-          <div class="text-xs font-mono text-purple-400 mb-2">E3: 路由层</div>
-          <div class="text-sm text-surface-300 font-semibold mb-1">路由策略进化</div>
-          <div class="text-xs text-surface-500">成功率统计 → 延迟分析 → 成本优化</div>
-        </div>
-        <div class="glass-card p-5 text-center hover:border-amber-500/30 transition-all duration-300">
-          <div class="text-xs font-mono text-amber-400 mb-2">E4: 执行层</div>
-          <div class="text-sm text-surface-300 font-semibold mb-1">执行策略进化</div>
-          <div class="text-xs text-surface-500">工具使用模式学习 → 策略组合优化</div>
+      <!-- DreamEngine 五阶段 -->
+      <div class="max-w-5xl mx-auto mb-12">
+        <h3 class="text-sm font-mono text-surface-500 text-center mb-5">DreamEngine 五阶段管线</h3>
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+          <div class="glass-card p-4 text-center hover:border-cyan-500/30 transition-all duration-300">
+            <div class="text-xs font-mono text-cyan-400 mb-2">01 Gather</div>
+            <div class="text-sm text-surface-300 font-semibold">采集</div>
+            <div class="text-xs text-surface-500 mt-1">汇总待整理的会话与文档</div>
+          </div>
+          <div class="glass-card p-4 text-center hover:border-brand-500/30 transition-all duration-300">
+            <div class="text-xs font-mono text-brand-400 mb-2">02 Analyze</div>
+            <div class="text-sm text-surface-300 font-semibold">分析</div>
+            <div class="text-xs text-surface-500 mt-1">抽取主题与可复用结论</div>
+          </div>
+          <div class="glass-card p-4 text-center hover:border-purple-500/30 transition-all duration-300">
+            <div class="text-xs font-mono text-purple-400 mb-2">03 Generate</div>
+            <div class="text-sm text-surface-300 font-semibold">生成</div>
+            <div class="text-xs text-surface-500 mt-1">产出面向上层的笔记</div>
+          </div>
+          <div class="glass-card p-4 text-center hover:border-amber-500/30 transition-all duration-300">
+            <div class="text-xs font-mono text-amber-400 mb-2">04 Write</div>
+            <div class="text-sm text-surface-300 font-semibold">写入</div>
+            <div class="text-xs text-surface-500 mt-1">落盘到知识库与记忆</div>
+          </div>
+          <div class="glass-card p-4 text-center hover:border-green-500/30 transition-all duration-300">
+            <div class="text-xs font-mono text-green-400 mb-2">05 Index</div>
+            <div class="text-sm text-surface-300 font-semibold">索引</div>
+            <div class="text-xs text-surface-500 mt-1">重建向量与关键词索引</div>
+          </div>
         </div>
       </div>
 
-      <!-- 梦境引擎 -->
+      <!-- 上下文治理 -->
       <div class="max-w-3xl mx-auto glass-card p-8 text-center border-amber-500/20">
-        <div class="text-4xl mb-4">🌙</div>
-        <h3 class="text-xl font-bold text-surface-100 mb-3">DreamEngine 梦境引擎</h3>
+        <div class="text-4xl mb-4">🧠</div>
+        <h3 class="text-xl font-bold text-surface-100 mb-3">上下文分层治理</h3>
         <p class="text-surface-400 text-sm mb-6">
-          当系统空闲时，自动进入梦境模式——整理记忆、优化知识、生成洞察。
-          就像人类的睡眠，在你不使用时，Liri 在默默地变聪明。
+          超窗的长会话先丢头部旧轮次，构建期内存占用从 O(全量) 降到 O(窗口)；
+          切窗时保留「原文可取回」提示，需要细节再按页读回；再按 token 水位自动压缩。
         </p>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-            <div class="text-2xl mb-1">🌅</div>
-            <div class="text-sm font-semibold text-surface-200 mb-1">Light 梦境</div>
-            <div class="text-xs text-surface-500">轻度记忆整理</div>
+            <div class="text-sm font-semibold text-surface-200 mb-1">分层切窗</div>
+            <div class="text-xs text-surface-500">超窗先裁旧轮次</div>
           </div>
           <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-            <div class="text-2xl mb-1">🌊</div>
-            <div class="text-sm font-semibold text-surface-200 mb-1">Deep 梦境</div>
-            <div class="text-xs text-surface-500">深度知识重组</div>
+            <div class="text-sm font-semibold text-surface-200 mb-1">按需取回</div>
+            <div class="text-xs text-surface-500">原文可分段读回</div>
           </div>
           <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-            <div class="text-2xl mb-1">💫</div>
-            <div class="text-sm font-semibold text-surface-200 mb-1">REM 梦境</div>
-            <div class="text-xs text-surface-500">洞察生成优化</div>
+            <div class="text-sm font-semibold text-surface-200 mb-1">三级压缩</div>
+            <div class="text-xs text-surface-500">Tier1/2 同步 + Tier3 后台</div>
           </div>
         </div>
       </div>
@@ -151,7 +156,7 @@
         <h3 class="text-xl font-bold text-surface-100 mb-3">PDCA 自迭代闭环</h3>
         <p class="text-surface-400 text-sm mb-6">
           对于长程任务，Liri 自动执行 Plan-Do-Check-Act 循环：
-          分解任务 → 执行步骤 → 评审结果 → 修正方案，直到任务完美完成。
+          分解任务 → 执行步骤 → 评审结果 → 修正方案，直至完成或触发终止条件。
         </p>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20">

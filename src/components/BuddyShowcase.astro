@@ -10,23 +10,24 @@ interface BuddySpecies {
 }
 
 const buddies: BuddySpecies[] = [
-  { name: '玲珑鸟', emoji: '🐦', type: '默认', rarity: '初始', desc: '平衡型全能助手，适合日常对话', color: 'from-brand-500/20 to-orange-500/10' },
-  { name: '雪狐', emoji: '🦊', type: '分析', rarity: '稀有', desc: '数据分析专家，擅长逻辑推理', color: 'from-cyan-500/20 to-blue-500/10' },
-  { name: '铁甲龙', emoji: '🐉', type: '编码', rarity: '稀有', desc: '代码工匠，全栈开发支持', color: 'from-green-500/20 to-emerald-500/10' },
-  { name: '幻影猫', emoji: '🐱', type: '创意', rarity: '史诗', desc: '创意伙伴，思维导图与脑暴', color: 'from-purple-500/20 to-violet-500/10' },
-  { name: '机械熊', emoji: '🐻', type: '工具', rarity: '稀有', desc: '工具大师，系统操作与运维', color: 'from-amber-500/20 to-yellow-500/10' },
-  { name: '星灵', emoji: '⭐', type: '通用', rarity: '传说', desc: '觉醒形态，全能力提升', color: 'from-pink-500/20 to-rose-500/10' },
+  { name: '鸭子', emoji: '🦆', type: '物种', rarity: '普通', desc: '物种决定主体轮廓，共 18 种可选', color: 'from-brand-500/20 to-orange-500/10' },
+  { name: '猫', emoji: '🐱', type: '物种', rarity: '罕见', desc: '可叠加 8 种帽子：王冠 / 礼帽 / 螺旋桨 / 光环 / 巫师帽…', color: 'from-cyan-500/20 to-blue-500/10' },
+  { name: '龙', emoji: '🐉', type: '物种', rarity: '稀有', desc: '6 种眼睛符号，决定表情与气质', color: 'from-green-500/20 to-emerald-500/10' },
+  { name: '章鱼', emoji: '🐙', type: '物种', rarity: '史诗', desc: '稀有度分 5 级：common → legendary', color: 'from-purple-500/20 to-violet-500/10' },
+  { name: '猫头鹰', emoji: '🦉', type: '物种', rarity: '传说', desc: '外观由种子确定性生成，同一只始终长相一致', color: 'from-amber-500/20 to-yellow-500/10' },
+  { name: '机器人', emoji: '🤖', type: '物种', rarity: '稀有', desc: '成长数据落盘 buddy-growth.json，跨会话保留', color: 'from-pink-500/20 to-rose-500/10' },
 ];
 
-const rarities = ['初始', '稀有', '史诗', '传说'];
+const rarities = ['普通', '罕见', '稀有', '史诗', '传说'];
 const rarityColors: Record<string, string> = {
-  '初始': 'text-surface-400 bg-surface-800',
-  '稀有': 'text-blue-300 bg-blue-500/10',
+  '普通': 'text-surface-400 bg-surface-800',
+  '罕见': 'text-blue-300 bg-blue-500/10',
+  '稀有': 'text-cyan-300 bg-cyan-500/10',
   '史诗': 'text-purple-300 bg-purple-500/10',
   '传说': 'text-amber-300 bg-amber-500/10',
 };
 
-const types = ['默认', '分析', '编码', '创意', '工具', '通用'];
+const types = ['物种', '帽子', '眼睛', '稀有度'];
 ---
 
 <section id="buddy" class="section-padding relative">
@@ -37,7 +38,7 @@ const types = ['默认', '分析', '编码', '创意', '工具', '通用'];
       <span class="gradient-text">Buddy 人格系统</span>
     </h2>
     <p class="text-surface-400 text-center mb-8 max-w-3xl mx-auto">
-      16 种生物物种 × 6 种人格类型，你的 AI 伙伴，不是工具
+      18 种物种 × 8 种帽子 × 6 种眼睛 × 5 级稀有度，你的 AI 伙伴，不是工具
     </p>
 
     <!-- 角色卡片网格 -->
@@ -59,29 +60,34 @@ const types = ['默认', '分析', '编码', '创意', '工具', '通用'];
       ))}
     </div>
 
-    <!-- 进化系统 -->
+    <!-- 成长系统 -->
     <div class="mt-12 max-w-3xl mx-auto glass-card p-8 text-center border-amber-500/20">
-      <div class="text-3xl mb-3">🌱 → 🌳 → ⭐</div>
-      <h3 class="text-lg font-bold text-surface-100 mb-3">Buddy 进化系统</h3>
+      <div class="text-3xl mb-3">🌱 → 📈 → 🏆</div>
+      <h3 class="text-lg font-bold text-surface-100 mb-3">Buddy 成长系统</h3>
       <p class="text-surface-400 text-sm mb-6">
-        通过对话积累亲密度，触发进化事件。每个 Buddy 都有专属进化树，
-        最终觉醒为传说级形态，解锁全部能力。
+        成长状态持久化在 <code class="font-mono text-brand-400">buddy-growth.json</code>，
+        跨会话累计，不随进程重启丢失。
       </p>
-      <div class="grid grid-cols-3 gap-4">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-          <div class="text-xs font-mono text-green-400 mb-2">幼生体</div>
-          <div class="text-2xl">🥚</div>
-          <div class="text-xs text-surface-500 mt-2">初始状态</div>
+          <div class="text-xs font-mono text-green-400 mb-2">完成任务</div>
+          <div class="text-2xl">✅</div>
+          <div class="text-xs text-surface-500 mt-2">totalCompleted</div>
         </div>
         <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-          <div class="text-xs font-mono text-brand-400 mb-2">成熟体</div>
-          <div class="text-2xl">🦋</div>
-          <div class="text-xs text-surface-500 mt-2">100 亲密度</div>
+          <div class="text-xs font-mono text-brand-400 mb-2">对话轮数</div>
+          <div class="text-2xl">💬</div>
+          <div class="text-xs text-surface-500 mt-2">userSessions</div>
         </div>
         <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
-          <div class="text-xs font-mono text-amber-400 mb-2">觉醒体</div>
-          <div class="text-2xl">👑</div>
-          <div class="text-xs text-surface-500 mt-2">300 亲密度</div>
+          <div class="text-xs font-mono text-cyan-400 mb-2">连续天数</div>
+          <div class="text-2xl">🔥</div>
+          <div class="text-xs text-surface-500 mt-2">consecutiveDays</div>
+        </div>
+        <div class="p-4 rounded-xl bg-surface-800/40 border border-surface-800/50">
+          <div class="text-xs font-mono text-amber-400 mb-2">已解锁成就</div>
+          <div class="text-2xl">🏅</div>
+          <div class="text-xs text-surface-500 mt-2">achievements</div>
         </div>
       </div>
     </div>

@@ -11,26 +11,26 @@ const taskTypes = [
   { name: '闲聊', icon: '💬', desc: '日常对话/通用交流', color: 'text-surface-400' },
 ];
 
-// 决策层数据
+// 决策层数据（真实实现：SmartRouter 的五段判定）
 const layers = [
-  { name: 'L1: 成本筛选', desc: '优先选择费用最低的可用模型', color: 'bg-green-500/10 border-green-500/20' },
-  { name: 'L2: 能力匹配', desc: '任务类型与模型专长对齐', color: 'bg-brand-500/10 border-brand-500/20' },
-  { name: 'L3: 延迟评估', desc: '选择响应速度最快的模型', color: 'bg-cyan-500/10 border-cyan-500/20' },
-  { name: 'L4: 本地可用', desc: '本地模型优先，数据不离开设备', color: 'bg-amber-500/10 border-amber-500/20' },
-  { name: 'L5: 用户偏好', desc: '尊重用户手动选择的模型', color: 'bg-purple-500/10 border-purple-500/20' },
+  { name: 'L1: 路由开关', desc: '关闭时直连默认模型，不做额外判定', color: 'bg-green-500/10 border-green-500/20' },
+  { name: 'L2: 快通道命中', desc: '命中简单任务或前缀规则，直接走低档模型', color: 'bg-brand-500/10 border-brand-500/20' },
+  { name: 'L3: 会话黏性', desc: '同一会话保持已选模型，避免频繁切换', color: 'bg-cyan-500/10 border-cyan-500/20' },
+  { name: 'L4: LLM 判别', desc: '小模型判定任务类型与难度，产出 tier', color: 'bg-amber-500/10 border-amber-500/20' },
+  { name: 'L5: Tier 解析', desc: '按 simple/medium/complex/reasoning 落到具体模型', color: 'bg-purple-500/10 border-purple-500/20' },
 ];
 
-// 回退链数据
+// 回退链数据（与具体模型名解耦，按供应商顺序回退）
 const fallbackChain = [
-  { name: '首选', model: 'GPT-4o / Claude 4', status: 'primary' },
-  { name: '回退 1', model: 'DeepSeek-V3', status: 'fallback' },
-  { name: '回退 2', model: 'Gemini 2.5 Pro', status: 'fallback' },
-  { name: '回退 3', model: 'Qwen-Max', status: 'fallback' },
-  { name: '降级', model: '本地 Ollama 模型', status: 'fallback' },
+  { name: '首选', model: '主供应商 · 当前档位模型', status: 'primary' },
+  { name: '回退 1', model: '同档备用供应商', status: 'fallback' },
+  { name: '回退 2', model: '跨档降级供应商', status: 'fallback' },
+  { name: '回退 3', model: '其余已配置供应商', status: 'fallback' },
+  { name: '兜底', model: '本地 Ollama / llama.cpp', status: 'fallback' },
 ];
 ---
 
-<section id="smart-router" class="section-padding relative">
+<section id="smart-router" class="section-padding relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
   <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brand-500/3 blur-3xl rounded-full pointer-events-none"></div>
 
@@ -39,12 +39,12 @@ const fallbackChain = [
       <span class="gradient-text">智能路由</span>
     </h2>
     <p class="text-surface-400 text-center mb-12 max-w-3xl mx-auto">
-      不是所有模型都适合所有任务。Liri 自动帮你选择最快、最省、最准确的模型
+      按任务类型与难度选择模型档位；主供应商不可用时按配置顺序回退
     </p>
 
-    <!-- 8 种任务类型 -->
+    <!-- 任务类型 -->
     <div class="max-w-4xl mx-auto mb-12">
-      <h3 class="text-sm font-mono text-surface-500 text-center mb-5">自动识别 8 种任务类型</h3>
+      <h3 class="text-sm font-mono text-surface-500 text-center mb-5">自动识别 19 种任务类型（下为常见 8 类）</h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {taskTypes.map((t) => (
           <div class="glass-card p-4 text-center hover:border-brand-500/30 transition-all duration-300">

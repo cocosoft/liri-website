@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Capabilities from '../components/Capabilities.astro';
 import Architecture from '../components/Architecture.astro';
+import TechStack from '../components/TechStack.astro';
 import Security from '../components/Security.astro';
 import SmartRouter from '../components/SmartRouter.astro';
 import VoiceInteraction from '../components/VoiceInteraction.astro';
@@ -16,28 +17,18 @@ import Comparison from '../components/Comparison.astro';
 import ChannelWall from '../components/ChannelWall.astro';
 import Ecosystem from '../components/Ecosystem.astro';
 import Scenarios from '../components/Scenarios.astro';
+import Roadmap from '../components/Roadmap.astro';
 import QuickStart from '../components/QuickStart.astro';
 import Community from '../components/Community.astro';
 import Footer from '../components/Footer.astro';
+import { withBase } from '../utils/url';
 ---
 
 <Layout>
   <nav class="fixed top-0 left-0 right-0 z-50 bg-surface-975/70 backdrop-blur-xl border-b border-surface-800/30">
     <div class="section-container flex items-center justify-between h-16">
-      <a href="#" class="flex items-center gap-2.5 text-surface-200 font-bold shrink-0">
-        <svg class="w-7 h-7" viewBox="0 0 512 512" fill="none">
-          <defs>
-            <linearGradient id="navLogo" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#FF5A36"/>
-              <stop offset="100%" stop-color="#FF8C66"/>
-            </linearGradient>
-          </defs>
-          <rect x="180" y="160" width="44" height="180" rx="12" fill="url(#navLogo)"/>
-          <rect x="180" y="296" width="140" height="44" rx="12" fill="url(#navLogo)"/>
-          <line x1="224" y1="200" x2="340" y2="170" stroke="url(#navLogo)" stroke-width="16" stroke-linecap="round"/>
-          <line x1="224" y1="230" x2="320" y2="210" stroke="url(#navLogo)" stroke-width="12" stroke-linecap="round"/>
-          <line x1="224" y1="260" x2="290" y2="248" stroke="url(#navLogo)" stroke-width="8" stroke-linecap="round"/>
-        </svg>
+      <a href="#top" class="flex items-center gap-2.5 text-surface-200 font-bold shrink-0">
+        <img src={withBase('/logo.png')} alt="Liri" width="28" height="28" class="w-7 h-7 rounded-md" />
         Liri
       </a>
 
@@ -53,6 +44,7 @@ import Footer from '../components/Footer.astro';
         <a href="#cost" class="text-surface-400 hover:text-surface-200 transition-colors">成本</a>
         <a href="#ecosystem" class="text-surface-400 hover:text-surface-200 transition-colors">市场</a>
         <a href="#quickstart" class="text-surface-400 hover:text-surface-200 transition-colors">开始</a>
+        <a href={withBase('/docs')} class="text-brand-400 hover:text-brand-300 transition-colors">文档</a>
       </div>
 
       <!-- 移动端汉堡按钮 -->
@@ -65,23 +57,24 @@ import Footer from '../components/Footer.astro';
         </svg>
       </button>
     </div>
-
-    <!-- 移动端菜单面板 -->
-    <div id="mobile-menu" class="md:hidden hidden fixed inset-x-0 top-16 bottom-0 bg-surface-975/95 backdrop-blur-2xl border-t border-surface-800/30 overflow-y-auto">
-      <div class="section-container py-6 space-y-1">
-        <a href="#capabilities" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">核心能力</a>
-        <a href="#architecture" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">架构</a>
-        <a href="#security" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">安全</a>
-        <a href="#smart-router" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">路由</a>
-        <a href="#voice" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">语音</a>
-        <a href="#brain" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">外脑</a>
-        <a href="#desktop" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">桌面</a>
-        <a href="#cost" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">成本</a>
-        <a href="#ecosystem" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">市场</a>
-        <a href="#quickstart" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium" onclick="closeMenu()">开始</a>
-      </div>
-    </div>
   </nav>
+
+  <!-- 移动端菜单面板：必须放在 nav 之外，nav 的 backdrop-blur 会成为 fixed 的包含块 -->
+  <div id="mobile-menu" class="md:hidden hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-surface-975/95 backdrop-blur-2xl border-t border-surface-800/30 overflow-y-auto">
+    <div class="section-container py-6 space-y-1">
+      <a href="#capabilities" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">核心能力</a>
+      <a href="#architecture" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">架构</a>
+      <a href="#security" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">安全</a>
+      <a href="#smart-router" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">路由</a>
+      <a href="#voice" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">语音</a>
+      <a href="#brain" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">外脑</a>
+      <a href="#desktop" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">桌面</a>
+      <a href="#cost" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">成本</a>
+      <a href="#ecosystem" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">市场</a>
+      <a href="#quickstart" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">开始</a>
+      <a href={withBase('/docs')} class="block px-4 py-3 rounded-xl text-brand-400 hover:text-brand-300 hover:bg-surface-800/50 transition-colors text-base font-medium">使用文档</a>
+    </div>
+  </div>
 
   <script>
     const btn = document.getElementById('menu-btn');
@@ -105,6 +98,10 @@ import Footer from '../components/Footer.astro';
     }
 
     btn.addEventListener('click', toggleMenu);
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) closeMenu();
+    });
   </script>
 
   <main>
@@ -112,6 +109,7 @@ import Footer from '../components/Footer.astro';
     <About />
     <Capabilities />
     <Architecture />
+    <TechStack />
     <Security />
     <SmartRouter />
     <VoiceInteraction />
@@ -124,6 +122,7 @@ import Footer from '../components/Footer.astro';
     <ChannelWall />
     <Ecosystem />
     <Scenarios />
+    <Roadmap />
     <QuickStart />
     <Community />
   </main>

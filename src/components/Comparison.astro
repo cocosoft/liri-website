@@ -11,21 +11,21 @@ interface ComparisonRow {
 
 const rows: ComparisonRow[] = [
   { dimension: '语言', liri: 'TypeScript + Rust', liriHighlight: true, competitor1: 'Python', competitor2: 'Python', competitor3: 'Python' },
-  { dimension: '本地优先', liri: '架构级 · 离线可用', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '智能路由', liri: '8 类型 · 5 层决策 · 回退链', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '安全体系', liri: '5 层纵深 · 28 文件沙箱系统', liriHighlight: true, competitor1: '基础 Docker', competitor2: '✗', competitor3: '基础沙箱' },
-  { dimension: '消息渠道', liri: '26+（含微信/钉钉/飞书/QQ）', liriHighlight: true, competitor1: '3-5', competitor2: '0', competitor3: '0' },
-  { dimension: '桌面客户端', liri: 'Tauri v2 · 147 个 TSX 组件', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '终端 UI', liri: 'React + Ink', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '人格系统', liri: '16 种物种 · 进化系统', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '语音交互', liri: '本地+云端 STT/TTS', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '成本透明', liri: '余额查询 · 逐次追踪', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '外脑系统', liri: '文件→知识库→记忆', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '自进化', liri: '四层自进化 · 梦境引擎', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '生态市场', liri: 'MCP + ClawHub + 技能', liriHighlight: true, competitor1: '部分 MCP', competitor2: '✗', competitor3: '✗' },
-  { dimension: 'Agent 策略', liri: '6 种策略 · PDCA 长程', liriHighlight: true, competitor1: '单一', competitor2: '单一', competitor3: '单一' },
-  { dimension: '定时任务', liri: '内置 · Cron 引擎', liriHighlight: true, competitor1: '✗', competitor2: '✗', competitor3: '✗' },
-  { dimension: '协议支持', liri: 'MCP + ACP + LSP', liriHighlight: true, competitor1: '部分 MCP', competitor2: '✗', competitor3: '✗' },
+  { dimension: '本地优先', liri: 'Ollama / llama.cpp + 本地 SQLite', liriHighlight: true, competitor1: '未见', competitor2: '未见', competitor3: '未见' },
+  { dimension: '智能路由', liri: '19 类型 · 4 档 · 5 层决策', liriHighlight: true, competitor1: '未见', competitor2: '部分', competitor3: '部分' },
+  { dimension: '安全体系', liri: '5 层纵深 · 6 种沙箱后端', liriHighlight: true, competitor1: '部分', competitor2: '未见', competitor3: '部分' },
+  { dimension: '消息渠道', liri: '27 个（含微信/钉钉/飞书/QQ）', liriHighlight: true, competitor1: '未见', competitor2: '未见', competitor3: '未见' },
+  { dimension: '桌面客户端', liri: 'Tauri 2.11 · 425 个 TSX 组件', liriHighlight: true, competitor1: '未见', competitor2: '未见', competitor3: '未见' },
+  { dimension: '终端 UI', liri: 'React + Ink', liriHighlight: true, competitor1: '未见', competitor2: '未见', competitor3: '未见' },
+  { dimension: '人格系统', liri: '18 物种 × 8 帽 × 6 眼', liriHighlight: true, competitor1: '未见', competitor2: '未见', competitor3: '未见' },
+  { dimension: '语音交互', liri: '本地 faster-whisper / Piper + 云端', liriHighlight: true, competitor1: '未见', competitor2: '未见', competitor3: '未见' },
+  { dimension: '成本透明', liri: 'DB 定价 · 每次调用落库', liriHighlight: true, competitor1: '未见', competitor2: '部分', competitor3: '未见' },
+  { dimension: '外脑系统', liri: '知识库 + 记忆 + 事件日志', liriHighlight: true, competitor1: '未见', competitor2: '部分', competitor3: '未见' },
+  { dimension: '上下文治理', liri: '分层切窗 + 三级压缩', liriHighlight: true, competitor1: '未见', competitor2: '未见', competitor3: '未见' },
+  { dimension: '生态市场', liri: '插件市场 + MCP 市场 + 技能来源', liriHighlight: true, competitor1: '部分', competitor2: '部分', competitor3: '部分' },
+  { dimension: 'Agent 策略', liri: '4 种策略 · PDCA · Swarm', liriHighlight: true, competitor1: '未见', competitor2: '支持', competitor3: '支持' },
+  { dimension: '定时任务', liri: 'once / interval / cron', liriHighlight: true, competitor1: '未见', competitor2: '未见', competitor3: '未见' },
+  { dimension: '协议支持', liri: 'MCP + ACP + A2A + LSP', liriHighlight: true, competitor1: '部分', competitor2: '未见', competitor3: '部分' },
 ];
 ---
 
@@ -37,7 +37,7 @@ const rows: ComparisonRow[] = [
       <span class="gradient-text">竞品对比</span>
     </h2>
     <p class="text-surface-400 text-center mb-10 max-w-3xl mx-auto">
-      不是又一个 AI 框架——16 个维度，Liri 在每个关键赛道都领先一个身位
+      16 个维度，Liri 一侧的数字取自已开源代码
     </p>
 
     <!-- 对比表格 -->
@@ -73,7 +73,7 @@ const rows: ComparisonRow[] = [
 
     <div class="text-center mt-8">
       <p class="text-surface-500 text-xs font-mono">
-        * 对比基于各项目公开文档，数据截至 2026 年 6 月
+        * Liri 列数据取自源码 v0.5.21；竞品列为定性判断，以各项目公开文档为准，「未见」不代表其不具备该能力
       </p>
     </div>
   </div>

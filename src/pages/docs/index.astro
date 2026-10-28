@@ -1,0 +1,55 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../utils/url';
+
+const entries = (await getCollection('docs')).sort((a, b) => a.data.order - b.data.order);
+const groups = [...new Set(entries.map((e) => e.data.group))];
+---
+
+<Layout title="文档 — Liri" description="Liri 的安装、配置、渠道接入与命令参考。">
+  <header class="border-b border-surface-800/40">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href={withBase('/')} class="flex items-center gap-2 text-surface-200 font-bold">
+        <img src={withBase('/logo.png')} alt="Liri" width="24" height="24" class="w-6 h-6 rounded" />
+        <span class="gradient-text">Liri</span>
+        <span class="text-surface-500 font-normal text-sm">文档</span>
+      </a>
+      <a href={withBase('/')} class="text-sm text-surface-400 hover:text-surface-200 transition-colors">返回首页</a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-16">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-3">
+      <span class="gradient-text">使用文档</span>
+    </h1>
+    <p class="text-surface-400 mb-12">
+      内容同步自 GitHub 仓库 <code class="font-mono text-brand-400">app/docs</code>，共 {entries.length} 篇。
+    </p>
+
+    <div class="space-y-12">
+      {groups.map((group) => (
+        <section>
+          <h2 class="text-sm font-mono text-brand-400 mb-4">{group}</h2>
+          <div class="grid sm:grid-cols-2 gap-3">
+            {entries.filter((e) => e.data.group === group).map((entry) => (
+              <a
+                href={withBase(`/docs/${entry.id}`)}
+                class="glass-card p-5 hover:border-brand-500/30 transition-all duration-300"
+              >
+                <div class="text-base font-semibold text-surface-100 mb-1">{entry.data.title}</div>
+                <div class="text-xs text-surface-500 leading-relaxed">{entry.data.description}</div>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+
+  <footer class="border-t border-surface-800/40 py-8">
+    <div class="max-w-5xl mx-auto px-6 text-xs text-surface-600">
+      文档与源码可能不同步，以 <a class="text-surface-400 hover:text-surface-200" href="https://github.com/cocosoft/Liri/tree/main/app/docs" target="_blank" rel="noopener noreferrer">GitHub 仓库</a> 为准。
+    </div>
+  </footer>
+</Layout>

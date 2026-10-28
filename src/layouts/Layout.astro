@@ -1,12 +1,16 @@
 ---
 import '../styles/global.css';
+import { withBase } from '../utils/url';
 
 export interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = 'Liri — 你的 AI 私人助手', description = 'Liri 是一个运行在终端中的 AI 智能助手。智能对话、工具调用、多平台接入、安全可控。' } = Astro.props;
+const { title = 'Liri — 你的 AI 私人助手', description = 'Liri（玲珑鸟）是开源（MIT）的终端 AI 智能体：82 个内置工具、27 个消息渠道、五层安全防线，支持本地模型与多供应商路由。' } = Astro.props;
+
+const siteOrigin = Astro.site?.origin ?? 'https://openliri.com';
+const ogImage = new URL(withBase('/logo-512.png'), siteOrigin).href;
 ---
 
 <!doctype html>
@@ -15,19 +19,21 @@ const { title = 'Liri — 你的 AI 私人助手', description = 'Liri 是一个
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="Liri,AI助手,AI Agent,命令行工具,智能助手,玲珑鸟" />
+    <meta name="keywords" content="Liri,玲珑鸟,AI 助手,AI Agent,终端助手,开源,TypeScript,Rust,MCP,消息渠道" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://openliri.com" />
-    <meta property="og:image" content="https://openliri.com/og-image.png" />
+    <meta property="og:url" content={new URL(withBase('/'), siteOrigin).href} />
+    <meta property="og:image" content={ogImage} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+    <link rel="icon" type="image/png" href={withBase('/logo.png')} />
+    <link rel="apple-touch-icon" href={withBase('/logo-512.png')} />
 
     <title>{title}</title>
   </head>

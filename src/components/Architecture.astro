@@ -13,10 +13,10 @@ const layers: ArchitectureLayer[] = [
     subtitle: '从任何入口，进入 Liri',
     color: 'from-orange-500/20 to-amber-500/10',
     items: [
-      { label: 'REPL 终端', detail: 'React+Ink 构建的沉浸式终端 UI，支持 16 种 Buddy 人格' },
-      { label: 'Tauri 桌面客户端', detail: '147 个 TSX 组件，20+ 功能页面，原生性能' },
-      { label: 'MCP/渠道网关', detail: 'MCP Server + 26 个消息渠道（微信/钉钉/飞书/TG 等）' },
-      { label: 'CLI/API', detail: '命令行工具 + HTTP API，CI/CD 集成' },
+      { label: 'REPL 终端', detail: 'React + Ink 构建的终端 UI，内置 Buddy 伙伴系统' },
+      { label: 'Tauri 桌面客户端', detail: '425 个 TSX 组件，32 个功能页面（Tauri 2.11 + React 19）' },
+      { label: 'MCP / 渠道网关', detail: 'MCP Server + 27 个消息渠道（微信/钉钉/飞书/TG 等）' },
+      { label: 'CLI / HTTP API', detail: 'Liri / liri-memory / liri-ink 三个可执行入口 + HTTP API' },
     ],
   },
   {
@@ -24,32 +24,32 @@ const layers: ArchitectureLayer[] = [
     subtitle: '每一次输入都经过安全过滤',
     color: 'from-red-500/20 to-rose-500/10',
     items: [
-      { label: 'Rust AST 编译时分析', detail: 'FFI 层解析 Bash AST，40+ 模式匹配危险命令' },
-      { label: 'TypeScript 语义分析', detail: 'TypeScript 层安全类型检查与语义分析' },
-      { label: 'Guardrail 规则引擎', detail: '可编程策略规则，白名单/黑名单/正则匹配' },
-      { label: 'AutoMode 分类器', detail: '自动判断任务风险等级，分配安全策略' },
+      { label: 'Rust AST 编译时分析', detail: 'FFI 层解析 Bash AST，37 条危险命令规则' },
+      { label: 'TypeScript 语义分析', detail: '复合只读命令逐段判定，拒绝原因可归因' },
+      { label: 'Guardrail 规则引擎', detail: '14 条注入模式 + 10 条 Shell 专项规则' },
+      { label: 'AutoMode 分类器', detail: '自动判断任务风险等级，决定放行 / 询问 / 拒绝' },
     ],
   },
   {
     name: '智能路由层',
-    subtitle: '最合适的模型，完成最合适的任务',
+    subtitle: '按任务类型与难度选择模型',
     color: 'from-brand-500/20 to-orange-500/10',
     items: [
-      { label: '8 种任务类型识别', detail: '编码/写作/分析/工具/翻译/搜索/创意/闲聊' },
-      { label: '5 层决策管线', detail: '成本→能力→延迟→本地可用性→用户偏好' },
-      { label: '供应商回退链', detail: '主模型不可用 → 自动回退 → 降级不中断' },
-      { label: '自适应优化', detail: '根据成功率/延迟/成本动态调整路由策略' },
+      { label: '19 种任务类型识别', detail: '编码 / 写作 / 分析 / 工具 / 翻译 / 搜索 / 创意 / 闲聊等' },
+      { label: '4 档 tier', detail: 'simple / medium / complex / reasoning' },
+      { label: '5 层决策管线', detail: '开关 → 快通道 → 会话黏性 → LLM 判别 → Tier 解析' },
+      { label: 'FallbackChain 回退', detail: '主供应商不可用按序回退，配套 RetryPolicy' },
     ],
   },
   {
     name: '外脑注入层',
-    subtitle: '知识库 + 记忆 = 永不遗忘的外脑',
+    subtitle: '知识库 + 记忆 + 会话事件，三段可检索上下文',
     color: 'from-cyan-500/20 to-blue-500/10',
     items: [
-      { label: '文件管理系统', detail: '文件浏览器 + 目录树 + 拖拽上传 + 多格式支持' },
-      { label: '知识库系统', detail: '混合搜索（语义+关键词）+ 自动摄取 + 智能摘要' },
-      { label: '记忆系统', detail: '短期→长期记忆 + 记忆清洗 + DumpSession 持久化' },
-      { label: 'DreamEngine 梦境', detail: '空闲时自动整理知识/记忆，三阶段梦境（light/deep/rem）' },
+      { label: '知识库', detail: 'Markdown 落盘 + 语义索引，关键词 / 向量 / RRF 融合检索' },
+      { label: '记忆系统', detail: '分层记忆 + SQLite 向量表，按相关性加权召回' },
+      { label: '会话事件', detail: 'events.jsonl 追加存储，可回放、可审计' },
+      { label: 'DreamEngine', detail: '空闲时整理知识：采集 → 分析 → 生成 → 写入 → 索引' },
     ],
   },
   {
@@ -57,21 +57,21 @@ const layers: ArchitectureLayer[] = [
     subtitle: 'Think → Act → Observe → Reason',
     color: 'from-green-500/20 to-emerald-500/10',
     items: [
-      { label: 'Think（思考）', detail: '多策略思考（CoT/ReAct/Plan/Reflect/Game）' },
-      { label: 'Act（行动）', detail: '60+ 工具调用 + 工具组合编排 + 策略切换' },
-      { label: 'Observe（观察）', detail: '结果评估 + ContextCompressor 上下文压缩' },
-      { label: 'Reason（推理）', detail: 'TokenBudget 预算管理 + Checkpoint 断点续执行' },
+      { label: 'Think（思考）', detail: '4 种 Agent 策略：通用 / 编码 / 探索 / 规划' },
+      { label: 'Act（行动）', detail: '82 个内置工具，按构建变体动态注册' },
+      { label: 'Observe（观察）', detail: '结果评估 + 上下文分层切窗与自动压缩' },
+      { label: 'Reason（推理）', detail: 'Token 预算管理 + 检查点续跑 + 轮级熔断' },
     ],
   },
   {
-    name: '安全第二层：执行沙箱',
-    subtitle: '代码执行在隔离环境中进行',
+    name: '执行沙箱层',
+    subtitle: '命令在隔离环境中执行，无隔离时诚实降级',
     color: 'from-red-500/20 to-orange-500/10',
     items: [
-      { label: 'Docker 沙箱', detail: '完整容器隔离 + 资源限制 + 网络策略' },
-      { label: 'SSH 沙箱', detail: '远程服务器纯净执行环境' },
-      { label: 'Worker 沙箱', detail: '轻量级线程池隔离' },
-      { label: 'PTY 沙箱', detail: '伪终端模拟 + 路径访问控制' },
+      { label: 'Linux Landlock', detail: '内核级文件系统访问限制' },
+      { label: 'macOS / Windows', detail: '系统沙箱 + Low IL / Job 对象兜底隔离' },
+      { label: 'Docker 容器', detail: '完整容器隔离 + 资源限制 + 网络策略' },
+      { label: 'SSH / PTY', detail: '远程纯净执行环境与伪终端路径控制' },
     ],
   },
   {
@@ -79,21 +79,21 @@ const layers: ArchitectureLayer[] = [
     subtitle: '从单次对话到跨天任务',
     color: 'from-purple-500/20 to-violet-500/10',
     items: [
-      { label: 'PDCA 管线', detail: 'FlowEngine 流程引擎 + Plan-Do-Check-Act 闭环' },
-      { label: 'Swarm 集群', detail: '多 Agent 协作，OrchEngine 编排调度' },
-      { label: 'Cron 定时任务', detail: '内置定时任务引擎，支持 cron 表达式' },
-      { label: '任务持久化', detail: '会话快照 + 断点恢复 + TaskDecomposer 自动分解' },
+      { label: 'PDCA 管线', detail: 'Plan-Do-Check-Act 闭环，进度按产物存在性推进' },
+      { label: 'Swarm 多智能体', detail: 'AgentSwarm + 议事编排，注册表动态发现' },
+      { label: 'Cron 定时任务', detail: '支持 once / interval / cron 表达式（含时区）' },
+      { label: '任务持久化', detail: '会话快照 + 断点恢复 + 等待中可见倒计时' },
     ],
   },
   {
     name: '反馈与进化层',
-    subtitle: '每一次交互，都在让系统更聪明',
+    subtitle: '每一次交互，都留下可核对的证据',
     color: 'from-amber-500/20 to-yellow-500/10',
     items: [
-      { label: '四层自进化', detail: '知识层/记忆层/路由层/执行层 持续优化' },
-      { label: 'DreamEngine', detail: '空闲检测 → 梦境触发 → 记忆整理 → 洞察生成' },
-      { label: 'PDCA 自迭代', detail: '自动分解 → 自动评审 → 自动修正 的完整闭环' },
-      { label: '成本分析', detail: 'Token 用量追踪 + 余额查询 + 预算管理 + 模型比价' },
+      { label: '失败样本归纳', detail: '把失败模式归纳后写回提示词与技能，形成改进闭环' },
+      { label: '成本账本', detail: '按数据库定价表计费，记录 provider 回显的真实模型名' },
+      { label: '评测门禁', detail: '内建基线题库 + pass^k 可靠性口径 + 成对安全测量' },
+      { label: '事件回放', detail: '每一次模型调用的上下文都能事后重建' },
     ],
   },
 ];
@@ -102,10 +102,10 @@ const layers: ArchitectureLayer[] = [
 const principles = [
   { icon: '🛡️', title: '安全内生', desc: '安全不是插件，是每一层架构的 DNA' },
   { icon: '🏠', title: '本地优先', desc: '数据本地存储，离线可用，隐私默认保障' },
-  { icon: '🧠', title: '智能路由', desc: '8 类型任务自动匹配最省钱、最合适的模型' },
-  { icon: '🧬', title: '外脑设计', desc: '文件→知识库→记忆，三层外脑永不遗忘' },
-  { icon: '🔄', title: '自进化闭环', desc: '从每一次交互中学习，在梦境中自我优化' },
-  { icon: '🔌', title: '多模态统一', desc: '终端/桌面/IM/API，一个引擎服务所有入口' },
+  { icon: '🧠', title: '智能路由', desc: '19 类任务匹配对应档位的模型' },
+  { icon: '🧬', title: '外脑设计', desc: '知识库 + 记忆 + 事件日志，三段上下文可检索' },
+  { icon: '🔄', title: '可核对闭环', desc: '失败样本归纳写回，变更由门禁拦住' },
+  { icon: '🔌', title: '多模态统一', desc: '终端/桌面/IM/API 共用同一套引擎' },
 ];
 ---
 
@@ -118,7 +118,7 @@ const principles = [
       <span class="gradient-text">架构全景图</span>
     </h2>
     <p class="text-surface-400 text-center mb-6 max-w-3xl mx-auto">
-      从「用户输入」到「自进化反馈」的 8 层完整架构链路
+      从入口到反馈的 8 个功能层；工程上由 6 层依赖门禁（entry &gt; ui &gt; app &gt; service &gt; infra &gt; core）强制约束
     </p>
 
     <!-- 架构层垂直布局 -->
