@@ -33,9 +33,9 @@ const next = index < all.length - 1 ? all[index + 1] : null;
     </div>
   </header>
 
-  <div class="max-w-6xl mx-auto px-6 py-10 lg:flex lg:gap-12">
-    <!-- 侧栏 -->
-    <aside class="lg:w-56 shrink-0 mb-10 lg:mb-0">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col lg:flex-row lg:gap-12">
+    <!-- 侧栏：移动端排在正文之后 -->
+    <aside class="order-2 lg:order-1 lg:w-56 shrink-0 mt-12 lg:mt-0">
       <nav class="lg:sticky lg:top-24 space-y-6">
         {groups.map((group) => (
           <div>
@@ -62,7 +62,7 @@ const next = index < all.length - 1 ? all[index + 1] : null;
     </aside>
 
     <!-- 正文 -->
-    <article class="min-w-0 flex-1">
+    <article class="order-1 lg:order-2 min-w-0 flex-1">
       <div class="doc-body">
         <Content />
       </div>
