@@ -13,11 +13,12 @@ const links = [
   { href: '#architecture', label: t.nav.architecture },
   { href: '#security', label: t.nav.security },
   { href: '#smart-router', label: t.nav.routing },
-  { href: '#voice', label: t.nav.voice },
-  { href: '#brain', label: t.nav.brain },
-  { href: '#desktop', label: t.nav.desktop },
-  { href: '#cost', label: t.nav.cost },
+  { href: '#voice', label: t.nav.voice, secondary: true },
+  { href: '#brain', label: t.nav.brain, secondary: true },
+  { href: '#desktop', label: t.nav.desktop, secondary: true },
+  { href: '#cost', label: t.nav.cost, secondary: true },
   { href: '#ecosystem', label: t.nav.ecosystem },
+  { href: localizePath('/evolution', lang), label: t.nav.evolution },
   { href: '#quickstart', label: t.nav.start },
 ];
 ---
@@ -32,7 +33,12 @@ const links = [
     <!-- 桌面端导航链接：英文标签更长，断点收到 lg 避免中宽屏拥挤 -->
     <div class="hidden lg:flex items-center gap-4 xl:gap-5 text-sm">
       {links.map((link) => (
-        <a href={link.href} class="text-surface-400 hover:text-surface-200 transition-colors">{link.label}</a>
+        <a
+          href={link.href}
+          class={`text-surface-400 hover:text-surface-200 transition-colors ${link.secondary ? 'hidden xl:inline' : ''}`}
+        >
+          {link.label}
+        </a>
       ))}
       <a href={localizePath('/docs', lang)} class="text-brand-400 hover:text-brand-300 transition-colors">{t.nav.docs}</a>
       <LangSwitcher />

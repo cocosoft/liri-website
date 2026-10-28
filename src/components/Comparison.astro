@@ -1,22 +1,12 @@
 ---
 import { siteFacts } from '../data/site';
 import { fmt, num, pick } from '../i18n';
-import { comparison } from '../i18n/sections/comparison';
+import { comparison, comparisonStatusClass } from '../i18n/sections/comparison';
 
 const c = pick(comparison, Astro.url);
+const repoTree = 'https://github.com/cocosoft/Liri/tree/main/';
 
-// 竞品对比数据
-interface ComparisonRow {
-  dimension: string;
-  liri: string;
-  liriHighlight: boolean;
-  competitor1: string;  // OpenClaw
-  competitor2: string;  // CrewAI
-  competitor3: string;  // AutoGen
-}
-
-const rows: ComparisonRow[] = c.rows.map((row) => ({ ...row, liriHighlight: true }));
-
+// 文案中的数字占位符统一取自 siteFacts
 const rowParams = {
   taskTypes: siteFacts.taskTypes,
   securityLayers: siteFacts.securityLayers,
@@ -40,39 +30,51 @@ const rowParams = {
       {c.subtitle}
     </p>
 
-    <!-- 对比表格 -->
+    <!-- 自查表格：维度 / 现状 / 状态 / 源码 -->
     <div class="max-w-5xl mx-auto overflow-x-auto">
-      <table class="w-full text-sm">
+      <table class="w-full min-w-[680px] text-sm">
         <thead>
           <tr class="border-b border-surface-800/50">
             <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">{c.dimensionHeader}</th>
             <th class="text-left py-3 px-4 text-brand-400 font-semibold">Liri</th>
-            <th class="text-left py-3 px-4 text-surface-500 font-mono text-xs">OpenClaw</th>
-            <th class="text-left py-3 px-4 text-surface-500 font-mono text-xs">CrewAI</th>
-            <th class="text-left py-3 px-4 text-surface-500 font-mono text-xs">AutoGen</th>
+            <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">{c.statusHeader}</th>
+            <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">{c.sourceHeader}</th>
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
+          {c.rows.map((row) => (
             <tr class="border-b border-surface-800/30 hover:bg-surface-900/40 transition-colors">
               <td class="py-3 px-4 text-surface-300 font-mono text-xs whitespace-nowrap">{row.dimension}</td>
-              <td class={`py-3 px-4 ${row.liriHighlight ? 'text-brand-300 font-semibold' : 'text-surface-200'}`}>
-                <span class="flex items-center gap-1.5">
-                  {row.liriHighlight && <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>}
-                  {fmt(row.liri, rowParams)}
+              <td class="py-3 px-4 text-brand-300 font-semibold">{fmt(row.liri, rowParams)}</td>
+              <td class="py-3 px-4">
+                <span class={`inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded-full border text-[11px] font-medium ${comparisonStatusClass[row.status as keyof typeof c.statuses]}`}>
+                  {c.statuses[row.status as keyof typeof c.statuses]}
                 </span>
               </td>
-              <td class="py-3 px-4 text-surface-500 text-xs">{row.competitor1}</td>
-              <td class="py-3 px-4 text-surface-500 text-xs">{row.competitor2}</td>
-              <td class="py-3 px-4 text-surface-500 text-xs">{row.competitor3}</td>
+              <td class="py-3 px-4">
+                <a
+                  href={repoTree + row.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 text-xs font-mono text-surface-500 hover:text-brand-400 transition-colors"
+                >
+                  {c.sourceLink}
+                  <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
 
-    <div class="text-center mt-8">
-      <p class="text-surface-500 text-xs font-mono">
+    <div class="text-center mt-8 space-y-2">
+      <p class="text-surface-500 text-xs">
+        {c.statusLegend}
+      </p>
+      <p class="text-surface-600 text-xs font-mono">
         {fmt(c.footnote, { version: siteFacts.version })}
       </p>
     </div>

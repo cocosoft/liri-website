@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SimpleHeader from './SimpleHeader.astro';
+import Footer from './Footer.astro';
+import Comparison from './Comparison.astro';
+import Limitations from './Limitations.astro';
+import Roadmap from './Roadmap.astro';
+import TechStack from './TechStack.astro';
+import { pick } from '../i18n';
+import { status } from '../i18n/sections/status';
+
+const c = pick(status, Astro.url);
+---
+
+<Layout title={c.meta.title} description={c.meta.description}>
+  <SimpleHeader label={c.label} />
+
+  <main>
+    <section class="pt-16 pb-4 relative">
+      <div class="section-container">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-3xl sm:text-5xl font-bold mb-5">
+            <span class="gradient-text">{c.title}</span>
+          </h1>
+          <p class="text-surface-400 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
+            {c.subtitle}
+          </p>
+
+          <nav class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="text-xs font-mono text-surface-600 mr-1">{c.jumpLabel}</span>
+            {c.jumps.map((jump) => (
+              <a
+                href={jump.href}
+                class="px-3 py-1 rounded-full text-xs text-surface-400 bg-surface-900/60 border border-surface-800/60 hover:text-brand-400 hover:border-brand-500/30 transition-colors"
+              >
+                {jump.label}
+              </a>
+            ))}
+          </nav>
+
+          <p class="text-xs text-surface-600">{c.healthNote}</p>
+        </div>
+      </div>
+    </section>
+
+    <Comparison />
+    <Limitations />
+    <Roadmap />
+    <TechStack />
+
+    <section class="pb-16">
+      <div class="section-container">
+        <p class="max-w-4xl mx-auto text-xs text-surface-600">{c.updateNote}</p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

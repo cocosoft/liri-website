@@ -20,6 +20,7 @@ const zh = {
     desktop: '桌面',
     cost: '成本',
     ecosystem: '市场',
+    evolution: '演进',
     start: '开始',
     docs: '文档',
     openMenu: '打开菜单',
@@ -50,6 +51,8 @@ const zh = {
     community: '社区',
     discord: 'Discord（即将上线）',
     docs: '使用文档',
+    status: '项目状态',
+    evolution: '演进记录',
     discussions: 'Discussions（即将开启）',
     copyright: '© {year} Liri. Released under MIT License.',
     stats:
@@ -74,6 +77,8 @@ const zh = {
   common: {
     scroll: '向下滚动',
     copy: '点击复制',
+    backHome: '返回首页',
+    fullStatus: '查看完整状态',
   },
 };
 
@@ -94,6 +99,7 @@ const en = {
     desktop: 'Desktop',
     cost: 'Cost',
     ecosystem: 'Ecosystem',
+    evolution: 'Build Log',
     start: 'Get Started',
     docs: 'Docs',
     openMenu: 'Open menu',
@@ -124,6 +130,8 @@ const en = {
     community: 'Community',
     discord: 'Discord (coming soon)',
     docs: 'Documentation',
+    status: 'Project status',
+    evolution: 'Build log',
     discussions: 'Discussions (opening soon)',
     copyright: '© {year} Liri. Released under MIT License.',
     stats:
@@ -148,6 +156,8 @@ const en = {
   common: {
     scroll: 'Scroll down',
     copy: 'Click to copy',
+    backHome: 'Back to home',
+    fullStatus: 'See full status',
   },
 } satisfies typeof zh;
 

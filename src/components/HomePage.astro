@@ -2,10 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import SiteNav from './SiteNav.astro';
 import Hero from './Hero.astro';
+import EvolutionTeaser from './EvolutionTeaser.astro';
 import About from './About.astro';
 import Capabilities from './Capabilities.astro';
 import Architecture from './Architecture.astro';
-import TechStack from './TechStack.astro';
 import Security from './Security.astro';
 import SmartRouter from './SmartRouter.astro';
 import VoiceInteraction from './VoiceInteraction.astro';
@@ -14,11 +14,10 @@ import LocalFirst from './LocalFirst.astro';
 import BuddyShowcase from './BuddyShowcase.astro';
 import DesktopClient from './DesktopClient.astro';
 import CostTracking from './CostTracking.astro';
-import Comparison from './Comparison.astro';
 import ChannelWall from './ChannelWall.astro';
 import Ecosystem from './Ecosystem.astro';
 import Scenarios from './Scenarios.astro';
-import Roadmap from './Roadmap.astro';
+import Limitations from './Limitations.astro';
 import QuickStart from './QuickStart.astro';
 import Community from './Community.astro';
 import Footer from './Footer.astro';
@@ -33,10 +32,10 @@ const t = pick(ui, Astro.url);
 
   <main>
     <Hero />
+    <EvolutionTeaser />
     <About />
     <Capabilities />
     <Architecture />
-    <TechStack />
     <Security />
     <SmartRouter />
     <VoiceInteraction />
@@ -45,11 +44,10 @@ const t = pick(ui, Astro.url);
     <BuddyShowcase />
     <DesktopClient />
     <CostTracking />
-    <Comparison />
     <ChannelWall />
     <Ecosystem />
     <Scenarios />
-    <Roadmap />
+    <Limitations limit={3} />
     <QuickStart />
     <Community />
   </main>

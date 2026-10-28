@@ -1,0 +1,183 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SimpleHeader from './SimpleHeader.astro';
+import Footer from './Footer.astro';
+import StoryNode from './evolution/StoryNode.astro';
+import { pick } from '../i18n';
+import { ui } from '../i18n/ui';
+import { evolution } from '../i18n/sections/evolution';
+
+const c = pick(evolution, Astro.url);
+const t = pick(ui, Astro.url);
+
+const repo = 'https://github.com/cocosoft/Liri';
+const cardLinks = [
+  `${repo}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22`,
+  `${repo}/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22`,
+  '#audit',
+];
+---
+
+<Layout title={c.meta.title} description={c.meta.description}>
+  <SimpleHeader label={t.nav.evolution} />
+
+  <main>
+    <!-- M1 首屏 -->
+    <section class="relative section-padding overflow-hidden">
+      <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(rgba(255,90,54,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,90,54,.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-brand-500/5 blur-3xl pointer-events-none"></div>
+
+      <div class="section-container relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-brand-300 bg-brand-500/10 border border-brand-500/20 mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
+            {c.hero.eyebrow}
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-bold mb-5">
+            <span class="gradient-text">{c.hero.title}</span>
+          </h1>
+          <p class="text-surface-300 text-base sm:text-lg leading-relaxed mb-10">
+            {c.hero.subtitle}
+          </p>
+
+          <dl class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+            {c.hero.stats.map((stat) => (
+              <div class="glass-card p-4">
+                <dt class="text-2xl font-bold gradient-text mb-1">{stat.value}</dt>
+                <dd class="text-xs text-surface-500">{stat.label}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <a href="#timeline" class="inline-flex items-center gap-2 text-sm text-surface-400 hover:text-brand-400 transition-colors">
+            {c.hero.scroll}
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- M2 起源 -->
+    <section class="section-padding relative bg-surface-950/40">
+      <div class="section-container">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-8">
+            <span class="gradient-text">{c.origin.title}</span>
+          </h2>
+          <div class="space-y-5 text-surface-300 leading-relaxed">
+            {c.origin.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- M3 转折点 -->
+    <section class="section-padding relative">
+      <div class="section-container">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3">
+            <span class="gradient-text">{c.nodes.title}</span>
+          </h2>
+          <p class="text-sm text-surface-500 mb-10">{c.nodes.note}</p>
+
+          <div class="space-y-6">
+            {c.nodes.items.map((node, i) => (
+              <StoryNode node={node} labels={c.nodes.fieldLabels} index={i} total={c.nodes.items.length} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- M5 时间线 -->
+    <section id="timeline" class="section-padding relative bg-surface-950/40">
+      <div class="section-container">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3">
+            <span class="gradient-text">{c.timeline.title}</span>
+          </h2>
+          <p class="text-sm text-surface-500 mb-10">{c.timeline.subtitle}</p>
+
+          <ol class="space-y-0">
+            {c.timeline.items.map((item, i) => (
+              <li class="flex gap-4">
+                <div class="flex flex-col items-center shrink-0">
+                  <span class="w-2.5 h-2.5 rounded-full bg-surface-600 mt-1.5"></span>
+                  {i < c.timeline.items.length - 1 && <span class="w-px flex-1 bg-surface-800 my-1"></span>}
+                </div>
+                <div class="pb-6 flex flex-wrap items-baseline gap-x-3">
+                  <span class="text-xs font-mono text-surface-500">{item.date}</span>
+                  <span class="text-sm text-surface-300">{item.text}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p class="text-xs text-surface-600 mt-2">{c.timeline.more}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- M6 参与方式 -->
+    <section class="section-padding relative">
+      <div class="section-container">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3">
+            <span class="gradient-text">{c.participate.title}</span>
+          </h2>
+          <p class="text-surface-400 mb-10 max-w-2xl">{c.participate.subtitle}</p>
+
+          <div class="grid sm:grid-cols-3 gap-4">
+            {c.participate.cards.map((card, i) => (
+              <a
+                href={cardLinks[i]}
+                {...(i < 2 ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                class="glass-card p-6 flex flex-col hover:border-brand-500/30 transition-colors group"
+              >
+                <h3 class="text-base font-semibold text-surface-100 mb-2">{card.title}</h3>
+                <p class="text-sm text-surface-400 leading-relaxed flex-1">{card.desc}</p>
+                <span class="mt-4 inline-flex items-center gap-1 text-xs text-brand-400 group-hover:text-brand-300 transition-colors">
+                  {card.cta}
+                  <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <div id="audit" class="glass-card p-6 sm:p-8 mt-8 scroll-mt-28">
+            <h3 class="text-base font-semibold text-surface-100 mb-4">{c.participate.audit.title}</h3>
+            <ul class="space-y-2">
+              {c.participate.audit.items.map((item) => (
+                <li class="flex items-start gap-2.5 text-sm text-surface-400 leading-relaxed">
+                  <svg class="w-4 h-4 text-surface-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <rect x="4" y="4" width="16" height="16" rx="3" />
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p class="mt-4 text-xs font-mono text-surface-600">{c.participate.audit.note}</p>
+
+            <p class="mt-5 text-xs text-amber-300/80 bg-amber-500/5 border border-amber-500/20 rounded-lg px-3 py-2">
+              {c.participate.securityNotice}
+            </p>
+
+            <div class="mt-6 flex flex-wrap items-center gap-4">
+              <a href={`${repo}/issues`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-linear-to-r from-brand-500 to-orange-500 text-white text-sm font-semibold hover:scale-[1.02] transition-transform">
+                {c.participate.ctaGithub}
+              </a>
+              <a href={`${repo}/blob/main/SECURITY.md`} target="_blank" rel="noopener noreferrer" class="text-sm text-surface-400 hover:text-brand-400 transition-colors">
+                {c.participate.ctaSecurity} →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

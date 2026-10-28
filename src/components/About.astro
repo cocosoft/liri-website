@@ -10,6 +10,15 @@ const statValues = [
   siteFacts.channels,
   siteFacts.desktopComponents,
 ];
+
+// 每个数字都能点回源码，避免「说了但不好验证」
+const repo = 'https://github.com/cocosoft/Liri';
+const statSources = [
+  `${repo}/tree/main/app/src`,
+  `${repo}/blob/main/app/src/constants/toolNames.generated.ts`,
+  `${repo}/blob/main/app/src/channels/ChannelCatalog.ts`,
+  `${repo}/tree/main/client/src`,
+];
 ---
 
 <section class="section-padding relative">
@@ -41,13 +50,24 @@ const statValues = [
         </p>
       </div>
 
-      <!-- 关键数据统计 -->
+      <!-- 关键数据统计：点击可跳到源码核对 -->
       <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4">
         {statValues.map((value, i) => (
-          <div class="glass-card p-6 text-center">
+          <a
+            href={statSources[i]}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={c.verifyTitle}
+            class="glass-card p-6 text-center group hover:border-brand-500/30 transition-colors"
+          >
             <div class="text-3xl font-bold gradient-text mb-1">{value}</div>
-            <div class="text-surface-400 text-sm">{c.statLabels[i]}</div>
-          </div>
+            <div class="text-surface-400 text-sm inline-flex items-center gap-1">
+              {c.statLabels[i]}
+              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </div>
+          </a>
         ))}
       </div>
     </div>

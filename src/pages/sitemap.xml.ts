@@ -8,6 +8,8 @@ export const GET: APIRoute = async () => {
   /** 中英成对的页面：同一内容在两种语言下的路径 */
   const pages = [
     { zh: '/', en: '/en/', priority: '1.0', changefreq: 'weekly' },
+    { zh: '/evolution', en: '/en/evolution', priority: '0.9', changefreq: 'weekly' },
+    { zh: '/status', en: '/en/status', priority: '0.8', changefreq: 'weekly' },
     { zh: '/docs', en: '/en/docs', priority: '0.8', changefreq: 'weekly' },
     ...zhDocs.map((doc) => ({
       zh: `/docs/${doc.id}`,
