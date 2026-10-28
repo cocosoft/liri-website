@@ -1,5 +1,5 @@
 ---
-import { heroStats, siteFacts } from '../data/site';
+import { heroStats, isIterating, releaseStage, siteFacts } from '../data/site';
 import { withBase } from '../utils/url';
 ---
 
@@ -27,11 +27,27 @@ import { withBase } from '../utils/url';
       玲珑鸟 · AI 私人助手 · <span class="text-brand-400">本地优先</span> · <span class="text-brand-400">安全内生</span>
     </p>
 
-    <div class="mb-4 flex justify-center animate-fade-in-up" style="animation-delay: .22s;">
+    <div class="mb-4 flex flex-wrap items-center justify-center gap-2 animate-fade-in-up" style="animation-delay: .22s;">
       <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono text-surface-400 bg-surface-900/60 border border-surface-800/60">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
         v{siteFacts.version} · MIT 开源 · 发布于 {siteFacts.releaseDate}
       </span>
+      {isIterating && (
+        <a
+          href={releaseStage.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={releaseStage.detail}
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-brand-300 bg-brand-500/10 border border-brand-500/30 hover:bg-brand-500/15 hover:border-brand-500/50 transition-colors"
+        >
+          <span class="relative flex h-1.5 w-1.5">
+            <span class="absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75 animate-ping"></span>
+            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-400"></span>
+          </span>
+          {releaseStage.label}
+          <span class="font-normal text-brand-400/80">· {releaseStage.note}</span>
+        </a>
+      )}
     </div>
 
     <!-- 核心数字标语 -->

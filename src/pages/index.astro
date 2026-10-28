@@ -22,10 +22,11 @@ import QuickStart from '../components/QuickStart.astro';
 import Community from '../components/Community.astro';
 import Footer from '../components/Footer.astro';
 import { withBase } from '../utils/url';
+import { isIterating } from '../data/site';
 ---
 
 <Layout>
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-surface-975/70 backdrop-blur-xl border-b border-surface-800/30">
+  <nav class={`fixed left-0 right-0 z-50 bg-surface-975/70 backdrop-blur-xl border-b border-surface-800/30 ${isIterating ? 'top-9' : 'top-0'}`}>
     <div class="section-container flex items-center justify-between h-16">
       <a href="#top" class="flex items-center gap-2.5 text-surface-200 font-bold shrink-0">
         <img src={withBase('/logo.png')} alt="Liri" width="28" height="28" class="w-7 h-7 rounded-md" />
@@ -60,7 +61,7 @@ import { withBase } from '../utils/url';
   </nav>
 
   <!-- 移动端菜单面板：必须放在 nav 之外，nav 的 backdrop-blur 会成为 fixed 的包含块 -->
-  <div id="mobile-menu" class="md:hidden hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-surface-975/95 backdrop-blur-2xl border-t border-surface-800/30 overflow-y-auto">
+  <div id="mobile-menu" class={`md:hidden hidden fixed inset-x-0 bottom-0 z-40 bg-surface-975/95 backdrop-blur-2xl border-t border-surface-800/30 overflow-y-auto ${isIterating ? 'top-[6.25rem]' : 'top-16'}`}>
     <div class="section-container py-6 space-y-1">
       <a href="#capabilities" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">核心能力</a>
       <a href="#architecture" class="block px-4 py-3 rounded-xl text-surface-300 hover:text-surface-100 hover:bg-surface-800/50 transition-colors text-base font-medium">架构</a>

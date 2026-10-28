@@ -48,6 +48,22 @@ export const siteFacts = {
   bundledSkills: 11,
 } as const;
 
+/**
+ * 站点阶段标识。
+ * 正式版发布时把 status 改为 'stable'，顶部通栏与首屏徽章会整体消失，无需改动模板。
+ */
+export const releaseStage = {
+  status: 'iterating' as 'iterating' | 'stable',
+  label: '快速迭代期',
+  note: '接口与文档可能变动',
+  detail: '当前处于快速迭代阶段，接口、配置项与文档会随版本调整，升级前请留意发布日志。',
+  href: 'https://github.com/cocosoft/Liri/releases',
+  cta: '发布日志',
+} as const;
+
+/** 模板据此决定是否渲染阶段标识 */
+export const isIterating = releaseStage.status === 'iterating';
+
 /** 首屏与关于区块复用的关键数字 */
 export const keyStats = [
   { value: siteFacts.tsFiles.toLocaleString('en-US'), label: 'TypeScript 文件' },

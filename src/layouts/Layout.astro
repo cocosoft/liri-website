@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import { withBase } from '../utils/url';
+import { isIterating } from '../data/site';
+import StageBanner from '../components/StageBanner.astro';
 
 export interface Props {
   title?: string;
@@ -20,6 +22,8 @@ const ogImage = new URL(withBase('/logo-512.png'), siteOrigin).href;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="keywords" content="Liri,玲珑鸟,AI 助手,AI Agent,终端助手,开源,TypeScript,Rust,MCP,消息渠道" />
+    <!-- Google Search Console 验证（DNS TXT 的兜底方案，content 为 TXT 值中 = 之后的部分） -->
+    <meta name="google-site-verification" content="YLEkX6K5Toa8hZk-EROkIEH_03xktM3fQa4hOpKQBX4" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -37,7 +41,8 @@ const ogImage = new URL(withBase('/logo-512.png'), siteOrigin).href;
 
     <title>{title}</title>
   </head>
-  <body id="top" class="min-h-screen">
+  <body id="top" class={`min-h-screen ${isIterating ? 'pt-9' : ''}`}>
+    {isIterating && <StageBanner />}
     <slot />
   </body>
 </html>
