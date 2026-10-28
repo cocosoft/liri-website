@@ -2,9 +2,10 @@ import { defineConfig } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
 import tailwindcss from '@tailwindcss/vite';
 
-// 部署在 GitHub Pages 项目子路径下：https://cocosoft.github.io/liri-website/
-// 换成自定义域名（openliri.com）时，把 BASE 改成 '/' 即可
-const BASE = '/liri-website';
+// 部署在自定义域名根路径：https://openliri.com
+// 若改回 GitHub Pages 项目地址，把 BASE 设为 '/liri-website'
+const BASE = '/';
+const PREFIX = BASE.replace(/\/$/, '');
 
 /** 给 Markdown 渲染出的站内绝对链接补上部署 base */
 function rehypeBaseLinks() {
@@ -13,7 +14,7 @@ function rehypeBaseLinks() {
       for (const attr of ['href', 'src']) {
         const value = node.properties?.[attr];
         if (typeof value === 'string' && value.startsWith('/') && !value.startsWith('//')) {
-          node.properties[attr] = BASE + value;
+          node.properties[attr] = PREFIX + value;
         }
       }
     }
@@ -23,7 +24,7 @@ function rehypeBaseLinks() {
 }
 
 export default defineConfig({
-  site: 'https://cocosoft.github.io',
+  site: 'https://openliri.com',
   base: BASE,
   markdown: {
     processor: unified({
