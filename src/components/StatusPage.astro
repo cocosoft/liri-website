@@ -6,6 +6,7 @@ import Comparison from './Comparison.astro';
 import Limitations from './Limitations.astro';
 import Roadmap from './Roadmap.astro';
 import TechStack from './TechStack.astro';
+import LocalFirst from './LocalFirst.astro';
 import { pick } from '../i18n';
 import { status } from '../i18n/sections/status';
 
@@ -47,6 +48,7 @@ const c = pick(status, Astro.url);
     <Limitations />
     <Roadmap />
     <TechStack />
+    <LocalFirst />
 
     <section class="pb-16">
       <div class="section-container">

@@ -3,6 +3,12 @@ import { siteFacts } from '../data/site';
 import { fmt, pick } from '../i18n';
 import { architecture } from '../i18n/sections/architecture';
 
+interface Props {
+  /** 嵌在演进页 M4 里时去掉整节的上下留白 */
+  embedded?: boolean;
+}
+
+const { embedded = false } = Astro.props;
 const c = pick(architecture, Astro.url);
 
 // 层渐变色（顺序与文案数组一致）
@@ -34,7 +40,7 @@ const nums = {
 };
 ---
 
-<section id="architecture" class="section-padding relative">
+<section id="architecture" class={`${embedded ? 'relative' : 'section-padding relative'}`}>
   <!-- 背景装饰 -->
   <div class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-975 to-surface-950 pointer-events-none"></div>
 

@@ -123,6 +123,54 @@ const zh = {
     },
   },
 
+  model: {
+    title: '架构：像操作系统那样分层',
+    intro:
+      '架构不是重新发明的。薄内核、子系统边界、依赖方向、门禁与可观测——这套组织方式来自操作系统几十年的工程实践；Agent 领域近两年公开的设计模式与工程指南，也基本收敛到同一组问题：分层、边界、状态、治理、评估。我们按前者的方式约束自己，用后者的清单做自查。',
+    mappingTitle: '操作系统概念 → Liri 现状',
+    headers: { concept: '概念', liri: 'Liri 里对应什么', status: '状态' },
+    statuses: {
+      ready: '已落地',
+      converging: '收敛中',
+      audit: '待外部审计',
+      missing: '空白',
+    },
+    rows: [
+      { concept: '内核', liri: '@openliri/kernel 独立包，对外只暴露薄接口，K01–K08 门禁', status: 'ready' },
+      {
+        concept: '子系统',
+        liri: '工具 / 渠道 / 记忆 / 路由 / 沙箱 / 任务 / 语音 / 桌面，各有入口与边界',
+        status: 'converging',
+      },
+      {
+        concept: '驱动',
+        liri: 'provider 适配器、渠道适配器、6 种沙箱后端（Landlock / Docker / SSH / PTY / macOS / Windows）',
+        status: 'ready',
+      },
+      { concept: '进程与调度', liri: '会话执行、PDCA、Swarm、Cron', status: 'ready' },
+      {
+        concept: '权限模型',
+        liri: '五层防线 + 审批四段（requested → presented → decided → recorded）',
+        status: 'audit',
+      },
+      { concept: '可观测与审计', liri: '事件日志、成本账本、证据台账', status: 'ready' },
+      { concept: '维护者（MAINTAINERS）', liri: '尚未建立：没有子系统 owner 与接手路径', status: 'missing' },
+    ],
+    referenceTitle: '我们参考了什么',
+    referenceBody:
+      '我们逐项对标了公开的 Agent 设计模式与工程指南：21 个模式都有真实实现，但其中 3 个关键开关默认关闭——所以对外只说「有实现」，不说「默认生效」。工程主线也按同样五段自查：架构、构建、运行、治理、调优。',
+    blanksTitle: '三块空白',
+    blanks: [
+      { title: '子系统维护者制度', desc: '没有 owner 就没有接手路径。这是最像操作系统、也最缺的一块。' },
+      { title: '子系统契约层', desc: '契约设计稿已有，台账 / LoopProfile 是否落地未核实——接口稳定承诺还没写死。' },
+      { title: '覆盖率门禁', desc: '复查时约 4%；CI 有 20+ 项架构检查，但还没有覆盖率门槛。' },
+    ],
+    honesty:
+      '说实话：架构健康度仍是 D（13/40），121 个超限文件待拆，最大的是 ChatManager（7036 行）。内核有了，边界在收敛，维护者制度还没有——这就是「还没走完」的意思。',
+    layersToggle: '展开当前 8 层功能分层',
+    cta: '查看完整状态',
+  },
+
   timeline: {
     title: '时间线',
     subtitle: '每月一条，只记架构与治理上的变化，不收录普通提交。',
@@ -315,6 +363,54 @@ const en = {
       evidence: 'Evidence',
       participate: 'Ways in',
     },
+  },
+
+  model: {
+    title: 'Architecture: layered like an operating system',
+    intro:
+      'The architecture was not invented from scratch. A thin kernel, subsystem boundaries, one-way dependency direction, gates and observability come from decades of operating-system practice; the design-pattern and engineering guides published for agents over the last two years converge on the same questions — layering, boundaries, state, governance, evaluation. We constrain ourselves the first way and audit ourselves against the second.',
+    mappingTitle: 'OS concept → where Liri stands',
+    headers: { concept: 'Concept', liri: 'In Liri', status: 'Status' },
+    statuses: {
+      ready: 'Shipped',
+      converging: 'Converging',
+      audit: 'Pending audit',
+      missing: 'Missing',
+    },
+    rows: [
+      { concept: 'Kernel', liri: '@openliri/kernel as its own package with a thin public interface, guarded by K01–K08', status: 'ready' },
+      {
+        concept: 'Subsystems',
+        liri: 'Tools / channels / memory / routing / sandbox / tasks / voice / desktop — each with its own entry points and boundaries',
+        status: 'converging',
+      },
+      {
+        concept: 'Drivers',
+        liri: 'Provider adapters, channel adapters and 6 sandbox backends (Landlock / Docker / SSH / PTY / macOS / Windows)',
+        status: 'ready',
+      },
+      { concept: 'Processes & scheduling', liri: 'Session execution, PDCA, Swarm, Cron', status: 'ready' },
+      {
+        concept: 'Permission model',
+        liri: 'Five defense layers plus four approval stages (requested → presented → decided → recorded)',
+        status: 'audit',
+      },
+      { concept: 'Observability & audit', liri: 'Event log, cost ledger, evidence ledger', status: 'ready' },
+      { concept: 'Maintainers', liri: 'Not established yet: no subsystem owners and no hand-over path', status: 'missing' },
+    ],
+    referenceTitle: 'What we compared against',
+    referenceBody:
+      'We benchmarked ourselves item by item against publicly available agent design patterns and engineering guides: all 21 patterns have real implementations, but 3 of the key switches default to off — so we only claim "implemented", never "on by default". The engineering loop is audited the same way: architecture, build, run, govern, optimize.',
+    blanksTitle: 'Three blanks',
+    blanks: [
+      { title: 'Subsystem maintainers', desc: 'Without owners there is no hand-over path. This is the most OS-like piece, and the one we lack.' },
+      { title: 'Subsystem contracts', desc: 'The contract design exists, but whether the ledger / LoopProfile landed is unverified — interface stability is not yet pinned down.' },
+      { title: 'Coverage gate', desc: 'About 4% at review time; CI runs 20+ architecture checks, but there is no coverage threshold yet.' },
+    ],
+    honesty:
+      'To be honest: the architecture health score is still D (13/40), 121 oversized files are waiting to be split, the largest being ChatManager at 7,036 lines. The kernel exists, boundaries are converging, maintainers do not exist yet — that is what "not finished" means.',
+    layersToggle: 'Expand the current 8 functional layers',
+    cta: 'See full status',
   },
 
   timeline: {

@@ -3,6 +3,18 @@ const zh = {
   title: '架构全景图',
   subtitle:
     '从入口到反馈的 8 个功能层；工程上由 6 层依赖门禁（entry > ui > app > service > infra > core）强制约束',
+  // 首页摘要卡（完整图见演进页 M4）
+  summary: {
+    title: '像操作系统那样分层',
+    subtitle: '薄内核 + 子系统边界 + 依赖门禁；本地优先是默认，不是开关。',
+    pillars: [
+      { title: '内核', desc: '@openliri/kernel 独立包，对外只暴露薄接口，K01–K08 门禁守着' },
+      { title: '子系统', desc: '工具、渠道、记忆、路由、沙箱、任务各自有入口与边界' },
+      { title: '门禁', desc: '6 层依赖方向 + 20+ 项架构检查，违反即 CI 阻断' },
+      { title: '本地优先', desc: '数据默认留在本机，模型可以完全本地运行' },
+    ],
+    link: '看架构怎么演进、还缺什么',
+  },
   layers: [
     {
       name: '多模态入口层',
@@ -100,6 +112,17 @@ const en = {
   title: 'Architecture at a glance',
   subtitle:
     '8 functional layers from entry point to feedback; enforced in engineering by 6 dependency gates (entry > ui > app > service > infra > core)',
+  summary: {
+    title: 'Layered like an operating system',
+    subtitle: 'A thin kernel, subsystem boundaries and dependency gates; local-first is the default, not a switch.',
+    pillars: [
+      { title: 'Kernel', desc: '@openliri/kernel is its own package exposing a thin interface, guarded by gates K01–K08' },
+      { title: 'Subsystems', desc: 'Tools, channels, memory, routing, sandbox and tasks each have their own entry points and boundaries' },
+      { title: 'Gates', desc: 'A 6-layer dependency direction plus 20+ architecture checks — violations block CI' },
+      { title: 'Local-first', desc: 'Data stays on your machine by default; models can run fully local' },
+    ],
+    link: 'See how the architecture evolved and what is missing',
+  },
   layers: [
     {
       name: 'Multimodal entry layer',

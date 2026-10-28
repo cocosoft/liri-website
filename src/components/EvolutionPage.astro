@@ -3,12 +3,21 @@ import Layout from '../layouts/Layout.astro';
 import SimpleHeader from './SimpleHeader.astro';
 import Footer from './Footer.astro';
 import StoryNode from './evolution/StoryNode.astro';
-import { pick } from '../i18n';
+import Architecture from './Architecture.astro';
+import { getLangFromUrl, localizePath, pick } from '../i18n';
 import { ui } from '../i18n/ui';
 import { evolution } from '../i18n/sections/evolution';
 
 const c = pick(evolution, Astro.url);
 const t = pick(ui, Astro.url);
+const lang = getLangFromUrl(Astro.url);
+
+const modelStatusClass: Record<string, string> = {
+  ready: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+  converging: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
+  audit: 'text-sky-400 bg-sky-500/10 border-sky-500/20',
+  missing: 'text-surface-400 bg-surface-800/40 border-surface-700/40',
+};
 
 const repo = 'https://github.com/cocosoft/Liri';
 const cardLinks = [
@@ -91,8 +100,90 @@ const cardLinks = [
       </div>
     </section>
 
+    <!-- M4 架构参考 -->
+    <section id="model" class="section-padding relative bg-surface-950/40 scroll-mt-24">
+      <div class="section-container">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-6">
+            <span class="gradient-text">{c.model.title}</span>
+          </h2>
+          <p class="text-surface-300 leading-relaxed mb-10">{c.model.intro}</p>
+
+          <!-- 映射表 -->
+          <p class="text-xs font-mono text-surface-500 mb-3">{c.model.mappingTitle}</p>
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[640px] text-sm">
+              <thead>
+                <tr class="border-b border-surface-800/50">
+                  <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">{c.model.headers.concept}</th>
+                  <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">{c.model.headers.liri}</th>
+                  <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">{c.model.headers.status}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {c.model.rows.map((row) => (
+                  <tr class="border-b border-surface-800/30">
+                    <td class="py-3 px-4 text-surface-200 font-medium whitespace-nowrap">{row.concept}</td>
+                    <td class="py-3 px-4 text-surface-400 leading-relaxed">{row.liri}</td>
+                    <td class="py-3 px-4">
+                      <span class={`inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded-full border text-[11px] font-medium ${modelStatusClass[row.status]}`}>
+                        {c.model.statuses[row.status as keyof typeof c.model.statuses]}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 参考坐标 -->
+          <div class="glass-card p-6 mt-10">
+            <h3 class="text-sm font-semibold text-surface-100 mb-2">{c.model.referenceTitle}</h3>
+            <p class="text-sm text-surface-400 leading-relaxed">{c.model.referenceBody}</p>
+          </div>
+
+          <!-- 三块空白 -->
+          <h3 class="text-base font-semibold text-surface-100 mt-12 mb-4">{c.model.blanksTitle}</h3>
+          <div class="grid sm:grid-cols-3 gap-4">
+            {c.model.blanks.map((blank) => (
+              <div class="glass-card p-5 border-dashed">
+                <h4 class="text-sm font-semibold text-surface-200 mb-2">{blank.title}</h4>
+                <p class="text-xs text-surface-500 leading-relaxed">{blank.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <p class="mt-8 text-sm text-surface-400 border-l-2 border-brand-500/40 pl-4 leading-relaxed">
+            {c.model.honesty}
+          </p>
+
+          <!-- 当前 8 层功能分层（默认折叠） -->
+          <details class="mt-10 group">
+            <summary class="cursor-pointer text-sm text-surface-400 hover:text-brand-400 transition-colors">
+              {c.model.layersToggle}
+            </summary>
+            <div class="mt-6">
+              <Architecture embedded />
+            </div>
+          </details>
+
+          <div class="mt-10">
+            <a
+              href={localizePath('/status', lang)}
+              class="inline-flex items-center gap-2 text-sm font-medium text-brand-400 hover:text-brand-300 transition-colors"
+            >
+              {c.model.cta}
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- M5 时间线 -->
-    <section id="timeline" class="section-padding relative bg-surface-950/40">
+    <section id="timeline" class="section-padding relative">
       <div class="section-container">
         <div class="max-w-3xl mx-auto">
           <h2 class="text-2xl sm:text-3xl font-bold mb-3">
