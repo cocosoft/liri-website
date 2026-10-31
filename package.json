@@ -8,6 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "sync:docs": "node scripts/sync-docs.mjs",
+    "sync:facts": "bun scripts/sync-facts.ts",
+    "sync:facts:check": "bun scripts/sync-facts.ts --check",
     "astro": "astro"
   },
   "dependencies": {

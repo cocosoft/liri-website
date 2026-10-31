@@ -4,13 +4,27 @@ import SimpleHeader from './SimpleHeader.astro';
 import Footer from './Footer.astro';
 import StoryNode from './evolution/StoryNode.astro';
 import Architecture from './Architecture.astro';
-import { getLangFromUrl, localizePath, pick } from '../i18n';
+import { getLangFromUrl, localizePath, pick, fmt, num } from '../i18n';
 import { ui } from '../i18n/ui';
 import { evolution } from '../i18n/sections/evolution';
+import { siteFacts, architectureSnapshot } from '../data/site';
 
 const c = pick(evolution, Astro.url);
 const t = pick(ui, Astro.url);
 const lang = getLangFromUrl(Astro.url);
+
+/** 文案里的数字统一从这里注入，避免正文硬编码后与源码漂移 */
+const facts = {
+  date: siteFacts.snapshot,
+  tools: siteFacts.tools,
+  channels: siteFacts.channels,
+  desktopComponents: num(siteFacts.desktopComponents),
+  healthGrade: architectureSnapshot.grade,
+  healthScore: architectureSnapshot.score,
+  oversized: architectureSnapshot.oversized,
+  unregistered: architectureSnapshot.unregistered,
+  chatManagerLines: num(architectureSnapshot.chatManagerLines),
+};
 
 const modelStatusClass: Record<string, string> = {
   ready: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
@@ -58,6 +72,8 @@ const cardLinks = [
             ))}
           </dl>
 
+          <p class="text-xs font-mono text-surface-600 mb-8 -mt-6">{fmt(c.hero.snapshot, facts)}</p>
+
           <a href="#timeline" class="inline-flex items-center gap-2 text-sm text-surface-400 hover:text-brand-400 transition-colors">
             {c.hero.scroll}
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -93,7 +109,7 @@ const cardLinks = [
 
           <div class="space-y-6">
             {c.nodes.items.map((node, i) => (
-              <StoryNode node={node} labels={c.nodes.fieldLabels} index={i} total={c.nodes.items.length} />
+              <StoryNode node={{ ...node, cost: fmt(node.cost, facts), result: fmt(node.result, facts) }} labels={c.nodes.fieldLabels} index={i} total={c.nodes.items.length} />
             ))}
           </div>
         </div>
@@ -148,13 +164,13 @@ const cardLinks = [
             {c.model.blanks.map((blank) => (
               <div class="glass-card p-5 border-dashed">
                 <h4 class="text-sm font-semibold text-surface-200 mb-2">{blank.title}</h4>
-                <p class="text-xs text-surface-500 leading-relaxed">{blank.desc}</p>
+                <p class="text-xs text-surface-500 leading-relaxed">{fmt(blank.desc, facts)}</p>
               </div>
             ))}
           </div>
 
           <p class="mt-8 text-sm text-surface-400 border-l-2 border-brand-500/40 pl-4 leading-relaxed">
-            {c.model.honesty}
+            {fmt(c.model.honesty, facts)}
           </p>
 
           <!-- 当前 8 层功能分层（默认折叠） -->
@@ -227,7 +243,7 @@ const cardLinks = [
                 class="glass-card p-6 flex flex-col hover:border-brand-500/30 transition-colors group"
               >
                 <h3 class="text-base font-semibold text-surface-100 mb-2">{card.title}</h3>
-                <p class="text-sm text-surface-400 leading-relaxed flex-1">{card.desc}</p>
+                <p class="text-sm text-surface-400 leading-relaxed flex-1">{fmt(card.desc, facts)}</p>
                 <span class="mt-4 inline-flex items-center gap-1 text-xs text-brand-400 group-hover:text-brand-300 transition-colors">
                   {card.cta}
                   <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

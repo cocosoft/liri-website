@@ -18,13 +18,15 @@ import Limitations from './Limitations.astro';
 import QuickStart from './QuickStart.astro';
 import Community from './Community.astro';
 import Footer from './Footer.astro';
-import { pick } from '../i18n';
+import { pick, fmt } from '../i18n';
 import { ui } from '../i18n/ui';
+import { siteFacts } from '../data/site';
 
 const t = pick(ui, Astro.url);
+const description = fmt(t.meta.homeDescription, { tools: siteFacts.tools, channels: siteFacts.channels });
 ---
 
-<Layout title={t.meta.homeTitle} description={t.meta.homeDescription}>
+<Layout title={t.meta.homeTitle} description={description}>
   <SiteNav />
 
   <main>

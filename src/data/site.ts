@@ -1,29 +1,37 @@
 /**
  * 全站唯一事实源。
- * 所有数字均可在 Liri 源码（github.com/cocosoft/Liri）中复核，改动前请先核对源码：
- * - 工具数：app/src/constants/toolNames.generated.ts  TOOL_NAMES_COUNT
- * - 渠道数：app/src/channels/ChannelCatalog.ts
- * - TS/TSX 文件数：app/src 下 .ts + .tsx
- * - 桌面组件：client/src 下 .tsx
- * - 版本：app/package.json
+ *
+ * 会随仓库变化的数字（版本、工具数、渠道数、文件数、行数、桌面组件数）由
+ * `scripts/sync-facts.ts` 从 Liri 源码自动生成，见 `facts.generated.ts`；
+ * 运行 `bun run sync:facts` 更新，`bun run sync:facts:check` 可在 CI 拦截漂移。
+ *
+ * 其余需要人工判断的常量（分类数、模块数等）仍在此维护，改动前请先核对源码：
+ * - 工具分类数：app/src/tools 下的目录划分
+ * - 模块数：app/src 子系统目录
  */
+import { generatedFacts } from './facts.generated';
+
 export const siteFacts = {
-  version: '0.5.21',
+  // ---- 自动生成（勿手改，见 facts.generated.ts） ----
+  version: generatedFacts.version,
+  tools: generatedFacts.tools,
+  channels: generatedFacts.channels,
+  tsFiles: generatedFacts.tsFiles,
+  tsLines: generatedFacts.tsLines,
+  desktopComponents: generatedFacts.desktopComponents,
+  /** 数据采集日期，页面据此标注「数据快照」 */
+  snapshot: generatedFacts.snapshot,
+
   releaseDate: '2026-10-28',
 
   // 能力规模
-  tools: 82,
   toolCategories: 23,
-  channels: 27,
   modules: 71,
   taskTypes: 19,
   llmProviders: 14,
   mediaProviders: 9,
 
   // 代码规模
-  tsFiles: 4059,
-  tsLines: '87 万',
-  desktopComponents: 425,
   desktopPages: 32,
   rustModules: 9,
 
@@ -46,6 +54,21 @@ export const siteFacts = {
   commits: 3325,
   docsCount: 143,
   bundledSkills: 11,
+} as const;
+
+/**
+ * 架构健康度快照 —— 手动维护（无法从构建产物稳定推导）：
+ *   1. 在 `app/` 下运行 `bun run health:arch`
+ *   2. 把「总分 / 超限文件数 / 未登记数」抄到这里，并更新 date
+ * 它是体检表，不是 KPI：分数变差时如实写，不要为了好看而改数字。
+ */
+export const architectureSnapshot = {
+  date: '2026-11-01',
+  grade: 'D',
+  score: '10/40',
+  oversized: 142,
+  unregistered: 141,
+  chatManagerLines: 2570,
 } as const;
 
 /**

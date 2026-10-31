@@ -18,6 +18,7 @@ const zh = {
       { value: '20+', label: '项架构检查' },
     ],
     scroll: '跳到时间线',
+    snapshot: '数据快照 {date} · 数字由 sync-facts 与 health:arch 采集自 Liri 主仓',
   },
 
   origin: {
@@ -43,7 +44,7 @@ const zh = {
         decision: '先把能力铺满：工具、渠道、桌面端、语音、知识库，一个一个补。',
         cost:
           '审计第一次给出数字时很难看——LocalHTTPService 7200 行、ChatManager 3263 行，测试与源码比约 4%，首次架构健康度只有 10/40（D），105 个超限文件全部没登记。',
-        result: '4000+ 文件、82 个工具、27 个渠道、425 个桌面组件。',
+        result: '4000+ 文件、{tools} 个工具、{channels} 个渠道、{desktopComponents} 个桌面组件。',
         evidence: [
           { label: 'CHANGELOG v0.1', href: 'https://github.com/cocosoft/Liri/blob/main/CHANGELOG.md' },
           { label: '2026-06-18 代码复查', href: 'https://github.com/cocosoft/Liri/blob/main/dev_docs/codebase-review-20260618.md' },
@@ -58,7 +59,7 @@ const zh = {
         decision:
           '把架构质量做成可重复的评分与台账（architecture-health），超限文件必须登记；放弃了「靠自觉保持整洁」这个假设。',
         cost:
-          '登记不等于拆分——ChatManager 反而从 3263 行涨到 7036 行；评分口径本身也在变，所以它只能当体检表，不能当 KPI。',
+          '登记不等于拆分——ChatManager 反而从 3263 行涨到 7036 行（现已拆到 {chatManagerLines} 行）；评分口径本身也在变，所以它只能当体检表，不能当 KPI。',
         result: '9 次快照；未登记超限文件从 105 降到 0（后回弹到 2）；超限清单从「没人知道」变成一份可追溯的台账。',
         evidence: [
           {
@@ -166,7 +167,7 @@ const zh = {
       { title: '覆盖率门禁', desc: '复查时约 4%；CI 有 20+ 项架构检查，但还没有覆盖率门槛。' },
     ],
     honesty:
-      '说实话：架构健康度仍是 D（13/40），121 个超限文件待拆，最大的是 ChatManager（7036 行）。内核有了，边界在收敛，维护者制度还没有——这就是「还没走完」的意思。',
+      '说实话：架构健康度仍是 {healthGrade}（{healthScore}），{oversized} 个超限文件里还有 {unregistered} 个未登记，最大的仍是 chat 模块（ChatManager 已从 7,036 行拆到 {chatManagerLines} 行）。内核有了，边界在收敛，维护者制度还没有——这就是「还没走完」的意思。',
     layersToggle: '展开当前 8 层功能分层',
     cta: '查看完整状态',
   },
@@ -197,7 +198,7 @@ const zh = {
       },
       {
         title: '帮我们把账还掉',
-        desc: '121 个超限文件待拆，最大的是 ChatManager（7036 行）；测试覆盖率门槛还没建。',
+        desc: '{oversized} 个超限文件（{unregistered} 个未登记）待拆；测试覆盖率门槛还没建。',
         cta: '认领任务',
       },
       {
@@ -228,7 +229,7 @@ const zh = {
   teaser: {
     title: '一条还没走完的路',
     paragraphs: [
-      '2026 年 5 月 25 日，它只有 v0.1 和 100 次提交。五个月后，它长到 4000 多个文件、82 个工具、27 个渠道——也长出了代价：7000 行的巨石文件、105 个无人登记的超限文件，一次「清理死代码」甚至删掉了整个沙箱子系统。',
+      '2026 年 5 月 25 日，它只有 v0.1 和 100 次提交。五个月后，它长到 4000 多个文件、27 个渠道——也长出了代价：7000 行的巨石文件、105 个无人登记的超限文件，一次「清理死代码」甚至删掉了整个沙箱子系统。',
       '我们回滚、恢复，然后把删除、边界、状态词表一条条做成 CI 门禁。这条路还没走完。',
     ],
     stats: ['156 天', '116 个版本段', '20+ 项架构检查'],
@@ -255,6 +256,7 @@ const en = {
       { value: '20+', label: 'architecture checks' },
     ],
     scroll: 'Jump to the timeline',
+    snapshot: 'Data snapshot {date} · numbers collected from the Liri repo by sync-facts and health:arch',
   },
 
   origin: {
@@ -280,7 +282,7 @@ const en = {
         decision: 'Fill in capability first: tools, channels, desktop, voice, knowledge — one at a time.',
         cost:
           'The first audit was ugly: LocalHTTPService at 7,200 lines, ChatManager at 3,263, a test-to-source ratio around 4%, and a first health score of 10/40 (D) with 105 unregistered oversized files.',
-        result: '4,000+ files, 82 tools, 27 channels, 425 desktop components.',
+        result: '4,000+ files, {tools} tools, {channels} channels, {desktopComponents} desktop components.',
         evidence: [
           { label: 'CHANGELOG v0.1', href: 'https://github.com/cocosoft/Liri/blob/main/CHANGELOG.md' },
           {
@@ -298,7 +300,7 @@ const en = {
         decision:
           'Turn architecture quality into a repeatable score with a register, and require every oversized file to be registered — giving up the assumption that cleanliness survives on discipline alone.',
         cost:
-          'Registering is not splitting: ChatManager grew from 3,263 to 7,036 lines. The scoring itself kept changing, so it is a health check, not a KPI.',
+          'Registering is not splitting: ChatManager grew from 3,263 to 7,036 lines (it has since been split down to {chatManagerLines}). The scoring itself kept changing, so it is a health check, not a KPI.',
         result:
           'Nine snapshots; unregistered oversized files went from 105 to 0 (later back to 2); the list became a traceable register.',
         evidence: [
@@ -409,7 +411,7 @@ const en = {
       { title: 'Coverage gate', desc: 'About 4% at review time; CI runs 20+ architecture checks, but there is no coverage threshold yet.' },
     ],
     honesty:
-      'To be honest: the architecture health score is still D (13/40), 121 oversized files are waiting to be split, the largest being ChatManager at 7,036 lines. The kernel exists, boundaries are converging, maintainers do not exist yet — that is what "not finished" means.',
+      'To be honest: the architecture health score is still {healthGrade} ({healthScore}); of {oversized} oversized files, {unregistered} are still unregistered; the largest is still in chat (ChatManager has been split from 7,036 down to {chatManagerLines} lines). The kernel exists, boundaries are converging, maintainers do not exist yet — that is what "not finished" means.',
     layersToggle: 'Expand the current 8 functional layers',
     cta: 'See full status',
   },
@@ -440,7 +442,7 @@ const en = {
       },
       {
         title: 'Help us pay down the debt',
-        desc: '121 oversized files are waiting to be split, the largest being ChatManager at 7,036 lines; there is no coverage gate yet.',
+        desc: '{oversized} oversized files ({unregistered} unregistered) are waiting to be split; there is no coverage gate yet.',
         cta: 'Claim a task',
       },
       {
@@ -471,7 +473,7 @@ const en = {
   teaser: {
     title: 'A road that is still being built',
     paragraphs: [
-      'On 25 May 2026 it was a single v0.1 with 100 commits. Five months later it holds 4,000+ files, 82 tools and 27 channels — and the bill that comes with them: a 7,000-line monolith, 105 oversized files nobody had registered, and one "dead code cleanup" that deleted the entire sandbox subsystem.',
+      'On 25 May 2026 it was a single v0.1 with 100 commits. Five months later it holds 4,000+ files and 27 channels — and the bill that comes with them: a 7,000-line monolith, 105 oversized files nobody had registered, and one "dead code cleanup" that deleted the entire sandbox subsystem.',
       'We restored it, then turned deletion, boundaries and state vocabularies into CI gates one by one. The road is not finished.',
     ],
     stats: ['156 days', '116 releases', '20+ architecture checks'],

@@ -24,6 +24,21 @@ jobs:
           bun-version: latest
       - name: Install dependencies
         run: bun install
+      # 站点数字（版本/工具数/渠道数/文件数…）由 scripts/sync-facts.ts 从 Liri 主仓生成。
+      # 这里拉一份浅克隆做比对：版本、工具数、渠道数是承诺，对不上就失败；
+      # 代码规模（文件数/行数/组件数）几乎每次提交都在变，只告警不阻断。
+      # 克隆本身允许失败：网络抖动不该挡住发布，拉不到就跳过比对并给出警告。
+      - name: Fetch Liri source (best effort)
+        continue-on-error: true
+        run: git clone --depth 1 https://github.com/cocosoft/Liri.git "${{ github.workspace }}/.liri-src"
+      - name: Check site facts against Liri source
+        if: ${{ hashFiles('.liri-src/app/package.json') != '' }}
+        env:
+          LIRI_ROOT: ${{ github.workspace }}/.liri-src
+        run: bun run sync:facts:check
+      - name: Warn when Liri source is unavailable
+        if: ${{ hashFiles('.liri-src/app/package.json') == '' }}
+        run: echo "::warning::未能克隆 Liri 主仓，已跳过数字核对（本次部署不校验版本/工具数/渠道数）。"
       - name: Build
         run: bun run build
       - name: Upload artifact

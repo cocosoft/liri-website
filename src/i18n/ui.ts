@@ -7,7 +7,7 @@ const zh = {
   meta: {
     homeTitle: 'Liri — 你的 AI 私人助手',
     homeDescription:
-      'Liri（玲珑鸟）是开源（MIT）的终端 AI 智能体：82 个内置工具、27 个消息渠道、五层安全防线，支持本地模型与多供应商路由。',
+      'Liri（玲珑鸟）是开源（MIT）的终端 AI 智能体：{tools} 个内置工具、{channels} 个消息渠道、五层安全防线，支持本地模型与多供应商路由。',
   },
 
   nav: {
@@ -87,7 +87,7 @@ const en = {
   meta: {
     homeTitle: 'Liri — Your Personal AI Assistant',
     homeDescription:
-      'Liri is an open-source (MIT) terminal AI agent: 82 built-in tools, 27 messaging channels, a five-layer security defense, local model support and multi-provider routing.',
+      'Liri is an open-source (MIT) terminal AI agent: {tools} built-in tools, {channels} messaging channels, a five-layer security defense, local model support and multi-provider routing.',
   },
 
   nav: {
