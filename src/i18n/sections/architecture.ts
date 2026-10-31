@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「架构全景图」区块文案 */
 const zh = {
   title: '架构全景图',
@@ -216,4 +218,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const architecture = { zh, en };
+export const architecture = withLocales('architecture', { zh, en });

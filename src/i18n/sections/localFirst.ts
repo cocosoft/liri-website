@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「本地优先」区块文案 */
 const zh = {
   title: '本地优先',
@@ -55,4 +57,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const localFirst = { zh, en };
+export const localFirst = withLocales('localFirst', { zh, en });

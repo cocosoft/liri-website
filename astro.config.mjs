@@ -26,10 +26,10 @@ function rehypeBaseLinks() {
 export default defineConfig({
   site: 'https://openliri.com',
   base: BASE,
-  // 中文为默认语言，保持现有 URL；英文走 /en 前缀
+  // 中文为默认语言，保持现有 URL；其余语言走 /<locale> 前缀
   i18n: {
     defaultLocale: 'zh',
-    locales: ['zh', 'en'],
+    locales: ['zh', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'ru', 'it'],
     routing: {
       prefixDefaultLocale: false,
     },

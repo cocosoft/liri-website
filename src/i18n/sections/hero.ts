@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 首屏 Hero 文案 */
 const zh = {
   subtitle:
@@ -21,4 +23,4 @@ const en = {
   commandHint: '  # then cd app && bun install',
 } satisfies typeof zh;
 
-export const hero = { zh, en };
+export const hero = withLocales('hero', { zh, en });

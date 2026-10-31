@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「语音交互」区块文案 */
 const zh = {
   title: '语音交互',
@@ -57,4 +59,4 @@ const en = {
   scenariosHighlight: 'Say it anywhere, and it is done',
 } satisfies typeof zh;
 
-export const voiceInteraction = { zh, en };
+export const voiceInteraction = withLocales('voiceInteraction', { zh, en });

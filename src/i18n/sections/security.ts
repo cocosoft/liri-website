@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「五层安全纵深」区块文案 */
 const zh = {
   title: '五层安全纵深',
@@ -149,4 +151,4 @@ const en = {
     'Compile-time Rust AST analysis · TypeScript semantic analysis · Guardrail rule engine · AutoMode classifier · Sandboxed execution',
 } satisfies typeof zh;
 
-export const security = { zh, en };
+export const security = withLocales('security', { zh, en });

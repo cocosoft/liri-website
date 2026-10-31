@@ -1,10 +1,11 @@
 import type { Lang } from '.';
+import { localeDicts } from './locales';
 
 /**
  * 渠道相关中文专名的英文对照（键为 src/data/site.ts 中的原文）。
- * 未命中的值按原样输出，便于随时扩充渠道。
+ * 其余语言由 locales/<lang>.ts 的 channels 提供，未命中时回退英文，再回退原文。
  */
-export const channelI18n: Record<Lang, Record<string, string>> = {
+const base: Record<'zh' | 'en', Record<string, string>> = {
   zh: {},
   en: {
     即时通讯: 'Messaging',
@@ -21,5 +22,8 @@ export const channelI18n: Record<Lang, Record<string, string>> = {
 };
 
 export function channelName(name: string, lang: Lang): string {
-  return channelI18n[lang][name] ?? name;
+  if (lang === 'zh') return name;
+  if (lang === 'en') return base.en[name] ?? name;
+  const channels = localeDicts[lang].channels as Record<string, string>;
+  return channels[name] ?? base.en[name] ?? name;
 }

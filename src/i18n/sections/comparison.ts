@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「能力自查表」区块文案（首发期不拉竞品，只列自身状态与源码位置） */
 const zh = {
   title: '能力自查表',
@@ -77,7 +79,7 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const comparison = { zh, en };
+export const comparison = withLocales('comparison', { zh, en });
 
 /** 状态 → 徽章配色 */
 export const comparisonStatusClass: Record<keyof typeof zh.statuses, string> = {

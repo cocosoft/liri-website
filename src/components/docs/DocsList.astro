@@ -26,9 +26,14 @@ const groups = [...new Set(entries.map((e) => e.data.group))];
     <h1 class="text-3xl sm:text-4xl font-bold mb-3">
       <span class="gradient-text">{t.docs.indexTitle}</span>
     </h1>
-    <p class="text-surface-400 mb-12">
-      <Fragment set:html={fmt(t.docs.indexIntro, { count: entries.length })} />
-    </p>
+    <div class="mb-12">
+      <p class="text-surface-400">
+        <Fragment set:html={fmt(t.docs.indexIntro, { count: entries.length })} />
+      </p>
+      {lang !== 'zh' && lang !== 'en' && (
+        <p class="text-xs font-mono text-surface-600 mt-2">{t.docs.englishOnly}</p>
+      )}
+    </div>
 
     <div class="space-y-12">
       {groups.map((group) => (

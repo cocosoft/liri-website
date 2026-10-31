@@ -1,7 +1,9 @@
 /**
  * 全站通用文案（导航、页脚、阶段标识、文档框架、SEO）。
- * 约定：先写 zh，再用 `satisfies typeof zh` 约束 en，缺 key 会在编译期报错。
+ * 约定：先写 zh，再用 `satisfies typeof zh` 约束 en，缺 key 会在编译期报错；
+ * 其余语言由 locales/ 提供，withLocales 在构建期逐键比对结构。
  */
+import { withLocales } from './locales';
 
 const zh = {
   meta: {
@@ -72,6 +74,7 @@ const zh = {
       '内容同步自 GitHub 仓库 <code class="font-mono text-brand-400">app/docs</code>，共 {count} 篇。',
     footerNote:
       '文档与源码可能不同步，以 <a class="text-surface-400 hover:text-surface-200" href="https://github.com/cocosoft/Liri/tree/main/app/docs" target="_blank" rel="noopener noreferrer">GitHub 仓库</a> 为准。',
+    englishOnly: '本文档目前仅有英文版本。',
     source: '源文件：',
   },
 
@@ -152,6 +155,7 @@ const en = {
       'Synced from <code class="font-mono text-brand-400">app/docs</code> in the GitHub repository · {count} articles.',
     footerNote:
       'The site may lag behind the source. The <a class="text-surface-400 hover:text-surface-200" href="https://github.com/cocosoft/Liri/tree/main/app/docs" target="_blank" rel="noopener noreferrer">GitHub repository</a> is authoritative.',
+    englishOnly: 'Documentation is currently available in English only.',
     source: 'Source: ',
   },
 
@@ -163,4 +167,4 @@ const en = {
   },
 } satisfies typeof zh;
 
-export const ui = { zh, en };
+export const ui = withLocales('ui', { zh, en });

@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「核心能力」区块文案 */
 const zh = {
   title: '核心能力',
@@ -205,4 +207,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const capabilities = { zh, en };
+export const capabilities = withLocales('capabilities', { zh, en });

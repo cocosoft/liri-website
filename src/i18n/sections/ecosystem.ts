@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「生态市场」区块文案 */
 const zh = {
   title: '生态市场',
@@ -68,4 +70,4 @@ const en = {
   },
 } satisfies typeof zh;
 
-export const ecosystem = { zh, en };
+export const ecosystem = withLocales('ecosystem', { zh, en });

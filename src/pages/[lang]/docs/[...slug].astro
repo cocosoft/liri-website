@@ -1,13 +1,16 @@
 ---
 import DocsArticle from '../../../components/docs/DocsArticle.astro';
 import { getCollection, render } from 'astro:content';
+import { PREFIXED_LOCALES } from '../../../i18n';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docsEn');
-  return docs.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  return PREFIXED_LOCALES.flatMap((lang) =>
+    docs.map((entry) => ({
+      params: { lang, slug: entry.id },
+      props: { entry },
+    })),
+  );
 }
 
 const { entry } = Astro.props;

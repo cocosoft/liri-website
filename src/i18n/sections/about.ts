@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「Liri 是什么」区块文案 */
 const zh = {
   title: 'Liri 是什么',
@@ -17,4 +19,4 @@ const en = {
   verifyTitle: 'Verify in the GitHub source',
 } satisfies typeof zh;
 
-export const about = { zh, en };
+export const about = withLocales('about', { zh, en });

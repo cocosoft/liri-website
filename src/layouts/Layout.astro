@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { withBase } from '../utils/url';
 import { isIterating } from '../data/site';
-import { HTML_LANG, LOCALES, getLangFromUrl, pick, switchLangPath } from '../i18n';
+import { HTML_LANG, LOCALES, OG_LOCALE, getLangFromUrl, pick, switchLangPath } from '../i18n';
 import { ui } from '../i18n/ui';
 import StageBanner from '../components/StageBanner.astro';
 
@@ -48,7 +48,7 @@ const alternates = LOCALES.map((l) => ({
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「项目状态」页框架文案（S1–S5 的正文复用已有区块字典） */
 const zh = {
   meta: {
@@ -43,4 +45,4 @@ const en = {
   updateNote: 'Updated with each release; the GitHub repository is authoritative if anything disagrees.',
 } satisfies typeof zh;
 
-export const status = { zh, en };
+export const status = withLocales('status', { zh, en });

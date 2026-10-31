@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「外脑系统」区块文案 */
 const zh = {
   title: '外脑系统',
@@ -103,4 +105,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const brainSection = { zh, en };
+export const brainSection = withLocales('brainSection', { zh, en });

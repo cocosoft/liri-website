@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「消息渠道」区块文案 */
 const zh = {
   title: '{channels} 个消息渠道',
@@ -13,4 +15,4 @@ const en = {
     '{count} channels in total · one unified catalog · enable per channel · compile-time trimming',
 } satisfies typeof zh;
 
-export const channelWall = { zh, en };
+export const channelWall = withLocales('channelWall', { zh, en });

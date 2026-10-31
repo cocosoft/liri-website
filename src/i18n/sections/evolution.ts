@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「演进 / Build Log」页文案 */
 const zh = {
   meta: {
@@ -481,4 +483,4 @@ const en = {
   },
 } satisfies typeof zh;
 
-export const evolution = { zh, en };
+export const evolution = withLocales('evolution', { zh, en });

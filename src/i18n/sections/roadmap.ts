@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「版本与迭代」区块文案 */
 const zh = {
   title: '版本与迭代',
@@ -97,4 +99,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const roadmap = { zh, en };
+export const roadmap = withLocales('roadmap', { zh, en });

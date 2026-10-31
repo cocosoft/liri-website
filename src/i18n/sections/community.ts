@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「开源 · 社区」区块文案 */
 const zh = {
   title: '开源 · 社区',
@@ -15,4 +17,4 @@ const en = {
   communityDesc: 'Join the discussion, open Issues or send PRs',
 } satisfies typeof zh;
 
-export const community = { zh, en };
+export const community = withLocales('community', { zh, en });

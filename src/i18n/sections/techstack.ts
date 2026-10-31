@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「技术栈」区块文案 */
 const zh = {
   title: '技术栈',
@@ -33,4 +35,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const techstack = { zh, en };
+export const techstack = withLocales('techstack', { zh, en });

@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「支持 Liri」页文案 */
 const zh = {
   meta: {
@@ -146,4 +148,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const sponsor = { zh, en };
+export const sponsor = withLocales('sponsor', { zh, en });

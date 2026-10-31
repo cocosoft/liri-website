@@ -1,7 +1,13 @@
 ---
 import DocsList from '../../../components/docs/DocsList.astro';
 import { getCollection } from 'astro:content';
+import { PREFIXED_LOCALES } from '../../../i18n';
 
+export function getStaticPaths() {
+  return PREFIXED_LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+// 文档目前只有中英两版：非中文语言先用英文原文，页面上会标注
 const entries = (await getCollection('docsEn')).sort((a, b) => a.data.order - b.data.order);
 ---
 

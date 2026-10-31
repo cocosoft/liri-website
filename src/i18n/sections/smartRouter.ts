@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「智能路由」区块文案 */
 const zh = {
   title: '智能路由',
@@ -66,4 +68,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const smartRouter = { zh, en };
+export const smartRouter = withLocales('smartRouter', { zh, en });

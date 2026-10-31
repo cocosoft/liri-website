@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「当前限制」区块文案：首发期主动列出未完成/待验证项 */
 const zh = {
   title: '当前限制',
@@ -89,7 +91,7 @@ const en = {
   cta: 'Found an issue? Open an Issue',
 } satisfies typeof zh;
 
-export const limitations = { zh, en };
+export const limitations = withLocales('limitations', { zh, en });
 
 /** 状态 → 徽章配色 */
 export const limitationStatusClass: Record<keyof typeof zh.statuses, string> = {

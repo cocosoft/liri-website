@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「更多」三合一区块：Buddy / 成本 / 场景各压成一张卡 */
 const zh = {
   title: '不止于功能清单',
@@ -55,4 +57,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const highlights = { zh, en };
+export const highlights = withLocales('highlights', { zh, en });

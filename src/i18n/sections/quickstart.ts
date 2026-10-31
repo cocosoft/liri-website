@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「快速开始」区块文案 */
 const zh = {
   title: '快速开始',
@@ -15,4 +17,4 @@ const en = {
   envComment: '# edit .env and add your API key',
 } satisfies typeof zh;
 
-export const quickstart = { zh, en };
+export const quickstart = withLocales('quickstart', { zh, en });

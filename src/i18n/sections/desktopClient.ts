@@ -1,3 +1,5 @@
+import { withLocales } from '../locales';
+
 /** 「桌面客户端」区块文案 */
 const zh = {
   title: '桌面客户端',
@@ -69,4 +71,4 @@ const en = {
   ],
 } satisfies typeof zh;
 
-export const desktopClient = { zh, en };
+export const desktopClient = withLocales('desktopClient', { zh, en });
