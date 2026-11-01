@@ -100,7 +100,7 @@ const jsonLd = {
           <div class="space-y-3">
             {c.uses.map((use) => (
               <div class="glass-card p-4 flex items-start gap-4">
-                <span class="shrink-0 text-sm font-mono text-brand-400 w-14 text-right">{use.share}</span>
+                <span class="shrink-0 text-sm font-mono text-brand-400 w-14 text-end">{use.share}</span>
                 <div class="min-w-0">
                   <div class="text-sm font-semibold text-surface-200 mb-1">{use.label}</div>
                   <div class="text-xs text-surface-500 leading-relaxed">{use.desc}</div>
@@ -159,7 +159,7 @@ const jsonLd = {
               <thead>
                 <tr class="border-b border-surface-800/50">
                   {c.ledgerHeaders.map((header) => (
-                    <th class="text-left py-3 px-4 text-surface-400 font-mono text-xs">{header}</th>
+                    <th class="text-start py-3 px-4 text-surface-400 font-mono text-xs">{header}</th>
                   ))}
                 </tr>
               </thead>

@@ -89,12 +89,16 @@ const next = index < pages.length - 1 ? pages[index + 1] : null;
       <div class="mt-8 flex items-center justify-between gap-4">
         {prev ? (
           <a href={localizePath(`/docs/${prev.id}`, lang)} class="text-sm text-surface-400 hover:text-brand-400 transition-colors">
-            ← {prev.data.title}
+            <span aria-hidden="true" class="rtl:hidden">←</span>
+            <span aria-hidden="true" class="ltr:hidden">→</span>
+            {' '}{prev.data.title}
           </a>
         ) : <span />}
         {next ? (
-          <a href={localizePath(`/docs/${next.id}`, lang)} class="text-sm text-surface-400 hover:text-brand-400 transition-colors text-right">
-            {next.data.title} →
+          <a href={localizePath(`/docs/${next.id}`, lang)} class="text-sm text-surface-400 hover:text-brand-400 transition-colors text-end">
+            {next.data.title}{' '}
+            <span aria-hidden="true" class="rtl:hidden">→</span>
+            <span aria-hidden="true" class="ltr:hidden">←</span>
           </a>
         ) : <span />}
       </div>

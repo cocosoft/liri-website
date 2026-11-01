@@ -26,7 +26,8 @@
   --color-surface-950: #0f0f1a;
   --color-surface-975: #0a0a0f;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans Arabic', 'Geeza Pro', Tahoma, sans-serif;
   --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
 }
 
@@ -62,6 +63,16 @@
 
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-surface-600;
+  }
+
+  /* RTL（阿拉伯语）下代码、命令、ID 保持从左到右，避免标点被推到错误一侧 */
+  [dir='rtl'] code,
+  [dir='rtl'] pre,
+  [dir='rtl'] kbd,
+  [dir='rtl'] samp {
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: left;
   }
 }
 
@@ -129,11 +140,11 @@
 }
 
 .doc-body ul {
-  @apply list-disc pl-6 mb-4 space-y-1;
+  @apply list-disc ps-6 mb-4 space-y-1;
 }
 
 .doc-body ol {
-  @apply list-decimal pl-6 mb-4 space-y-1;
+  @apply list-decimal ps-6 mb-4 space-y-1;
 }
 
 .doc-body a {
@@ -158,7 +169,7 @@
 }
 
 .doc-body blockquote {
-  @apply border-l-2 border-brand-500/50 pl-4 text-surface-400 my-4;
+  @apply border-s-2 border-brand-500/50 ps-4 text-surface-400 my-4;
 }
 
 .doc-body table {
@@ -171,7 +182,7 @@
 }
 
 .doc-body th {
-  @apply text-left py-2 px-3 border-b border-surface-800 text-surface-200 font-semibold;
+  @apply text-start py-2 px-3 border-b border-surface-800 text-surface-200 font-semibold;
 }
 
 .doc-body td {

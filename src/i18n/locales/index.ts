@@ -1,4 +1,5 @@
 import type { Lang } from '../index';
+import { ar } from './ar';
 import { de } from './de';
 import { es } from './es';
 import { fr } from './fr';
@@ -12,7 +13,7 @@ import { ru } from './ru';
  * 除中文、英文之外的语言包。每个文件导出整站文案（ui、channels 与 22 个区块），
  * 结构必须与英文版一一对应——由 withLocales 在构建期逐键校验，缺键直接报错。
  */
-export const localeDicts = { ja, ko, es, pt, fr, de, ru, it };
+export const localeDicts = { ja, ko, es, pt, fr, de, ru, it, ar };
 
 type Bundle = Record<string, unknown>;
 

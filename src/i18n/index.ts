@@ -1,7 +1,7 @@
 import { withBase } from '../utils/url';
 
 /** 支持的语言（参考 Liri 主仓 i18n：locale 列表 + 默认语言 + 回退） */
-export const LOCALES = ['zh', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'ru', 'it'] as const;
+export const LOCALES = ['zh', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'ru', 'it', 'ar'] as const;
 export type Lang = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Lang = 'zh';
 /** 除默认语言外，其余语言都走 /<locale> 前缀 */
@@ -19,6 +19,21 @@ export const LANG_LABEL: Record<Lang, string> = {
   de: 'Deutsch',
   ru: 'Русский',
   it: 'Italiano',
+  ar: 'العربية',
+};
+/** 文字方向：阿拉伯语为 RTL，其余为 LTR */
+export const DIRECTION: Record<Lang, 'ltr' | 'rtl'> = {
+  zh: 'ltr',
+  en: 'ltr',
+  ja: 'ltr',
+  ko: 'ltr',
+  es: 'ltr',
+  pt: 'ltr',
+  fr: 'ltr',
+  de: 'ltr',
+  ru: 'ltr',
+  it: 'ltr',
+  ar: 'rtl',
 };
 export const HTML_LANG: Record<Lang, string> = {
   zh: 'zh-CN',
@@ -31,6 +46,7 @@ export const HTML_LANG: Record<Lang, string> = {
   de: 'de',
   ru: 'ru',
   it: 'it',
+  ar: 'ar',
 };
 export const OG_LOCALE: Record<Lang, string> = {
   zh: 'zh_CN',
@@ -43,6 +59,7 @@ export const OG_LOCALE: Record<Lang, string> = {
   de: 'de_DE',
   ru: 'ru_RU',
   it: 'it_IT',
+  ar: 'ar_AR',
 };
 
 /** 从 URL 推断当前语言：/ja 与 /ja/... 为日语，其余为默认语言 */
@@ -67,8 +84,10 @@ export function localizePath(path: string, lang: Lang): string {
 }
 
 /** 当前页面对应的另一语言版本地址，供语言切换器使用 */
+const LOCALE_PREFIX = new RegExp(`^/(${LOCALES.join('|')})(?=/|$)`);
+
 export function switchLangPath(url: URL, lang: Lang): string {
-  const stripped = url.pathname.replace(/^\/(zh|en|ja|ko|es|pt|fr|de|ru|it)(?=\/|$)/, '') || '/';
+  const stripped = url.pathname.replace(LOCALE_PREFIX, '') || '/';
   return localizePath(stripped, lang);
 }
 

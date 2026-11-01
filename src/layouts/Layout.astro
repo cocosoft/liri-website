@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { withBase } from '../utils/url';
 import { isIterating } from '../data/site';
-import { HTML_LANG, LOCALES, OG_LOCALE, getLangFromUrl, pick, switchLangPath } from '../i18n';
+import { DIRECTION, HTML_LANG, LOCALES, OG_LOCALE, getLangFromUrl, pick, switchLangPath } from '../i18n';
 import { ui } from '../i18n/ui';
 import StageBanner from '../components/StageBanner.astro';
 
@@ -28,7 +28,7 @@ const alternates = LOCALES.map((l) => ({
 ---
 
 <!doctype html>
-<html lang={HTML_LANG[lang]}>
+<html lang={HTML_LANG[lang]} dir={DIRECTION[lang]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
